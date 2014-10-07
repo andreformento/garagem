@@ -36,15 +36,13 @@ body {
 	-o-transition: all 0.2s;
 	*/
 	margin: 1px;
-	
 	transition: all 0.2s;
-	
-	border-radius: 10px; 
-	-moz-border-radius: 10px; 
-	-webkit-border-radius: 10px; 
-	border: 0px;// solid #800000;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: 0px; // solid #800000;
 	background-color: #1d2636;
-	color:white;
+	color: white;
 }
 
 .menu ul li:hover {
@@ -61,7 +59,7 @@ body {
 	display: none;
 	opacity: 0;
 	visibility: hidden;
-	
+
 	/*
 	box-shadow: none;
 	-webkit-box-shadow: none;
@@ -72,7 +70,6 @@ body {
 	-o-transition: opacity 0.2s;
 	-transition: opacity 0.2s;
 	*/
-		
 }
 
 .menu ul li ul li {
@@ -103,4 +100,35 @@ body {
 .valor input[type="text"] {
 	width: 60px;
 	font-family: 'Courier New', 'Lucida Console';
+}
+
+.bemVindo {
+	text-align: center;
+}
+
+.topoInicio {
+	position: fixed;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.centralizadoInicio {
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.rodapePaginaInicio {
+	width:100%;
+	position: fixed;
+	top: 80%;
+	left: 100%;
+	transform: translate(-100%, -50%);
+}
+
+.fields input {
+	// display: block;
+	float: left; clear: left;
 }
