@@ -1,1 +1,1 @@
-<div class="rodape">Desenvolvido por André Formento</div>
+<div class="rodape"></div>
