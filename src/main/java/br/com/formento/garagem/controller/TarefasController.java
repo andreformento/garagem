@@ -3,7 +3,6 @@ package br.com.formento.garagem.controller;
 import java.util.Collection;
 import java.util.HashSet;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -72,7 +71,7 @@ public class TarefasController {
 	}
 
 	@RequestMapping("finalizaTarefa")
-	public String finaliza(Long id, HttpServletResponse response, Model model) {
+	public String finaliza(Long id, Model model) {
 		for (Tarefa tarefa : listaDeTarefas)
 			if (tarefa.getId().equals(id)) {
 				tarefa.finalizar();

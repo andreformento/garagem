@@ -17,8 +17,3 @@
 		</li>
 	</ul>
 </div>
-
-<div>
-	<h3>Bem vindo, usuário. Você ainda não possui nenhum veículo cadastrado.</h3>
-	<h3>Para começar cadastre seu veículo em "Garagem>Novo"</h3>
-</div>
