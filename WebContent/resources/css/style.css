@@ -1,11 +1,116 @@
 body {
-	font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial,
-		sans-serif;
-	font-size: 150%;
+	font-family: Helvetica, 'Helvetica Neue', Arial, 'Lucida', sans-serif,
+		cursive;
+	font-size: 120%;
+	/* CCD5DD F2F1F4 */
+	background-image: linear-gradient(to right, #CCD5DD, #F2F1F4);
+	/* gradient */
+}
+
+.formCadastro, .menu ul li, .formSobreposto {
+	color: white;
+}
+
+.formCadastro input, .formCadastro textarea {
+	
+}
+
+.informacaoLogin {
+	float: right;
+	font-size: 80%;
+	text-align: right;
+	padding-right: 15px;
+}
+
+.formCadastro label {
+	display: block;
+}
+
+.fields1 label, .fields label {
+	width: 120px;
+	text-align: right;
+	padding-right: 10px;
+}
+
+.fields label {
+	float: left;
+	clear: left;
 }
 
 .menu, .rodape {
 	text-align: center;
+}
+
+.error {
+	color: red;
+}
+
+.rodape {
+	font: 12px/18px Helvetica;
+}
+
+.formSobreposto {
+	background-color: #3d4453;
+	padding: 15px;
+}
+
+.formInterno, .botoes input[type="submit"], .botoes input[type="button"] {
+	background-color: #7f8685;
+}
+
+.bemVindo {
+	height: 400px;
+	text-align: center;
+	padding-top: 100px;
+}
+
+.topoInicio {
+	width: 100%;
+	position: fixed;
+	top: 10%;
+	left: 100%;
+	transform: translate(-100%, -50%);
+	text-align: center;
+}
+
+.centralizadoInicio {
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.rodapePaginaInicio {
+	width: 100%;
+	position: absolute;
+	top: 80%;
+	left: 100%;
+	transform: translate(-100%, -50%);
+}
+
+.botoes input[type="submit"], .botoes input[type="button"] {
+	margin-left:20px;
+	margin-top:2px;
+	width: 150px;
+	height: 50px;
+	border-radius: 20px;
+	border-width:0px;
+	color: white;
+}
+
+/* http://www.richardbarros.com.br/blog/css/css-truques-para-dominar-a-propriedade-float */
+.guias {
+	display: table;
+}
+
+.guiaEsquerda {
+	width: 200px;
+	float: left;
+}
+
+.guiaCentral {
+	width:450px;
+	margin-left: 35%;
 }
 
 .menu ul {
@@ -42,7 +147,6 @@ body {
 	-webkit-border-radius: 10px;
 	border: 0px; // solid #800000;
 	background-color: #1d2636;
-	color: white;
 }
 
 .menu ul li:hover {
@@ -87,48 +191,4 @@ body {
 	display: block;
 	opacity: 1;
 	visibility: visible;
-}
-
-.error {
-	color: red;
-}
-
-.rodape {
-	font: 12px/18px Helvetica;
-}
-
-.valor input[type="text"] {
-	width: 60px;
-	font-family: 'Courier New', 'Lucida Console';
-}
-
-.bemVindo {
-	text-align: center;
-}
-
-.topoInicio {
-	position: fixed;
-	top: 10%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.centralizadoInicio {
-	position: fixed;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.rodapePaginaInicio {
-	width:100%;
-	position: fixed;
-	top: 80%;
-	left: 100%;
-	transform: translate(-100%, -50%);
-}
-
-.fields input {
-	// display: block;
-	float: left; clear: left;
 }

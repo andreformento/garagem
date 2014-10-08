@@ -14,12 +14,18 @@
 		<div class="centralizadoInicio">
 			<form action="fazerLogin">
 				<div class="fields">
-					<label for="user">User</label>
-					<input id="user" type="text"  />
-					<label for="user">Password</label>
-					<input id="password" type="password"  />
-					
-					<input type="submit" value="Login" />
+					<div>
+						<label for="user">User</label>
+						<input id="user" type="text"  />
+					</div>
+					<div>
+						<label for="password">Password</label>
+						<input id="password" type="password"  />
+					</div>
+					<div>
+						<label for="efetuaLogin">&nbsp;</label>
+						<input id="efetuaLogin" type="submit" value="Login" />
+					</div>
 				</div>
 			</form>
 		</div>

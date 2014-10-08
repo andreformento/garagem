@@ -13,7 +13,12 @@ public class LoginController {
 
 	@RequestMapping("fazerLogin")
 	public String fazerLogin() {
-		return "index";
+		return "redirect:garagemLista";
+	}
+
+	@RequestMapping("fazerLogoff")
+	public String fazerLogoff() {
+		return "login";
 	}
 
 }
