@@ -5,7 +5,7 @@ import br.com.formento.garagem.modelo.MetodoGaussSeidel;
 import br.com.formento.garagem.modelo.MetodoTriangulacaoDeGauss;
 
 public enum EMetodoCalculoMatriz {
-	TRIANGULACAO_DE_GAUSS(MetodoTriangulacaoDeGauss.class, "Triangula��o de Gauss"), GAUSS_SEIDEL(
+	TRIANGULACAO_DE_GAUSS(MetodoTriangulacaoDeGauss.class, "Triangulacao de Gauss"), GAUSS_SEIDEL(
 			MetodoGaussSeidel.class, "Gauss-Seidel");
 
 	private final Class<? extends CalculoMatriz> classe;
