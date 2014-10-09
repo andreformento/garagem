@@ -1,0 +1,23 @@
+git remote add origins git@github.com:andreformento/garagem.git
+
+git remote remove git@github.com:andreformento/garagem.git
+
+
+https://github.com/andreformento/garagem.git
+
+git remote add origin git@github.com:seuloginnogithub/my-first-project-git.git
+
+git config --global core.editor "notepad"
+
+git push -u origins master
+
+git clone git://github.com/andreformento/garagem.git
+
+git remote set-url origin https://github.com/andreformento/garagem.git
+andre@andre:/media/ntfs/java/wks/git/garagem$ git remote -v
+origin        https://github.com/andreformento/garagem.git (fetch)
+origin        https://github.com/andreformento/garagem.git (push)
+git push -u origin master
+
+git checkout target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+git checkout target/m2e-wtp/web-resources/META-INF/maven/garagem/garagem/pom.properties
