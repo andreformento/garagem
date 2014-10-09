@@ -1,7 +1,7 @@
 body {
 	font-family: Helvetica, 'Helvetica Neue', Arial, 'Lucida', sans-serif,
 		cursive;
-	font-size: 120%;
+	font-size: 100%;
 	/* CCD5DD F2F1F4 */
 	background-image: linear-gradient(to right, #CCD5DD, #F2F1F4);
 	/* gradient */
@@ -101,16 +101,25 @@ body {
 /* http://www.richardbarros.com.br/blog/css/css-truques-para-dominar-a-propriedade-float */
 .guias {
 	display: table;
+	width: 100%;
 }
 
 .guiaEsquerda {
-	width: 200px;
 	float: left;
 }
 
 .guiaCentral {
-	width:450px;
-	margin-left: 35%;
+	float: left;
+	margin-left: 50px;
+}
+
+.guiaDireita {
+	float: right;
+	margin: 30px;
+}
+
+.miniatura, .miniatura img {
+	width: 300px;
 }
 
 .menu ul {
@@ -145,7 +154,7 @@ body {
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
-	border: 0px; // solid #800000;
+	border: 0px; /* solid #800000; */
 	background-color: #1d2636;
 }
 
@@ -183,7 +192,7 @@ body {
 	text-shadow: 0 -1px 0 #000;
 }
 
-.menu ul li ul li:hover {
+.menu ul li ul li:hover, .botoes input[type="submit"]:hover, .botoes input[type="button"]:hover {
 	background: #666;
 }
 
