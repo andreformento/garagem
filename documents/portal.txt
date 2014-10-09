@@ -1,3 +1,5 @@
 ftp://ftp.srmptreinamentos.hospedagemdesites.ws
 srmptreinamentos.hospedagemdesites.ws
 login: srmptreinamentos
+
+http://ajuda.maxrevenda.com.br/resolvendo-problemas-de-caracteres-acentuados-no-mysql/
