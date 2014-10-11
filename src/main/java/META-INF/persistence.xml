@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://www.caelum.com.br/apostila-java-web/apendice-integracao-do-spring-com-jpa/#16-1-gerenciando-o-entitymanager -->
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="garagem">
+
+		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>br.com.formento.garagem.model.Carro</class>
+		<class>br.com.formento.garagem.model.CarroFoto</class>
+		<class>br.com.formento.garagem.model.CategoriaOrcamento</class>
+		<class>br.com.formento.garagem.model.MetodoPesprecoTpCatOrcame</class>
+		<class>br.com.formento.garagem.model.MetodoPesquisaPreco</class>
+		<class>br.com.formento.garagem.model.Orcamento</class>
+		<class>br.com.formento.garagem.model.ParecerOrcamento</class>
+		<class>br.com.formento.garagem.model.ResultadoPesquisaPreco</class>
+		<class>br.com.formento.garagem.model.StatusOrcamento</class>
+		<class>br.com.formento.garagem.model.TipoCategoriaOrcamento</class>
+		<class>br.com.formento.garagem.model.Usuario</class>
+		<class>br.com.formento.garagem.model.UsuarioCarro</class>
+		<class>br.com.formento.garagem.model.UsuarioNivel</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false" />
+
+<!-- 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/garagem" />
+			<property name="javax.persistence.jdbc.user" value="garagem" />
+			<property name="javax.persistence.jdbc.password" value="garagem" /> 
+			-->
+		</properties>
+
+	</persistence-unit>
+</persistence>
