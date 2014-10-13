@@ -2,12 +2,13 @@
 <html>
 <body>
 	<div>
-		<h4>Adicionar tipoCategoriaOrcamentos</h4>
+		<h4>Cadastro</h4>
 	</div>
-	<form:errors path="tipoCategoriaOrcamento.descricao" />
-	<form:form action="adicionaTipoCategoriaOrcamento" method="post" commandName="tipoCategoriaOrcamento">
-		<input type="hidden" name="id" />
-		<form:hidden path="codigo"/>
+	<form:errors path="entidade.descricao" />
+	<form:form action="mergeTipoCategoriaOrcamento" method="post" commandName="entidade">
+		<form:hidden path="codigo" />
+		
+		<form:input path="codigo" />
 		<div>
 			<label for="txtDescricao">Descrição:</label>
 		</div>
@@ -18,8 +19,9 @@
 			<form:errors path="descricao" cssStyle="color:red" />
 		</div>
 		<div>
-			<input type="submit" value="Adicionar" />
+			<input type="submit" value="Gravar" />
 		</div>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form:form>
 </body>
 </html>

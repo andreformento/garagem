@@ -14,17 +14,20 @@
 		<class>br.com.formento.garagem.model.MetodoPesquisaPreco</class>
 		<class>br.com.formento.garagem.model.Orcamento</class>
 		<class>br.com.formento.garagem.model.ParecerOrcamento</class>
+		<class>br.com.formento.garagem.model.Permissao</class>
 		<class>br.com.formento.garagem.model.ResultadoPesquisaPreco</class>
 		<class>br.com.formento.garagem.model.StatusOrcamento</class>
 		<class>br.com.formento.garagem.model.TipoCategoriaOrcamento</class>
 		<class>br.com.formento.garagem.model.Usuario</class>
 		<class>br.com.formento.garagem.model.UsuarioCarro</class>
 		<class>br.com.formento.garagem.model.UsuarioNivel</class>
+		<class>br.com.formento.garagem.model.UsuarioPermissao</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<!-- validate,create -->
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 
 <!-- 

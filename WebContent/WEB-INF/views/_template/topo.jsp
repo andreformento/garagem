@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div class="menu">
 	<ul id="menu">
 		<!-- <li onclick="location.href='index';">Início</li> -->
@@ -18,7 +20,10 @@
 	</ul>
 	<div class="informacaoLogin">
 		<div>
-			<a href="fazerLogoff">Sair</a>
+			<form id="frmLogout" action="logout" method="post">
+			    <input type="submit" value="Sair" />
+			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
 		</div>
 		<div>
 			<label>Eduardo Ramalho</label>

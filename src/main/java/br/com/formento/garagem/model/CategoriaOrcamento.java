@@ -23,7 +23,7 @@ public class CategoriaOrcamento implements Serializable {
 
 	//bi-directional many-to-one association to TipoCategoriaOrcamento
 	@ManyToOne
-	@JoinColumn(name="COD_TIPO_CAT_inve")
+	@JoinColumn(name="cod_tipo_cat_inve")
 	private TipoCategoriaOrcamento tipoCategoriaOrcamento;
 
 	//bi-directional many-to-one association to Orcamento

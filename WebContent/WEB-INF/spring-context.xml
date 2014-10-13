@@ -2,25 +2,40 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
-    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
     http://www.springframework.org/schema/beans 
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
     http://www.springframework.org/schema/context 
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd
-    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    
+    http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd
+	"
+	>
 
-	<context:component-scan base-package="br.com.formento.garagem.controller" />
-	<mvc:annotation-driven />
 	<mvc:resources mapping="/images/**" location="/resources/images/" />
 
 	<!-- Dependency Injection with annotations -->
 	<context:component-scan base-package="br.com.formento.garagem.ioc" />
 	<context:component-scan base-package="br.com.formento.garagem.dao" />
+	<context:component-scan base-package="br.com.formento.garagem.service" />
+
+	<!-- Controller -->
+	<!-- habilitar o uso de anotações do Spring MVC e configurar pacote base 
+		da aplicação web para o Spring achar as classes -->
+	<mvc:annotation-driven />
+	<context:component-scan base-package="br.com.formento.garagem.controller" />
 
 	<!-- Para acessar arquivos externos, como os da pasta resource -->
 	<mvc:default-servlet-handler />
 
+	<!-- informar ao Spring o local onde ficam os arquivos JSP. O Spring MVC 
+		oferece uma classe especial que recebe o nome da pasta dos JSPs e a extensão 
+		dos arquivos. Criar todos os JSPs na pasta -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
@@ -52,5 +67,25 @@
 	<!-- avisar que o controle de transações será feito via anotação, parecido 
 		com a forma de habilitar o uso de anotações para o Spring MVC. -->
 	<tx:annotation-driven />
+<!-- 
+	<security:http auto-config="true" >
+		<security:intercept-url pattern="/main*"
+			access="ROLE_ADMIN" />
+		<security:form-login 
+			login-page="/loginPage"
+			login-processing-url="/loginPage"
+			default-target-url="/main" 
+			authentication-failure-url="/loginError"
+			/>
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="alpha" password="pass1"
+					authorities="ROLE_ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager> -->
 
 </beans>

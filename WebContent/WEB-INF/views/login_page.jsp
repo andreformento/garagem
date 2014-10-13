@@ -6,26 +6,36 @@
 <head>
 <jsp:include page="_template/head.jsp"></jsp:include>
 </head>
-<body>
+<body onload='document.loginForm.username.focus();'>
 	<div class="topoInicio">
-		<h1>Portal Restomod</h1>
+		<h1>Portal Restomod - login_page</h1>
 	</div>
 
 	<div class="centralizadoInicio">
-		<form action="fazerLogin">
+
+		<%
+			String errorString = (String) request.getAttribute("error");
+			if (errorString != null && errorString.trim().compareToIgnoreCase("true") == 0) {
+				out.println("Incorrect login name or password. Please retry using correct login name and password.");
+			}
+		%>
+
+		<form name='loginForm' action="loginPage" method='POST'>
 			<div class="fields">
 				<div>
-					<label for="user">User</label> <input id="user" type="text" />
+					<label for="username">User</label> <input name='username'
+						id='username' type="text" />
 				</div>
 				<div>
-					<label for="password">Password</label> <input id="password"
-						type="password" />
+					<label for="password">Password</label> <input name='password'
+						id='password' type="password" />
 				</div>
 				<div>
 					<label for="efetuaLogin">&nbsp;</label> <input id="efetuaLogin"
 						type="submit" value="Login" />
 				</div>
 			</div>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
 	</div>
 

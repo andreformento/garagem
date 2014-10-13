@@ -18,15 +18,15 @@ public class MetodoPesprecoTpCatOrcame implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 
-	//bi-directional many-to-one association to TipoCategoriaOrcamento
-	@ManyToOne
-	@JoinColumn(name="cod_TIPO_CATEGORIA_orcamento")
-	private TipoCategoriaOrcamento tipoCategoriaOrcamento;
-
 	//bi-directional many-to-one association to MetodoPesquisaPreco
 	@ManyToOne
 	@JoinColumn(name="cod_metodo_pesquisa_preco")
 	private MetodoPesquisaPreco metodoPesquisaPreco;
+
+	//bi-directional many-to-one association to TipoCategoriaOrcamento
+	@ManyToOne
+	@JoinColumn(name="cod_tipo_categoria_orcamento")
+	private TipoCategoriaOrcamento tipoCategoriaOrcamento;
 
 	public MetodoPesprecoTpCatOrcame() {
 	}
@@ -39,20 +39,20 @@ public class MetodoPesprecoTpCatOrcame implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public TipoCategoriaOrcamento getTipoCategoriaOrcamento() {
-		return this.tipoCategoriaOrcamento;
-	}
-
-	public void setTipoCategoriaOrcamento(TipoCategoriaOrcamento tipoCategoriaOrcamento) {
-		this.tipoCategoriaOrcamento = tipoCategoriaOrcamento;
-	}
-
 	public MetodoPesquisaPreco getMetodoPesquisaPreco() {
 		return this.metodoPesquisaPreco;
 	}
 
 	public void setMetodoPesquisaPreco(MetodoPesquisaPreco metodoPesquisaPreco) {
 		this.metodoPesquisaPreco = metodoPesquisaPreco;
+	}
+
+	public TipoCategoriaOrcamento getTipoCategoriaOrcamento() {
+		return this.tipoCategoriaOrcamento;
+	}
+
+	public void setTipoCategoriaOrcamento(TipoCategoriaOrcamento tipoCategoriaOrcamento) {
+		this.tipoCategoriaOrcamento = tipoCategoriaOrcamento;
 	}
 
 }

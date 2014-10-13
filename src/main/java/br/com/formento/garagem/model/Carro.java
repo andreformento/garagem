@@ -10,6 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="carro")
 @NamedQuery(name="Carro.findAll", query="SELECT c FROM Carro c")
 public class Carro implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -28,6 +29,10 @@ public class Carro implements Serializable {
 
 	private String modelo;
 
+	//bi-directional many-to-one association to Usuario
+	@OneToMany(mappedBy="carro")
+	private List<Usuario> usuarios;
+
 	//bi-directional one-to-one association to CarroFoto
 	@OneToOne(mappedBy="carro")
 	private CarroFoto carroFoto;
@@ -35,10 +40,6 @@ public class Carro implements Serializable {
 	//bi-directional many-to-one association to Orcamento
 	@OneToMany(mappedBy="carro")
 	private List<Orcamento> orcamentos;
-
-	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="carro")
-	private List<Usuario> usuarios;
 
 	//bi-directional many-to-one association to UsuarioCarro
 	@OneToMany(mappedBy="carro")
@@ -95,6 +96,28 @@ public class Carro implements Serializable {
 		this.modelo = modelo;
 	}
 
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Usuario addUsuario(Usuario usuario) {
+		getUsuarios().add(usuario);
+		usuario.setCarro(this);
+
+		return usuario;
+	}
+
+	public Usuario removeUsuario(Usuario usuario) {
+		getUsuarios().remove(usuario);
+		usuario.setCarro(null);
+
+		return usuario;
+	}
+
 	public CarroFoto getCarroFoto() {
 		return this.carroFoto;
 	}
@@ -123,28 +146,6 @@ public class Carro implements Serializable {
 		orcamento.setCarro(null);
 
 		return orcamento;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Usuario addUsuario(Usuario usuario) {
-		getUsuarios().add(usuario);
-		usuario.setCarro(this);
-
-		return usuario;
-	}
-
-	public Usuario removeUsuario(Usuario usuario) {
-		getUsuarios().remove(usuario);
-		usuario.setCarro(null);
-
-		return usuario;
 	}
 
 	public List<UsuarioCarro> getUsuarioCarros() {

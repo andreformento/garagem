@@ -25,15 +25,15 @@ public class ParecerOrcamento implements Serializable {
 
 	private String parecer;
 
-	//bi-directional many-to-one association to Orcamento
-	@ManyToOne
-	@JoinColumn(name="cod_orcamento")
-	private Orcamento orcamento;
-
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="cod_usuario")
 	private Usuario usuario;
+
+	//bi-directional many-to-one association to Orcamento
+	@ManyToOne
+	@JoinColumn(name="cod_orcamento")
+	private Orcamento orcamento;
 
 	public ParecerOrcamento() {
 	}
@@ -62,20 +62,20 @@ public class ParecerOrcamento implements Serializable {
 		this.parecer = parecer;
 	}
 
-	public Orcamento getOrcamento() {
-		return this.orcamento;
-	}
-
-	public void setOrcamento(Orcamento orcamento) {
-		this.orcamento = orcamento;
-	}
-
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Orcamento getOrcamento() {
+		return this.orcamento;
+	}
+
+	public void setOrcamento(Orcamento orcamento) {
+		this.orcamento = orcamento;
 	}
 
 }

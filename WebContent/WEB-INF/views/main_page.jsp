@@ -12,6 +12,7 @@
 	<div class="formSobreposto">
 		<div class="formInterno">
 			<div class="bemVindo">
+				<h1>Main page</h1>
 				<h3>Bem vindo, usuário. Você ainda não possui nenhum veículo
 					cadastrado.</h3>
 				<h3>Para começar cadastre seu veículo em "Garagem>Novo"</h3>
@@ -20,5 +21,5 @@
 	</div>
 
 	<jsp:include page="_template/rodape.jsp"></jsp:include>
-</html>
 </body>
+</html>

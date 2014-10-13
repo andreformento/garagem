@@ -16,13 +16,13 @@ public class JpaTipoCategoriaOrcamentoDao implements TipoCategoriaOrcamentoDao {
 	private EntityManager entityManager;
 
 	@Override
-	public void adiciona(TipoCategoriaOrcamento tipoCategoriaOrcamento) {
-		entityManager.persist(tipoCategoriaOrcamento);
+	public void adiciona(TipoCategoriaOrcamento entidade) {
+		entityManager.persist(entidade);
 	}
 
 	@Override
-	public void altera(TipoCategoriaOrcamento tipoCategoriaOrcamento) {
-		entityManager.merge(tipoCategoriaOrcamento);
+	public void altera(TipoCategoriaOrcamento entidade) {
+		entityManager.merge(entidade);
 	}
 
 	@Override
@@ -37,9 +37,9 @@ public class JpaTipoCategoriaOrcamentoDao implements TipoCategoriaOrcamentoDao {
 	}
 
 	@Override
-	public void remove(TipoCategoriaOrcamento tipoCategoriaOrcamento) {
-		TipoCategoriaOrcamento tipoCategoriaOrcamentoARemover = buscaPorId(tipoCategoriaOrcamento.getCodigo());
-		entityManager.remove(tipoCategoriaOrcamentoARemover);
+	public void remove(TipoCategoriaOrcamento entidade) {
+		TipoCategoriaOrcamento entidadeARemover = buscaPorId(entidade.getCodigo());
+		entityManager.remove(entidadeARemover);
 	}
 
 }

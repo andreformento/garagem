@@ -1,78 +1,69 @@
 package br.com.formento.garagem.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the orcamento database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Orcamento.findAll", query = "SELECT o FROM Orcamento o")
+@Table(name="orcamento")
+@NamedQuery(name="Orcamento.findAll", query="SELECT o FROM Orcamento o")
 public class Orcamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 
 	private String acao;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_criacao")
+	@Column(name="data_criacao")
 	private Date dataCriacao;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_prevista")
+	@Column(name="data_prevista")
 	private Date dataPrevista;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_real")
+	@Column(name="data_real")
 	private Date dataReal;
 
 	private String detalhe;
 
-	@Column(name = "valor_previsto")
+	@Column(name="valor_previsto")
 	private BigDecimal valorPrevisto;
 
-	@Column(name = "valor_real")
+	@Column(name="valor_real")
 	private BigDecimal valorReal;
 
-	// bi-directional many-to-one association to CategoriaOrcamento
+	//bi-directional many-to-one association to StatusOrcamento
 	@ManyToOne
-	@JoinColumn(name = "cod_CATEGORIA_orcamento")
-	private CategoriaOrcamento categoriaOrcamento;
-
-	// bi-directional many-to-one association to Carro
-	@ManyToOne
-	@JoinColumn(name = "cod_carro")
-	private Carro carro;
-
-	// bi-directional many-to-one association to StatusOrcamento
-	@ManyToOne
-	@JoinColumn(name = "cod_status_orcamento")
+	@JoinColumn(name="cod_status_orcamento")
 	private StatusOrcamento statusOrcamento;
 
-	// bi-directional many-to-one association to ParecerOrcamento
-	@OneToMany(mappedBy = "orcamento")
+	//bi-directional many-to-one association to CategoriaOrcamento
+	@ManyToOne
+	@JoinColumn(name="cod_CATEGORIA_orcamento")
+	private CategoriaOrcamento categoriaOrcamento;
+
+	//bi-directional many-to-one association to Carro
+	@ManyToOne
+	@JoinColumn(name="cod_carro")
+	private Carro carro;
+
+	//bi-directional many-to-one association to ParecerOrcamento
+	@OneToMany(mappedBy="orcamento")
 	private List<ParecerOrcamento> parecerOrcamentos;
 
-	// bi-directional many-to-one association to ResultadoPesquisaPreco
-	@OneToMany(mappedBy = "orcamento")
+	//bi-directional many-to-one association to ResultadoPesquisaPreco
+	@OneToMany(mappedBy="orcamento")
 	private List<ResultadoPesquisaPreco> resultadoPesquisaPrecos;
 
 	public Orcamento() {
@@ -142,6 +133,14 @@ public class Orcamento implements Serializable {
 		this.valorReal = valorReal;
 	}
 
+	public StatusOrcamento getStatusOrcamento() {
+		return this.statusOrcamento;
+	}
+
+	public void setStatusOrcamento(StatusOrcamento statusOrcamento) {
+		this.statusOrcamento = statusOrcamento;
+	}
+
 	public CategoriaOrcamento getCategoriaOrcamento() {
 		return this.categoriaOrcamento;
 	}
@@ -156,14 +155,6 @@ public class Orcamento implements Serializable {
 
 	public void setCarro(Carro carro) {
 		this.carro = carro;
-	}
-
-	public StatusOrcamento getStatusOrcamento() {
-		return this.statusOrcamento;
-	}
-
-	public void setStatusOrcamento(StatusOrcamento statusOrcamento) {
-		this.statusOrcamento = statusOrcamento;
 	}
 
 	public List<ParecerOrcamento> getParecerOrcamentos() {

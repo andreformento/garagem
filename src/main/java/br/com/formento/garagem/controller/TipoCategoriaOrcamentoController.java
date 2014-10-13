@@ -16,49 +16,55 @@ import br.com.formento.garagem.model.TipoCategoriaOrcamento;
 @Transactional
 @Controller
 public class TipoCategoriaOrcamentoController {
+
 	@Autowired
-	private TipoCategoriaOrcamentoDao tipoCategoriaOrcamentoDao;
+	private TipoCategoriaOrcamentoDao dao;
 
-	@RequestMapping("novaTipoCategoriaOrcamento")
-	public String form(final ModelMap modelMap) {
-		TipoCategoriaOrcamento tipoCategoriaOrcamento = new TipoCategoriaOrcamento();
-		tipoCategoriaOrcamento.setDescricao("Novo");
+	@RequestMapping("cadastraTipoCategoriaOrcamento")
+	public String form(final ModelMap modelMap, Integer codigo) {
+		TipoCategoriaOrcamento entidade;
+		if (codigo == null || codigo <= 0) {
+			entidade = new TipoCategoriaOrcamento();
+			entidade.setDescricao("Novo");
+		} else {
+			entidade = dao.buscaPorId(codigo);
+		}
 
-		modelMap.addAttribute("tipoCategoriaOrcamento", tipoCategoriaOrcamento);
+		modelMap.addAttribute("entidade", entidade);
 		return "tipoCategoriaOrcamento/formulario";
 	}
 
-	@RequestMapping("adicionaTipoCategoriaOrcamento")
-	public String adiciona(@Valid TipoCategoriaOrcamento tipoCategoriaOrcamento, BindingResult result) {
+	@RequestMapping("mergeTipoCategoriaOrcamento")
+	public String merge(@Valid TipoCategoriaOrcamento entidade, BindingResult result) {
 		if (result.hasFieldErrors("descricao"))
 			return "tipoCategoriaOrcamento/formulario";
 
-		tipoCategoriaOrcamentoDao.adiciona(tipoCategoriaOrcamento);
-		return "tipoCategoriaOrcamento/adicionada";
+		if (entidade.getCodigo() <= 0)
+			dao.adiciona(entidade);
+		else
+			dao.altera(entidade);
+
+		return "redirect:listaTipoCategoriaOrcamentos";
 	}
 
 	@RequestMapping("listaTipoCategoriaOrcamentos")
 	public String lista(Model model) {
-		model.addAttribute("tipoCategoriaOrcamentos", tipoCategoriaOrcamentoDao.lista());
+		model.addAttribute("entidades", dao.lista());
 		return "tipoCategoriaOrcamento/lista";
 	}
 
 	@RequestMapping("removeTipoCategoriaOrcamento")
-	public String remove(TipoCategoriaOrcamento tipoCategoriaOrcamento) {
-		tipoCategoriaOrcamentoDao.remove(tipoCategoriaOrcamento);
+	public String remove(int codigo) {
+		TipoCategoriaOrcamento entidade = new TipoCategoriaOrcamento();
+		entidade.setCodigo(codigo);
+		dao.remove(entidade);
 		return "redirect:listaTipoCategoriaOrcamentos";
 	}
 
 	@RequestMapping("mostraTipoCategoriaOrcamento")
-	public String mostra(Integer id, Model model) {
-		model.addAttribute("tipoCategoriaOrcamento", tipoCategoriaOrcamentoDao.buscaPorId(id));
+	public String mostra(Integer codigo, Model model) {
+		model.addAttribute("entidade", dao.buscaPorId(codigo));
 		return "tipoCategoriaOrcamento/mostra";
-	}
-
-	@RequestMapping("alteraTipoCategoriaOrcamento")
-	public String altera(TipoCategoriaOrcamento tipoCategoriaOrcamento) {
-		tipoCategoriaOrcamentoDao.altera(tipoCategoriaOrcamento);
-		return "redirect:listaTipoCategoriaOrcamentos";
 	}
 
 }

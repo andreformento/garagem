@@ -22,6 +22,14 @@ body {
 	padding-right: 15px;
 }
 
+.informacaoLogin input[type="submit"], .informacaoLogin input[type="button"] {
+	margin: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 .formCadastro label {
 	display: block;
 }
@@ -54,8 +62,13 @@ body {
 	padding: 15px;
 }
 
-.formInterno, .botoes input[type="submit"], .botoes input[type="button"] {
+.formInterno, .botoes input[type="submit"], .botoes input[type="button"]
+	{
 	background-color: #7f8685;
+}
+
+.miniBotoes input[type="submit"], .miniBotoes input[type="button"] {
+	background-color: #787878;
 }
 
 .bemVindo {
@@ -88,14 +101,23 @@ body {
 	transform: translate(-100%, -50%);
 }
 
+.miniBotoes input[type="submit"], .miniBotoes input[type="button"] {
+	/* margin: 5px; */
+	border-radius: 10px;
+}
+
+.miniBotoes input[type="submit"], .miniBotoes input[type="button"],
+	.botoes input[type="submit"], .botoes input[type="button"] {
+	border-width: 0px;
+	color: white;
+}
+
 .botoes input[type="submit"], .botoes input[type="button"] {
-	margin-left:20px;
-	margin-top:2px;
+	margin-left: 20px;
+	margin-top: 2px;
 	width: 150px;
 	height: 50px;
 	border-radius: 20px;
-	border-width:0px;
-	color: white;
 }
 
 /* http://www.richardbarros.com.br/blog/css/css-truques-para-dominar-a-propriedade-float */
@@ -122,6 +144,37 @@ body {
 	width: 300px;
 }
 
+/* Table */
+.table {
+	display: table;
+}
+
+.title {
+	display: table-caption;
+	text-align: center;
+	font-weight: bold;
+	font-size: larger;
+}
+
+.heading {
+	display: table-row;
+	font-weight: bold;
+	text-align: center;
+}
+
+.row {
+	display: table-row;
+}
+
+.cell {
+	display: table-cell;
+	border: solid;
+	border-width: thin;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+/* Menu */
 .menu ul {
 	text-align: left;
 	display: inline;
@@ -192,7 +245,9 @@ body {
 	text-shadow: 0 -1px 0 #000;
 }
 
-.menu ul li ul li:hover, .botoes input[type="submit"]:hover, .botoes input[type="button"]:hover {
+.menu ul li ul li:hover, .miniBotoes input[type="submit"]:hover,
+	.miniBotoes input[type="button"]:hover, .botoes input[type="submit"]:hover,
+	.botoes input[type="button"]:hover {
 	background: #666;
 }
 

@@ -18,15 +18,15 @@ public class UsuarioCarro implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 
-	//bi-directional many-to-one association to Carro
-	@ManyToOne
-	@JoinColumn(name="cod_carro")
-	private Carro carro;
-
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="cod_usuario")
 	private Usuario usuario;
+
+	//bi-directional many-to-one association to Carro
+	@ManyToOne
+	@JoinColumn(name="cod_carro")
+	private Carro carro;
 
 	public UsuarioCarro() {
 	}
@@ -39,20 +39,20 @@ public class UsuarioCarro implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Carro getCarro() {
-		return this.carro;
-	}
-
-	public void setCarro(Carro carro) {
-		this.carro = carro;
-	}
-
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Carro getCarro() {
+		return this.carro;
+	}
+
+	public void setCarro(Carro carro) {
+		this.carro = carro;
 	}
 
 }

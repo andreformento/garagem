@@ -1,36 +1,27 @@
 package br.com.formento.garagem.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the usuario database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+@Table(name="usuario")
+@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_cadastro")
+	@Column(name="data_cadastro")
 	private Date dataCadastro;
 
 	private String email;
@@ -38,22 +29,21 @@ public class Usuario implements Serializable {
 	@Column(columnDefinition = "char(35)")
 	private String senha;
 
-	// bi-directional many-to-one association to ParecerOrcamento
-	@OneToMany(mappedBy = "usuario")
-	private List<ParecerOrcamento> parecerOrcamentos;
-
-	// bi-directional many-to-one association to Carro
+	//bi-directional many-to-one association to Carro
 	@ManyToOne
-	@JoinColumn(name = "cod_ultimo_carro")
+	@JoinColumn(name="cod_ultimo_carro")
 	private Carro carro;
 
-	// bi-directional many-to-one association to UsuarioNivel
-	@ManyToOne
-	@JoinColumn(name = "cod_usuario_nivel")
-	private UsuarioNivel usuarioNivel;
+	//bi-directional many-to-one association to UsuarioPermissao
+	@OneToMany(mappedBy="usuario")
+	private List<UsuarioPermissao> usuarioPermissaos;
 
-	// bi-directional many-to-one association to UsuarioCarro
-	@OneToMany(mappedBy = "usuario")
+	//bi-directional many-to-one association to ParecerOrcamento
+	@OneToMany(mappedBy="usuario")
+	private List<ParecerOrcamento> parecerOrcamentos;
+
+	//bi-directional many-to-one association to UsuarioCarro
+	@OneToMany(mappedBy="usuario")
 	private List<UsuarioCarro> usuarioCarros;
 
 	public Usuario() {
@@ -91,6 +81,36 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
+	public Carro getCarro() {
+		return this.carro;
+	}
+
+	public void setCarro(Carro carro) {
+		this.carro = carro;
+	}
+
+	public List<UsuarioPermissao> getUsuarioPermissaos() {
+		return this.usuarioPermissaos;
+	}
+
+	public void setUsuarioPermissaos(List<UsuarioPermissao> usuarioPermissaos) {
+		this.usuarioPermissaos = usuarioPermissaos;
+	}
+
+	public UsuarioPermissao addUsuarioPermissao(UsuarioPermissao usuarioPermissao) {
+		getUsuarioPermissaos().add(usuarioPermissao);
+		usuarioPermissao.setUsuario(this);
+
+		return usuarioPermissao;
+	}
+
+	public UsuarioPermissao removeUsuarioPermissao(UsuarioPermissao usuarioPermissao) {
+		getUsuarioPermissaos().remove(usuarioPermissao);
+		usuarioPermissao.setUsuario(null);
+
+		return usuarioPermissao;
+	}
+
 	public List<ParecerOrcamento> getParecerOrcamentos() {
 		return this.parecerOrcamentos;
 	}
@@ -111,22 +131,6 @@ public class Usuario implements Serializable {
 		parecerOrcamento.setUsuario(null);
 
 		return parecerOrcamento;
-	}
-
-	public Carro getCarro() {
-		return this.carro;
-	}
-
-	public void setCarro(Carro carro) {
-		this.carro = carro;
-	}
-
-	public UsuarioNivel getUsuarioNivel() {
-		return this.usuarioNivel;
-	}
-
-	public void setUsuarioNivel(UsuarioNivel usuarioNivel) {
-		this.usuarioNivel = usuarioNivel;
 	}
 
 	public List<UsuarioCarro> getUsuarioCarros() {

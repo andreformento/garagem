@@ -2,7 +2,6 @@ package br.com.formento.garagem.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -21,9 +20,7 @@ public class UsuarioNivel implements Serializable {
 
 	private String descricao;
 
-	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="usuarioNivel")
-	private List<Usuario> usuarios;
+	private String identificador;
 
 	public UsuarioNivel() {
 	}
@@ -44,26 +41,12 @@ public class UsuarioNivel implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
+	public String getIdentificador() {
+		return this.identificador;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Usuario addUsuario(Usuario usuario) {
-		getUsuarios().add(usuario);
-		usuario.setUsuarioNivel(this);
-
-		return usuario;
-	}
-
-	public Usuario removeUsuario(Usuario usuario) {
-		getUsuarios().remove(usuario);
-		usuario.setUsuarioNivel(null);
-
-		return usuario;
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
 	}
 
 }

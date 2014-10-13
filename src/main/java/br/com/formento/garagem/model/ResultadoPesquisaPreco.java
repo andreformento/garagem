@@ -1,49 +1,39 @@
 package br.com.formento.garagem.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the resultado_pesquisa_preco database table.
  * 
  */
 @Entity
-@Table(name = "resultado_pesquisa_preco")
-@NamedQuery(name = "ResultadoPesquisaPreco.findAll", query = "SELECT r FROM ResultadoPesquisaPreco r")
+@Table(name="resultado_pesquisa_preco")
+@NamedQuery(name="ResultadoPesquisaPreco.findAll", query="SELECT r FROM ResultadoPesquisaPreco r")
 public class ResultadoPesquisaPreco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_pesquisa")
+	@Column(name="data_pesquisa")
 	private Date dataPesquisa;
 
 	private String link;
 
 	private BigDecimal valor;
 
-	// bi-directional many-to-one association to MetodoPesquisaPreco
+	//bi-directional many-to-one association to MetodoPesquisaPreco
 	@ManyToOne
-	@JoinColumn(name = "metodo_pesquisa_preco_codigo")
+	@JoinColumn(name="metodo_pesquisa_preco_codigo")
 	private MetodoPesquisaPreco metodoPesquisaPreco;
 
-	// bi-directional many-to-one association to Orcamento
+	//bi-directional many-to-one association to Orcamento
 	@ManyToOne
 	private Orcamento orcamento;
 
