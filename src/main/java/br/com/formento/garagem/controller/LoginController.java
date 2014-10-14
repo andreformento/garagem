@@ -2,10 +2,15 @@ package br.com.formento.garagem.controller;
 
 import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import br.com.formento.garagem.model.Usuario;
+import br.com.formento.garagem.model.UsuarioSessao;
 
 @Controller
 public class LoginController {
@@ -35,7 +40,16 @@ public class LoginController {
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public String login(ModelMap model) {
 		return "login_page";
+	}
 
+	@RequestMapping(value = "/loginExec", method = RequestMethod.GET)
+	public String loginExec(ModelMap model, HttpServletRequest request) {
+		UsuarioSessao usuarioSessao = (UsuarioSessao) request.getSession().getAttribute(UsuarioSessao.class.getSimpleName());
+
+		Usuario usuario = new Usuario();
+		usuarioSessao.login(usuario);
+
+		return "redirect:garagemLista";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

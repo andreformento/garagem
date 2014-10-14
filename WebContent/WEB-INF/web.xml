@@ -14,7 +14,7 @@
 			<param-value>/WEB-INF/spring-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</servlet> 
 
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>

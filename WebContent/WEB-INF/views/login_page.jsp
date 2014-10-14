@@ -8,7 +8,7 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 	<div class="topoInicio">
-		<h1>Portal Restomod - login_page</h1>
+		<h1><!-- Portal Restomod --> - login_page</h1>
 	</div>
 
 	<div class="centralizadoInicio">
@@ -20,7 +20,7 @@
 			}
 		%>
 
-		<form name='loginForm' action="loginPage" method='POST'>
+		<form name='loginForm' action="loginPage" method='post'>
 			<div class="fields">
 				<div>
 					<label for="username">User</label> <input name='username'
@@ -35,7 +35,7 @@
 						type="submit" value="Login" />
 				</div>
 			</div>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
 		</form>
 	</div>
 

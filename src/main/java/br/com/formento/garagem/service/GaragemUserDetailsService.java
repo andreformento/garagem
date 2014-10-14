@@ -9,43 +9,59 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.formento.garagem.dao.UsuarioDao;
+import br.com.formento.garagem.model.Usuario;
 import br.com.formento.garagem.model.UsuarioPermissao;
 
 @Service("userDetailsService")
+//@ComponentScan//(basePackages = "br.com.formento.garagem.dao")
+// @Service
 public class GaragemUserDetailsService implements UserDetailsService {
+	
 
 	// get user from the database, via Hibernate
-	@Autowired
-	private UsuarioDao usuarioDao;
+//	@Autowired
+	// @Qualifier("jpaUsuarioDao")
+//	UsuarioDao usuarioDao;
 
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-		br.com.formento.garagem.model.Usuario user = usuarioDao.getByLogin(username);
-		List<GrantedAuthority> authorities = buildUserAuthority(user.getUsuarioPermissaos());
+		// Usuario usuario = usuarioDao.getByLogin(username);
 
-		return buildUserForAuthentication(user, authorities);
+		Usuario usuario = new Usuario();
+		usuario.setEmail(username);
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		usuario.setSenha(encoder.encode(username).toString());
+		List<UsuarioPermissao> usuarioPermissaos = new ArrayList<UsuarioPermissao>();
+		usuario.setUsuarioPermissaos(usuarioPermissaos);
+
+		List<GrantedAuthority> authorities = buildUserAuthority(usuario.getUsuarioPermissaos());
+
+		return buildUserForAuthentication(usuario, authorities);
 
 	}
 
-	// Converts br.com.formento.garagem.model.Usuario user to
+	// Converts Usuario user to
 	// org.springframework.security.core.userdetails.User
-	private User buildUserForAuthentication(br.com.formento.garagem.model.Usuario user, List<GrantedAuthority> authorities) {
-		return new User(user.getEmail(), user.getSenha(), true, true, true, true, authorities);
+	private User buildUserForAuthentication(Usuario usuario, List<GrantedAuthority> authorities) {
+		User user = new User(usuario.getEmail(), usuario.getSenha(), true, true, true, true, authorities);
+		return user;
 	}
 
 	private List<GrantedAuthority> buildUserAuthority(List<UsuarioPermissao> usuarioPermissaos) {
-
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
 		// Build user's authorities

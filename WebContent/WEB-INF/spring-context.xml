@@ -20,15 +20,17 @@
 	<mvc:resources mapping="/images/**" location="/resources/images/" />
 
 	<!-- Dependency Injection with annotations -->
-	<context:component-scan base-package="br.com.formento.garagem.ioc" />
+	<!-- <context:component-scan base-package="br.com.formento.garagem.ioc" />
 	<context:component-scan base-package="br.com.formento.garagem.dao" />
 	<context:component-scan base-package="br.com.formento.garagem.service" />
-
+	<context:component-scan base-package="br.com.formento.garagem.config" /> -->
+	<context:component-scan base-package="br.com.formento.garagem.*" />
+	
 	<!-- Controller -->
 	<!-- habilitar o uso de anotações do Spring MVC e configurar pacote base 
 		da aplicação web para o Spring achar as classes -->
 	<mvc:annotation-driven />
-	<context:component-scan base-package="br.com.formento.garagem.controller" />
+	<!-- <context:component-scan base-package="br.com.formento.garagem.controller" /> -->
 
 	<!-- Para acessar arquivos externos, como os da pasta resource -->
 	<mvc:default-servlet-handler />
@@ -67,16 +69,30 @@
 	<!-- avisar que o controle de transações será feito via anotação, parecido 
 		com a forma de habilitar o uso de anotações para o Spring MVC. -->
 	<tx:annotation-driven />
-<!-- 
+	
+	<mvc:interceptors>
+		<bean
+			class="br.com.formento.garagem.filter.AutorizadorInterceptor" />
+	</mvc:interceptors>
+
+	<security:global-method-security secured-annotations="enabled" />
+	
 	<security:http auto-config="true" >
-		<security:intercept-url pattern="/main*"
-			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/views/**" />
+		<security:intercept-url pattern="/views/_template/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/views/_welcome/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/views/*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		
 		<security:form-login 
 			login-page="/loginPage"
 			login-processing-url="/loginPage"
-			default-target-url="/main" 
-			authentication-failure-url="/loginError"
+			default-target-url="/garagemLista" 
+			authentication-failure-url="/loginPage?error"
 			/>
+		<security:http-basic />
+    	<security:logout logout-url="/logout" logout-success-url="/loginPage?logout" />
+    	<security:csrf/>
 	</security:http>
 
 	<security:authentication-manager>
@@ -85,7 +101,11 @@
 				<security:user name="alpha" password="pass1"
 					authorities="ROLE_ADMIN" />
 			</security:user-service>
+			
+			<!-- <security:jdbc-user-service data-source-ref="dataSource" /> -->
+			<!-- <authentication-provider user-service-ref="userDetailsService" /> -->
+			
 		</security:authentication-provider>
-	</security:authentication-manager> -->
+	</security:authentication-manager>
 
 </beans>

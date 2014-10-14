@@ -20,7 +20,6 @@
 		<class>br.com.formento.garagem.model.TipoCategoriaOrcamento</class>
 		<class>br.com.formento.garagem.model.Usuario</class>
 		<class>br.com.formento.garagem.model.UsuarioCarro</class>
-		<class>br.com.formento.garagem.model.UsuarioNivel</class>
 		<class>br.com.formento.garagem.model.UsuarioPermissao</class>
 
 		<properties>
