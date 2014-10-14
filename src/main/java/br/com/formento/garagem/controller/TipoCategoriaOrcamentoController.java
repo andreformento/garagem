@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.formento.garagem.dao.TipoCategoriaOrcamentoDao;
-import br.com.formento.garagem.dao.UsuarioDao;
 import br.com.formento.garagem.model.TipoCategoriaOrcamento;
 
 @Transactional
@@ -20,11 +19,6 @@ public class TipoCategoriaOrcamentoController {
 
 	@Autowired
 	private TipoCategoriaOrcamentoDao dao;
-	
-
-	 @Autowired
-//	 @Qualifier("jpaUsuarioDao")
-	UsuarioDao usuarioDao;
 
 	@RequestMapping("cadastraTipoCategoriaOrcamento")
 	public String form(final ModelMap modelMap, Integer codigo) {

@@ -21,7 +21,7 @@
 				</div>
 				<div>
 					<label for="password">Password</label>
-					<form:input path="password" />
+					<form:password path="password" />
 				</div>
 				<div>
 					<label for="efetuaLogin">&nbsp;</label> <input id="efetuaLogin"

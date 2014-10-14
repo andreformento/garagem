@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class Usuario implements Serializable {
 	private Carro carro;
 
 	// bi-directional many-to-one association to UsuarioPermissao
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<UsuarioPermissao> usuarioPermissaos;
 
 	// bi-directional many-to-one association to ParecerOrcamento
@@ -58,7 +59,7 @@ public class Usuario implements Serializable {
 	private List<ParecerOrcamento> parecerOrcamentos;
 
 	// bi-directional many-to-one association to UsuarioCarro
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<UsuarioCarro> usuarioCarros;
 
 	public Usuario() {

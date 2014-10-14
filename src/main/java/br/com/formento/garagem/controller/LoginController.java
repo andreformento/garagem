@@ -1,6 +1,7 @@
 package br.com.formento.garagem.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -12,7 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.formento.garagem.dao.TipoCategoriaOrcamentoDao;
 import br.com.formento.garagem.dao.UsuarioDao;
+import br.com.formento.garagem.model.TipoCategoriaOrcamento;
 import br.com.formento.garagem.model.Usuario;
 import br.com.formento.garagem.model.UsuarioSessao;
 
@@ -20,7 +23,10 @@ import br.com.formento.garagem.model.UsuarioSessao;
 public class LoginController {
 
 	@Autowired
-	private UsuarioDao dao;
+	private UsuarioDao usuarioDao;
+
+	@Autowired
+	private TipoCategoriaOrcamentoDao tipoCategoriaOrcamentoDao;
 
 	// @RequestMapping(value="/login", method = RequestMethod.POST)
 	// public String login() {
@@ -47,15 +53,14 @@ public class LoginController {
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public String login(ModelMap modelMap) {
 		Usuario entidade = new Usuario();
-		entidade.setUsername("admin@gmail.com");
 		modelMap.addAttribute("entidade", entidade);
 		return "login_page";
 	}
 
 	@RequestMapping(value = "/loginExec", method = RequestMethod.POST)
 	public String loginExec(HttpServletRequest request, @Valid Usuario entidade, BindingResult result) {
-		final String mensagemErro="redirect:loginPage?error=Usuário ou senha inválido";
-		
+		final String mensagemErro = "redirect:loginPage?error=Login ou senha incorreto";
+
 		if (result.hasFieldErrors("username"))
 			return mensagemErro;
 		else if (result.hasFieldErrors("password"))
@@ -63,11 +68,13 @@ public class LoginController {
 
 		UsuarioSessao usuarioSessao = (UsuarioSessao) request.getSession().getAttribute(UsuarioSessao.class.getSimpleName());
 
-		Usuario usuarioByLogin = dao.getByLogin(entidade.getUsername());
+		Usuario usuarioByLogin = usuarioDao.getByLogin(entidade.getUsername());
 
-		if (usuarioSessao.login(entidade, usuarioByLogin))
+		if (usuarioSessao.login(entidade, usuarioByLogin)) {
+			List<TipoCategoriaOrcamento> listTipoCategoriaOrcamento = tipoCategoriaOrcamentoDao.lista();
+			usuarioSessao.setListTipoCategoriaOrcamento(listTipoCategoriaOrcamento);
 			return "redirect:garagemLista";
-		else
+		} else
 			return mensagemErro;
 	}
 
