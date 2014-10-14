@@ -56,7 +56,7 @@ public class JpaUsuarioDao implements UsuarioDao {
 		Root<Usuario> root = cq.from(Usuario.class);
 		cq.select(root);
 
-		Path<String> name = root.get("email");
+		Path<String> name = root.get("username");
 		Predicate loginFilter = cb.and(cb.equal(name, login));
 		cq.where(loginFilter);
 

@@ -1,49 +1,64 @@
 package br.com.formento.garagem.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * The persistent class for the usuario database table.
- * 
  */
 @Entity
-@Table(name="usuario")
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@Table(name = "usuario")
+@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int codigo;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data_cadastro")
+	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 
-	private String email;
+	@NotEmpty
+	@Email
+	private String username;
 
-	@Column(columnDefinition = "char(35)")
-	private String senha;
+	@NotEmpty
+	private String password;
 
-	//bi-directional many-to-one association to Carro
+	// bi-directional many-to-one association to Carro
 	@ManyToOne
-	@JoinColumn(name="cod_ultimo_carro")
+	@JoinColumn(name = "cod_ultimo_carro")
 	private Carro carro;
 
-	//bi-directional many-to-one association to UsuarioPermissao
-	@OneToMany(mappedBy="usuario")
+	// bi-directional many-to-one association to UsuarioPermissao
+	@OneToMany(mappedBy = "usuario")
 	private List<UsuarioPermissao> usuarioPermissaos;
 
-	//bi-directional many-to-one association to ParecerOrcamento
-	@OneToMany(mappedBy="usuario")
+	// bi-directional many-to-one association to ParecerOrcamento
+	@OneToMany(mappedBy = "usuario")
 	private List<ParecerOrcamento> parecerOrcamentos;
 
-	//bi-directional many-to-one association to UsuarioCarro
-	@OneToMany(mappedBy="usuario")
+	// bi-directional many-to-one association to UsuarioCarro
+	@OneToMany(mappedBy = "usuario")
 	private List<UsuarioCarro> usuarioCarros;
 
 	public Usuario() {
@@ -65,20 +80,20 @@ public class Usuario implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public String getEmail() {
-		return this.email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getSenha() {
-		return this.senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Carro getCarro() {
@@ -153,6 +168,28 @@ public class Usuario implements Serializable {
 		usuarioCarro.setUsuario(null);
 
 		return usuarioCarro;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codigo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (codigo != other.codigo)
+			return false;
+		return true;
 	}
 
 }

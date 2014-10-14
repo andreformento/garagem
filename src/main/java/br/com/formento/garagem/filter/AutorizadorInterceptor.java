@@ -11,7 +11,6 @@ import br.com.formento.garagem.model.UsuarioSessao;
  * Essa classe deve ser refatorada
  * 
  * @author andre.formento
- *
  */
 public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
@@ -22,12 +21,14 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
 		String uri = request.getRequestURI();
 
-		if (uri.endsWith("loginPage") || uri.contains("resources") || uri.endsWith("_Template") || uri.endsWith("Layout")) {
+		if (uri.endsWith("loginPage") || uri.endsWith("loginExec") || uri.contains("resources") || uri.endsWith("_Template")
+				|| uri.endsWith("Layout")) {
 			return true;
 		} else {
 			UsuarioSessao usuarioSessao = (UsuarioSessao) request.getSession().getAttribute(UsuarioSessao.class.getSimpleName());
 
-			response.sendRedirect("loginPage");
+			if (!usuarioSessao.isUsuarioLogado())
+				response.sendRedirect("loginPage");
 			return usuarioSessao.isUsuarioLogado();
 		}
 	}

@@ -42,9 +42,9 @@ public class GaragemUserDetailsService implements UserDetailsService {
 		// Usuario usuario = usuarioDao.getByLogin(username);
 
 		Usuario usuario = new Usuario();
-		usuario.setEmail(username);
+		usuario.setUsername(username);
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		usuario.setSenha(encoder.encode(username).toString());
+		usuario.setPassword(encoder.encode(username).toString());
 		List<UsuarioPermissao> usuarioPermissaos = new ArrayList<UsuarioPermissao>();
 		usuario.setUsuarioPermissaos(usuarioPermissaos);
 
@@ -57,7 +57,7 @@ public class GaragemUserDetailsService implements UserDetailsService {
 	// Converts Usuario user to
 	// org.springframework.security.core.userdetails.User
 	private User buildUserForAuthentication(Usuario usuario, List<GrantedAuthority> authorities) {
-		User user = new User(usuario.getEmail(), usuario.getSenha(), true, true, true, true, authorities);
+		User user = new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, authorities);
 		return user;
 	}
 

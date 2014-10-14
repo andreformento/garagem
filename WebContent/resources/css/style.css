@@ -11,8 +11,10 @@ body {
 	color: white;
 }
 
-.formCadastro input, .formCadastro textarea {
-	
+.mensagemWarning {
+	text-align: center;
+	color:green;
+	font-size: 80%;
 }
 
 .informacaoLogin {

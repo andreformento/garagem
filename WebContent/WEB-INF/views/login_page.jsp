@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 
 <html>
@@ -8,35 +9,31 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 	<div class="topoInicio">
-		<h1><!-- Portal Restomod --> - login_page</h1>
+		<h1><!-- Portal Restomod --></h1>
 	</div>
 
 	<div class="centralizadoInicio">
-
-		<%
-			String errorString = (String) request.getAttribute("error");
-			if (errorString != null && errorString.trim().compareToIgnoreCase("true") == 0) {
-				out.println("Incorrect login name or password. Please retry using correct login name and password.");
-			}
-		%>
-
-		<form name='loginForm' action="loginPage" method='post'>
+		<form:form name='loginForm' id="loginForm" action="loginExec" method="post" commandName="entidade">
 			<div class="fields">
 				<div>
-					<label for="username">User</label> <input name='username'
-						id='username' type="text" />
+					<label for="username">User</label>
+					<form:input path="username" />
 				</div>
 				<div>
-					<label for="password">Password</label> <input name='password'
-						id='password' type="password" />
+					<label for="password">Password</label>
+					<form:input path="password" />
 				</div>
 				<div>
 					<label for="efetuaLogin">&nbsp;</label> <input id="efetuaLogin"
 						type="submit" value="Login" />
 				</div>
 			</div>
-			<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
-		</form>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
+			<c:if test="${not empty param.error}" >
+				<div class="mensagemWarning">${param.error}</div>
+			</c:if>
+		</form:form>
 	</div>
 
 	<div class="rodapePaginaInicio">
