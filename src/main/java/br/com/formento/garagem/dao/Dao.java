@@ -11,6 +11,6 @@ public interface Dao<T, CHAVE> {
 
 	void altera(T t);
 
-	void remove(T t);
+	void remove(CHAVE chave);
 
 }

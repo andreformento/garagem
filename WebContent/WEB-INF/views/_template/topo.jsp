@@ -11,13 +11,13 @@
 			</ul>
 		</li>
 		<li>
-			<div>A Fazer</div>
+			<div onclick="location.href='investimentoPeca';">A Fazer</div>
 			<ul>
 				<c:forEach items="${UsuarioSessao.listTipoCategoriaOrcamento}" var="tipoCategoriaOrcamento" varStatus="uStatus">
 					<li onclick="location.href='orcamento?codTipoCategoriaOrcamento=${tipoCategoriaOrcamento.codigo}';">${tipoCategoriaOrcamento.descricao}</li>
 				</c:forEach>
-				<li onclick="location.href='investimentoServico';">Serviços</li>
-				<li onclick="location.href='investimentoPeca';">Peças</li>
+				<!-- <li onclick="location.href='investimentoServico';">Serviços</li>
+				<li onclick="location.href='investimentoPeca';">Peças</li> -->
 			</ul>
 		</li>
 		<c:if test="${UsuarioSessao.permitidoAdministrar}" >
@@ -25,7 +25,7 @@
 				<div>Administração</div>
 				<ul>
 					<li onclick="location.href='listaTipoCategoriaOrcamentos';">Tipo de categoria</li>
-					<li onclick="location.href='';">Categoria</li>
+					<li onclick="location.href='listaCategoriaOrcamentos';">Categoria</li>
 				</ul>
 			</li>
 		</c:if>

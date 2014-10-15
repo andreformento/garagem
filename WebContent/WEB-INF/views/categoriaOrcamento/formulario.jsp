@@ -10,7 +10,7 @@
 	<jsp:include page="../_template/topo.jsp"></jsp:include>
 	
 	<form:errors path="entidade.descricao" />
-	<form:form action="mergeTipoCategoriaOrcamento" method="post" commandName="entidade">
+	<form:form action="mergeCategoriaOrcamento" method="post" commandName="entidade">
 		<div class="formSobreposto">
 			<div class="formInterno">
 				<div id="dvFormulario" class="fields">
@@ -29,11 +29,20 @@
 					<div>
 						<form:errors path="descricao" cssStyle="color:red" />
 					</div>
+					<div>
+						<label for="selTipoCategoriaOrcamento" title="Tipo de categoria de orçamento">Tipo</label>
+					</div>
+					<div>
+						<form:select id="selTipoCategoriaOrcamento" path="tipoCategoriaOrcamento">
+							<!--<form:option value="0" label="Selecionar"  />-->
+			           		<form:options items="${tipoCategoriaOrcamentoList}" itemValue="codigo" itemLabel="descricao"/>
+						</form:select>
+					</div>
 				</div>
 			</div>
 			<div class="botoes">
 				<div>
-					<input id="btCancelar" type="button" value="Cancelar" onclick="location.href='listaTipoCategoriaOrcamentos'" />
+					<input id="btCancelar" type="button" value="Cancelar" onclick="location.href='listaCategoriaOrcamentos'" />
 					<input id="btNovo" type="submit" value="Gravar" />
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</div>

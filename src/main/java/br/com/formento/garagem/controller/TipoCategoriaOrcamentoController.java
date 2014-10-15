@@ -23,12 +23,10 @@ public class TipoCategoriaOrcamentoController {
 	@RequestMapping("cadastraTipoCategoriaOrcamento")
 	public String form(final ModelMap modelMap, Integer codigo) {
 		TipoCategoriaOrcamento entidade;
-		if (codigo == null || codigo <= 0) {
+		if (codigo == null || codigo <= 0)
 			entidade = new TipoCategoriaOrcamento();
-			entidade.setDescricao("Novo");
-		} else {
+		else
 			entidade = dao.buscaPorId(codigo);
-		}
 
 		modelMap.addAttribute("entidade", entidade);
 		return "tipoCategoriaOrcamento/formulario";
@@ -55,16 +53,8 @@ public class TipoCategoriaOrcamentoController {
 
 	@RequestMapping("removeTipoCategoriaOrcamento")
 	public String remove(int codigo) {
-		TipoCategoriaOrcamento entidade = new TipoCategoriaOrcamento();
-		entidade.setCodigo(codigo);
-		dao.remove(entidade);
+		dao.remove(codigo);
 		return "redirect:listaTipoCategoriaOrcamentos";
-	}
-
-	@RequestMapping("mostraTipoCategoriaOrcamento")
-	public String mostra(Integer codigo, Model model) {
-		model.addAttribute("entidade", dao.buscaPorId(codigo));
-		return "tipoCategoriaOrcamento/mostra";
 	}
 
 }
