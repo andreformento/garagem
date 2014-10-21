@@ -13,8 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.formento.garagem.dao.CategoriaOrcamentoDao;
-import br.com.formento.garagem.dao.TipoCategoriaOrcamentoDao;
+import br.com.formento.garagem.dao.interfaces.CategoriaOrcamentoDao;
+import br.com.formento.garagem.dao.interfaces.TipoCategoriaOrcamentoDao;
 import br.com.formento.garagem.model.CategoriaOrcamento;
 import br.com.formento.garagem.model.TipoCategoriaOrcamento;
 
@@ -48,8 +48,6 @@ public class CategoriaOrcamentoController {
 	public String merge(@Valid CategoriaOrcamento entidade, BindingResult result, @RequestParam String tipoCategoriaOrcamento) {
 		if (result.hasFieldErrors("descricao"))
 			return "categoriaOrcamento/formulario";
-//		if (result.hasFieldErrors("tipoCategoriaOrcamento"))
-//			return "categoriaOrcamento/formulario";
 
 		TipoCategoriaOrcamento tipoCategoriaOrcamentoObject = new TipoCategoriaOrcamento();
 		tipoCategoriaOrcamentoObject.setCodigo(Integer.valueOf(tipoCategoriaOrcamento));

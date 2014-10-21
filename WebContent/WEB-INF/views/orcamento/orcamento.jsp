@@ -60,7 +60,7 @@
 				</div>
 				<div class="guiaDireita">
 					<div class="miniatura">
-						<img src="<c:url value='/images/porsche.jpg'/>"/>
+						<img src="<c:url value='/images/porsche.jpg'/>" />
 					</div>
 				</div>
 			</div>
@@ -68,5 +68,6 @@
 	</form>
 
 	<jsp:include page="../_template/rodape.jsp"></jsp:include>
-</html>
 </body>
+
+</html>

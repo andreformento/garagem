@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import br.com.formento.garagem.model.UsuarioSessao;
+import br.com.formento.garagem.model.ManagerUsuarioSessao;
 
 /**
  * Essa classe deve ser refatorada
@@ -15,21 +15,18 @@ import br.com.formento.garagem.model.UsuarioSessao;
 public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object controller) throws Exception {
-		if (!(request.getSession().getAttribute(UsuarioSessao.class.getSimpleName()) instanceof UsuarioSessao))
-			request.getSession().setAttribute(UsuarioSessao.class.getSimpleName(), new UsuarioSessao());
+	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object controller) throws Exception {
+		ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
 
-		String uri = request.getRequestURI();
+		String uri = httpServletRequest.getRequestURI();
 
 		if (uri.endsWith("loginPage") || uri.endsWith("loginExec") || uri.contains("resources") || uri.endsWith("_Template")
 				|| uri.endsWith("Layout")) {
 			return true;
 		} else {
-			UsuarioSessao usuarioSessao = (UsuarioSessao) request.getSession().getAttribute(UsuarioSessao.class.getSimpleName());
-
-			if (!usuarioSessao.isUsuarioLogado())
+			if (!managerUsuarioSessao.getUsuarioSessao().isUsuarioLogado())
 				response.sendRedirect("loginPage");
-			return usuarioSessao.isUsuarioLogado();
+			return managerUsuarioSessao.getUsuarioSessao().isUsuarioLogado();
 		}
 	}
 

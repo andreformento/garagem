@@ -10,7 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.formento.garagem.dao.TipoCategoriaOrcamentoDao;
+import br.com.formento.garagem.dao.interfaces.TipoCategoriaOrcamentoDao;
 import br.com.formento.garagem.model.TipoCategoriaOrcamento;
 
 @Transactional

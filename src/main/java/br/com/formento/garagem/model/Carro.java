@@ -1,25 +1,27 @@
 package br.com.formento.garagem.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
 
+import javax.persistence.*;
+
+import java.util.List;
 
 /**
  * The persistent class for the carro database table.
  * 
  */
 @Entity
-@Table(name="carro")
-@NamedQuery(name="Carro.findAll", query="SELECT c FROM Carro c")
+@NamedQuery(name = "Carro.findAll", query = "SELECT c FROM Carro c")
 public class Carro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int codigo;
 
 	private String ano;
+
+	private String cor;
 
 	private String historia;
 
@@ -29,21 +31,22 @@ public class Carro implements Serializable {
 
 	private String modelo;
 
-	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="carro")
-	private List<Usuario> usuarios;
+	// bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name = "cod_usuario")
+	private Usuario usuario;
 
-	//bi-directional one-to-one association to CarroFoto
-	@OneToOne(mappedBy="carro")
+	// bi-directional one-to-one association to CarroFoto
+	@OneToOne(mappedBy = "carro")
 	private CarroFoto carroFoto;
 
-	//bi-directional many-to-one association to Orcamento
-	@OneToMany(mappedBy="carro")
+	// bi-directional many-to-one association to Orcamento
+	@OneToMany(mappedBy = "carro")
 	private List<Orcamento> orcamentos;
 
-	//bi-directional many-to-one association to UsuarioCarro
-	@OneToMany(mappedBy="carro")
-	private List<UsuarioCarro> usuarioCarros;
+	// bi-directional many-to-one association to Usuario
+	@OneToMany(mappedBy = "carro")
+	private List<Usuario> usuarios;
 
 	public Carro() {
 	}
@@ -62,6 +65,14 @@ public class Carro implements Serializable {
 
 	public void setAno(String ano) {
 		this.ano = ano;
+	}
+
+	public String getCor() {
+		return this.cor;
+	}
+
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 
 	public String getHistoria() {
@@ -96,26 +107,12 @@ public class Carro implements Serializable {
 		this.modelo = modelo;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
+	public Usuario getUsuario() {
+		return this.usuario;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Usuario addUsuario(Usuario usuario) {
-		getUsuarios().add(usuario);
-		usuario.setCarro(this);
-
-		return usuario;
-	}
-
-	public Usuario removeUsuario(Usuario usuario) {
-		getUsuarios().remove(usuario);
-		usuario.setCarro(null);
-
-		return usuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public CarroFoto getCarroFoto() {
@@ -148,26 +145,48 @@ public class Carro implements Serializable {
 		return orcamento;
 	}
 
-	public List<UsuarioCarro> getUsuarioCarros() {
-		return this.usuarioCarros;
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
 	}
 
-	public void setUsuarioCarros(List<UsuarioCarro> usuarioCarros) {
-		this.usuarioCarros = usuarioCarros;
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
-	public UsuarioCarro addUsuarioCarro(UsuarioCarro usuarioCarro) {
-		getUsuarioCarros().add(usuarioCarro);
-		usuarioCarro.setCarro(this);
+	public Usuario addUsuario(Usuario usuario) {
+		getUsuarios().add(usuario);
+		usuario.setCarro(this);
 
-		return usuarioCarro;
+		return usuario;
 	}
 
-	public UsuarioCarro removeUsuarioCarro(UsuarioCarro usuarioCarro) {
-		getUsuarioCarros().remove(usuarioCarro);
-		usuarioCarro.setCarro(null);
+	public Usuario removeUsuario(Usuario usuario) {
+		getUsuarios().remove(usuario);
+		usuario.setCarro(null);
 
-		return usuarioCarro;
+		return usuario;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codigo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Carro other = (Carro) obj;
+		if (codigo != other.codigo)
+			return false;
+		return true;
 	}
 
 }

@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 
+import br.com.formento.garagem.enums.TipoEntidadeOrdenacao;
+
 public class JpaDao<T, CHAVE> implements Dao<T, CHAVE> {
 
 	@PersistenceContext
@@ -52,9 +54,15 @@ public class JpaDao<T, CHAVE> implements Dao<T, CHAVE> {
 			getEntityManager().remove(entidadeARemover);
 	}
 
-	@Override
-	public List<T> lista() {
+	protected List<T> lista() {
+		return lista("descricao");
+	}
+
+	protected List<T> lista(String nomeCampo, String... nomesCampo) {
 		JpaDaoParameters<T> jpaDaoParameters = makeParameters();
+
+		jpaDaoParameters.addEntidadeOrdenacao(TipoEntidadeOrdenacao.ASCENDENTE, nomeCampo, nomesCampo);
+
 		return jpaDaoParameters.getResultList();
 	}
 

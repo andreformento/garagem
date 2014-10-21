@@ -11,11 +11,16 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import br.com.formento.garagem.enums.TipoEntidadeOrdenacao;
+import br.com.formento.garagem.model.EntidadeOrdenacao;
+import br.com.formento.garagem.model.EntidadeOrdenacaoList;
+
 public class JpaDaoParameters<T> {
 	private final EntityManager entityManager;
 	private final Class<T> classeEntidade;
 
 	private List<Predicate> filtros;
+	private EntidadeOrdenacaoList entidadeOrdenacaoList;
 	private CriteriaBuilder criteriaBuilder;
 	private CriteriaQuery<T> criteriaQuery;
 	private Root<T> root;
@@ -32,8 +37,24 @@ public class JpaDaoParameters<T> {
 		return filtros;
 	}
 
+	private EntidadeOrdenacaoList getEntidadeOrdenacaoList() {
+		if (entidadeOrdenacaoList == null)
+			entidadeOrdenacaoList = new EntidadeOrdenacaoList(getCriteriaBuilder(), getRoot());
+		return entidadeOrdenacaoList;
+	}
+
 	public boolean addFiltro(Predicate predicate) {
 		return getFiltros().add(predicate);
+	}
+
+	public void addEntidadeOrdenacao(TipoEntidadeOrdenacao tipoEntidadeOrdenacao, String nomeCampo, String... nomesCampo) {
+		addEntidadeOrdenacao(new EntidadeOrdenacao(tipoEntidadeOrdenacao, nomeCampo));
+		for (String campo : nomesCampo)
+			addEntidadeOrdenacao(new EntidadeOrdenacao(tipoEntidadeOrdenacao, campo));
+	}
+
+	public boolean addEntidadeOrdenacao(EntidadeOrdenacao entidadeOrdenacao) {
+		return getEntidadeOrdenacaoList().add(entidadeOrdenacao);
 	}
 
 	public CriteriaBuilder getCriteriaBuilder() {
@@ -58,6 +79,8 @@ public class JpaDaoParameters<T> {
 		Predicate[] predicates;
 		predicates = getFiltros().toArray(new Predicate[getFiltros().size()]);
 		getCriteriaQuery().where(predicates);
+
+		getCriteriaQuery().orderBy(getEntidadeOrdenacaoList().getListOrder());
 	}
 
 	public TypedQuery<T> getTypedQuery() {

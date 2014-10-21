@@ -75,6 +75,7 @@
 			class="br.com.formento.garagem.filter.AutorizadorInterceptor" />
 	</mvc:interceptors>
 
+	<!-- 
 	<security:global-method-security secured-annotations="enabled" />
 	
 	<security:http auto-config="true" >
@@ -102,10 +103,9 @@
 					authorities="ROLE_ADMIN" />
 			</security:user-service>
 			
-			<!-- <security:jdbc-user-service data-source-ref="dataSource" /> -->
-			<!-- <authentication-provider user-service-ref="userDetailsService" /> -->
 			
 		</security:authentication-provider>
 	</security:authentication-manager>
-
+ -->
+ 
 </beans>

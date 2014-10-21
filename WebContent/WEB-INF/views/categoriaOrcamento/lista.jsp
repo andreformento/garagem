@@ -21,6 +21,7 @@
 					        <div class="cell"><p></p></div>
 					        <div class="cell"><p>Excluir</p></div>
 					        <div class="cell"><p>Descrição</p></div>
+					        <div class="cell"><p>Tipo</p></div>
 					    </div>
 					    
 					    <c:forEach items="${entidades}" var="entidade" varStatus="uStatus">
@@ -45,6 +46,9 @@
 								</div>
 								<div class="cell">
 									<p>${entidade.descricao}</p>
+								</div>
+								<div class="cell">
+									<p>${entidade.tipoCategoriaOrcamento.descricao}</p>
 								</div>
 							</div>
 						</c:forEach>
