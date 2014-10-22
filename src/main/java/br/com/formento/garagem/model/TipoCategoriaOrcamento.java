@@ -4,29 +4,28 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the tipo_categoria_orcamento database table.
  * 
  */
 @Entity
-@Table(name="tipo_categoria_orcamento")
-@NamedQuery(name="TipoCategoriaOrcamento.findAll", query="SELECT t FROM TipoCategoriaOrcamento t")
+@Table(name = "tipo_categoria_orcamento")
+@NamedQuery(name = "TipoCategoriaOrcamento.findAll", query = "SELECT t FROM TipoCategoriaOrcamento t")
 public class TipoCategoriaOrcamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int codigo;
 
 	private String descricao;
 
-	//bi-directional many-to-one association to CategoriaOrcamento
-	@OneToMany(mappedBy="tipoCategoriaOrcamento")
+	// bi-directional many-to-one association to CategoriaOrcamento
+	@OneToMany(mappedBy = "tipoCategoriaOrcamento")
 	private List<CategoriaOrcamento> categoriaOrcamentos;
 
-	//bi-directional many-to-one association to MetodoPesprecoTpCatOrcame
-	@OneToMany(mappedBy="tipoCategoriaOrcamento")
+	// bi-directional many-to-one association to MetodoPesprecoTpCatOrcame
+	@OneToMany(mappedBy = "tipoCategoriaOrcamento")
 	private List<MetodoPesprecoTpCatOrcame> metodoPesprecoTpCatOrcames;
 
 	public TipoCategoriaOrcamento() {
@@ -90,6 +89,12 @@ public class TipoCategoriaOrcamento implements Serializable {
 		metodoPesprecoTpCatOrcame.setTipoCategoriaOrcamento(null);
 
 		return metodoPesprecoTpCatOrcame;
+	}
+
+	@Override
+	public String toString() {
+		return "TipoCategoriaOrcamento [codigo=" + codigo + ", descricao=" + descricao + ", categoriaOrcamentos=" + categoriaOrcamentos
+				+ ", metodoPesprecoTpCatOrcames=" + metodoPesprecoTpCatOrcames + "]";
 	}
 
 }

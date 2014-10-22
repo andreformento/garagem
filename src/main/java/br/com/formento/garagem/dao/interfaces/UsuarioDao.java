@@ -5,6 +5,6 @@ import br.com.formento.garagem.model.Usuario;
 
 public interface UsuarioDao extends Dao<Usuario, Integer> {
 
-	Usuario getByLogin(String login);
+	Usuario getByUsername(String login);
 
 }

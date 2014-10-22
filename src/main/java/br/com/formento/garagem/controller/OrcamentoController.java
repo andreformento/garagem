@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.formento.garagem.dao.interfaces.CategoriaOrcamentoDao;
 import br.com.formento.garagem.dao.interfaces.OrcamentoDao;
+import br.com.formento.garagem.dao.interfaces.TipoCategoriaOrcamentoDao;
 import br.com.formento.garagem.model.CategoriaOrcamento;
 import br.com.formento.garagem.model.Orcamento;
+import br.com.formento.garagem.model.TipoCategoriaOrcamento;
 
 @Transactional
 @Controller
@@ -26,22 +28,25 @@ public class OrcamentoController {
 	private OrcamentoDao dao;
 
 	@Autowired
+	private TipoCategoriaOrcamentoDao tipoCategoriaOrcamentoDao;
+
+	@Autowired
 	private CategoriaOrcamentoDao categoriaOrcamentoDao;
 
-	@RequestMapping("cadastraOrcamento")
-	public String form(final ModelMap modelMap, Integer codigo) {
-		Orcamento entidade;
-		if (codigo == null || codigo <= 0)
-			entidade = new Orcamento();
-		else
-			entidade = dao.buscaPorId(codigo);
+	@RequestMapping("listaOrcamento")
+	public String form(final ModelMap modelMap, int codTipoCategoriaOrcamento) {
+		final String link = "orcamento/lista";
 
-		List<CategoriaOrcamento> categoriaOrcamentoList = categoriaOrcamentoDao.lista();
+		TipoCategoriaOrcamento tipoCategoriaOrcamento = tipoCategoriaOrcamentoDao.buscaPorId(codTipoCategoriaOrcamento);
+		if (tipoCategoriaOrcamento == null)
+			return link;
 
-		modelMap.addAttribute("entidade", entidade);
+		List<CategoriaOrcamento> categoriaOrcamentoList = categoriaOrcamentoDao.getByTipoCategoriaOrcamento(tipoCategoriaOrcamento);
+
+		modelMap.addAttribute("tipoCategoriaOrcamento", tipoCategoriaOrcamento);
 		modelMap.addAttribute("categoriaOrcamentoList", categoriaOrcamentoList);
 
-		return "orcamento/formulario";
+		return link;
 	}
 
 	@RequestMapping("mergeOrcamento")
@@ -63,7 +68,7 @@ public class OrcamentoController {
 
 	@RequestMapping("listaOrcamentos")
 	public String lista(Model model) {
-//		model.addAttribute("entidades", dao.lista());
+		// model.addAttribute("entidades", dao.lista());
 		return "orcamento/lista";
 	}
 

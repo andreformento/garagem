@@ -35,6 +35,14 @@ public class Usuario implements Serializable {
 
 	private String username;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_ativacao")
+	private Date dataAtivacao;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_ultimo_login")
+	private Date dataUltimoLogin;
+
 	// bi-directional many-to-one association to Carro
 	@ManyToOne
 	@JoinColumn(name = "cod_ultimo_carro")
@@ -81,6 +89,22 @@ public class Usuario implements Serializable {
 
 	public void setCarro(Carro carro) {
 		this.carro = carro;
+	}
+
+	public Date getDataAtivacao() {
+		return dataAtivacao;
+	}
+
+	public void setDataAtivacao(Date dataAtivacao) {
+		this.dataAtivacao = dataAtivacao;
+	}
+
+	public Date getDataUltimoLogin() {
+		return dataUltimoLogin;
+	}
+
+	public void setDataUltimoLogin(Date dataUltimoLogin) {
+		this.dataUltimoLogin = dataUltimoLogin;
 	}
 
 	@Override

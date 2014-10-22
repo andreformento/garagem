@@ -18,15 +18,15 @@ public class UsuarioSessao {
 		this.usuarioComparatorUsernamePassword = new UsuarioComparatorUsernamePassword();
 	}
 
-	public boolean login(Usuario usuarioByView, Usuario usuarioByLogin) {
+	public boolean login(Usuario usuarioByView, Usuario usuarioByDao) {
 		logout();
 
 		String newPassword = MD5Converter.getMD5(usuarioByView.getPassword());
 		usuarioByView.setPassword(newPassword);
 
-		boolean isLoginValido = usuarioComparatorUsernamePassword.compare(usuarioByView, usuarioByLogin) == 0;
+		boolean isLoginValido = usuarioComparatorUsernamePassword.compare(usuarioByView, usuarioByDao) == 0;
 		if (isLoginValido)
-			this.usuario = usuarioByLogin;
+			this.usuario = usuarioByDao;
 
 		return isLoginValido;
 	}

@@ -8,37 +8,22 @@
 </head>
 <body>
 	<jsp:include page="../_template/topo.jsp"></jsp:include>
-	${param.codTipoCategoriaOrcamento}
+	${param.tipoCategoriaOrcamento}
 
 	<form id="frmCadastro" action="gravarCarro">
 		<div class="formSobreposto">
 			<div class="guias">
 				<div class="guiaEsquerda">
 					<div class="botoes">
-						<div>
-							<input id="btAtividades" type="button" value="Funilaria"
-								onclick="location.href='registrarAtividades'" />
-						</div>
-						<div>
-							<input id="btAtividades" type="button" value="Tapeçaria"
-								onclick="location.href='registrarAtividades'" />
-						</div>
-						<div>
-							<input id="btAtividades" type="button" value="Elétrica"
-								onclick="location.href='registrarAtividades'" />
-						</div>
-						<div>
-							<input id="btAtividades" type="button" value="Acabamento"
-								onclick="location.href='registrarAtividades'" />
-						</div>
-						<div>
-							<input id="btAtividades" type="button" value="Mecânica"
-								onclick="location.href='registrarAtividades'" />
-						</div>
-						<div>
-							<input id="btAtividades" type="button" value="Outros"
-								onclick="location.href='registrarAtividades'" />
-						</div>
+						<c:forEach items="${categoriaOrcamentoList}" var="categoriaOrcamento" varStatus="uStatus">
+							<div>
+								<input 
+										id="btAtividades" 
+										type="button" 
+										value="${categoriaOrcamento.descricao}"
+										onclick="location.href='carregarListaOrcamentoPorCategoria?codCategoriaOrcamento=${categoriaOrcamento.codigo}'" />
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="guiaCentral">

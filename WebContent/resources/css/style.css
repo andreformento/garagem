@@ -36,6 +36,11 @@ body {
 	display: block;
 }
 
+.mesmaLinha {
+	display: inline-block;
+	margin-left: 10px;
+}
+
 .fields1 label, .fields label {
 	width: 120px;
 	text-align: right;

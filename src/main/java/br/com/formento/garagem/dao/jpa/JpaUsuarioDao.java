@@ -15,12 +15,12 @@ import br.com.formento.garagem.model.Usuario;
 public class JpaUsuarioDao extends JpaDao<Usuario, Integer> implements UsuarioDao {
 
 	@Override
-	public Usuario getByLogin(String username) {
+	public Usuario getByUsername(String username) {
 		JpaDaoParameters<Usuario> jpaDaoParameters = makeParameters();
 
 		Root<Usuario> root = jpaDaoParameters.getRoot();
-		Path<Object> pathUsername = root.get("username");
-		Predicate predicate = jpaDaoParameters.getCriteriaBuilder().equal(pathUsername, username);
+		Path<Object> pathFiltro = root.get("username");
+		Predicate predicate = jpaDaoParameters.getCriteriaBuilder().equal(pathFiltro, username);
 
 		jpaDaoParameters.addFiltro(predicate);
 

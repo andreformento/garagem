@@ -8,7 +8,7 @@
 			<div>Garagem</div>
 			<ul>
 				<c:if test="${not empty UsuarioSessao.carroSelecionado}" >
-					<li onclick="location.href='cadastraCarro?codigo${UsuarioSessao.carroSelecionado.codigo}';">Visão</li>
+					<li onclick="location.href='cadastraCarro?codigo=${UsuarioSessao.carroSelecionado.codigo}';">Visão</li>
 				</c:if>
 				<li onclick="location.href='cadastraCarro';">Novo</li>
 			</ul>
@@ -18,7 +18,7 @@
 				<div onclick="location.href='investimentoPeca';">A Fazer</div>
 				<ul>
 					<c:forEach items="${UsuarioSessao.listTipoCategoriaOrcamento}" var="tipoCategoriaOrcamento" varStatus="uStatus">
-						<li onclick="location.href='orcamento?codTipoCategoriaOrcamento=${tipoCategoriaOrcamento.codigo}';">${tipoCategoriaOrcamento.descricao}</li>
+						<li onclick="location.href='listaOrcamento?codTipoCategoriaOrcamento=${tipoCategoriaOrcamento.codigo}';">${tipoCategoriaOrcamento.descricao}</li>
 					</c:forEach>
 					<!-- <li onclick="location.href='investimentoServico';">Serviços</li>
 					<li onclick="location.href='investimentoPeca';">Peças</li> -->
@@ -35,28 +35,33 @@
 			</li>
 		</c:if>
 	</ul>
-	<c:if test="${not empty UsuarioSessao.carroSelecionado}" >
-		<div class="informacaoLogin">
-			<div>
-				<select id="selCarro">
-					<c:forEach items="${UsuarioSessao.listCarro}" var="carro" varStatus="uStatus">
-						<option value="${carro.codigo}" ${carro == UsuarioSessao.carroSelecionado ? 'selected' : ''}>${carro.modelo}</option>
-						
-					</c:forEach>
-				</select>
-			</div>
-		</div>
-		  
-	</c:if>
+	
 	<div class="informacaoLogin">
 		<div>
-			<form id="frmLogout" action="logout" method="post">
-			    <input type="submit" value="Sair" />
-			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			</form>
+			<div class="mesmaLinha">
+				<c:if test="${not empty UsuarioSessao.carroSelecionado}" >
+					<select id="selCarro" onchange="window.location.href='selecionaCarro?codigo='+this.value;">
+						<c:forEach items="${UsuarioSessao.listCarro}" var="carro" varStatus="uStatus">
+							<option value="${carro.codigo}" 
+							        ${carro == UsuarioSessao.carroSelecionado ? 'selected' : ''}
+							        >
+								${carro.modelo}
+							</option>
+						</c:forEach>
+					</select>
+				</c:if>
+			</div>
+			
+			<div class="mesmaLinha">
+				<form id="frmLogout" action="logout" method="post">
+				    <input type="submit" value="Sair" />
+				    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form>
+			</div>
 		</div>
 		<div>
 			<label>${UsuarioSessao.usuario.username}</label>
 		</div>
 	</div>
+	
 </div>

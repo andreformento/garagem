@@ -1,33 +1,41 @@
 package br.com.formento.garagem.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the categoria_orcamento database table.
  * 
  */
 @Entity
-@Table(name="categoria_orcamento")
-@NamedQuery(name="CategoriaOrcamento.findAll", query="SELECT c FROM CategoriaOrcamento c")
+@Table(name = "categoria_orcamento")
+@NamedQuery(name = "CategoriaOrcamento.findAll", query = "SELECT c FROM CategoriaOrcamento c")
 public class CategoriaOrcamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int codigo;
 
 	private String descricao;
 
-	//bi-directional many-to-one association to TipoCategoriaOrcamento
+	// bi-directional many-to-one association to TipoCategoriaOrcamento
 	@ManyToOne
-	@JoinColumn(name="cod_tipo_cat_inve")
+	@JoinColumn(name = "cod_tipo_cat_inve")
 	private TipoCategoriaOrcamento tipoCategoriaOrcamento;
 
-	//bi-directional many-to-one association to Orcamento
-	@OneToMany(mappedBy="categoriaOrcamento")
+	// bi-directional many-to-one association to Orcamento
+	@OneToMany(mappedBy = "categoriaOrcamento")
 	private List<Orcamento> orcamentos;
 
 	public CategoriaOrcamento() {
@@ -77,6 +85,12 @@ public class CategoriaOrcamento implements Serializable {
 		orcamento.setCategoriaOrcamento(null);
 
 		return orcamento;
+	}
+
+	@Override
+	public String toString() {
+		return "CategoriaOrcamento [codigo=" + codigo + ", descricao=" + descricao + ", tipoCategoriaOrcamento=" + tipoCategoriaOrcamento
+				+ ", orcamentos=" + orcamentos + "]";
 	}
 
 }

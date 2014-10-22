@@ -1,12 +1,14 @@
 package br.com.formento.garagem.controller;
 
 import java.security.Principal;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import br.com.formento.garagem.dao.interfaces.UsuarioPermissaoDao;
 import br.com.formento.garagem.model.ManagerUsuarioSessao;
 import br.com.formento.garagem.model.Usuario;
 
+@Transactional
 @Controller
 public class LoginController {
 
@@ -49,7 +52,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/loginExec", method = RequestMethod.POST)
-	public String loginExec(HttpServletRequest httpServletRequest, @Valid Usuario entidade, BindingResult result) {
+	public String loginExec(HttpServletRequest httpServletRequest, @Valid Usuario entidade, BindingResult result, final ModelMap modelMap) {
 		final String mensagemErro = "redirect:loginPage?error=Login ou senha incorreto";
 
 		if (result.hasFieldErrors("username"))
@@ -59,9 +62,9 @@ public class LoginController {
 
 		ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
 
-		Usuario usuarioByLogin = usuarioDao.getByLogin(entidade.getUsername());
+		Usuario usuarioByDao = usuarioDao.getByUsername(entidade.getUsername());
 
-		if (managerUsuarioSessao.getUsuarioSessao().login(entidade, usuarioByLogin)) {
+		if (managerUsuarioSessao.getUsuarioSessao().login(entidade, usuarioByDao)) {
 			managerUsuarioSessao.getUsuarioSessao().setListTipoCategoriaOrcamento(tipoCategoriaOrcamentoDao.lista());
 
 			managerUsuarioSessao.getUsuarioSessao().setListUsuarioPermissao(
@@ -69,7 +72,15 @@ public class LoginController {
 
 			managerUsuarioSessao.getUsuarioSessao().setListCarro(carroDao.getByUsuario(managerUsuarioSessao.getUsuarioSessao().getUsuario()));
 
-			return "redirect:garagemLista";
+			usuarioByDao.setDataUltimoLogin(new Date());
+			usuarioDao.altera(usuarioByDao);
+
+			if (managerUsuarioSessao.getUsuarioSessao().getListCarro().isEmpty())
+				return "redirect:garagemLista";
+			else {
+				modelMap.addAttribute("codigo", managerUsuarioSessao.getUsuarioSessao().getCarroSelecionado().getCodigo());
+				return "redirect:cadastraCarro";
+			}
 		} else
 			return mensagemErro;
 	}
