@@ -2,6 +2,7 @@ package br.com.formento.garagem.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import br.com.formento.garagem.dao.interfaces.CategoriaOrcamentoDao;
 import br.com.formento.garagem.dao.interfaces.OrcamentoDao;
 import br.com.formento.garagem.dao.interfaces.TipoCategoriaOrcamentoDao;
 import br.com.formento.garagem.model.CategoriaOrcamento;
+import br.com.formento.garagem.model.ManagerUsuarioSessao;
 import br.com.formento.garagem.model.Orcamento;
 import br.com.formento.garagem.model.TipoCategoriaOrcamento;
 
@@ -33,8 +35,10 @@ public class OrcamentoController {
 	@Autowired
 	private CategoriaOrcamentoDao categoriaOrcamentoDao;
 
+	// fazer aqui lista categoriaorcamento
+	// depois outro para lista de orcamento
 	@RequestMapping("listaOrcamento")
-	public String form(final ModelMap modelMap, int codTipoCategoriaOrcamento) {
+	public String form(final ModelMap modelMap, HttpServletRequest httpServletRequest, int codTipoCategoriaOrcamento, Integer codCategoriaOrcamento) {
 		final String link = "orcamento/lista";
 
 		TipoCategoriaOrcamento tipoCategoriaOrcamento = tipoCategoriaOrcamentoDao.buscaPorId(codTipoCategoriaOrcamento);
@@ -45,6 +49,16 @@ public class OrcamentoController {
 
 		modelMap.addAttribute("tipoCategoriaOrcamento", tipoCategoriaOrcamento);
 		modelMap.addAttribute("categoriaOrcamentoList", categoriaOrcamentoList);
+
+		if (codCategoriaOrcamento != null && codCategoriaOrcamento >= 0) {
+			CategoriaOrcamento categoriaOrcamento = categoriaOrcamentoDao.buscaPorId(codCategoriaOrcamento);
+			if (categoriaOrcamento != null) {
+				ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
+				List<Orcamento> orcamentoList = dao.getByCarroECategoriaOrcamento(managerUsuarioSessao.getUsuarioSessao().getCarroSelecionado(),
+						categoriaOrcamento);
+				modelMap.addAttribute("orcamentoList", orcamentoList);
+			}
+		}
 
 		return link;
 	}

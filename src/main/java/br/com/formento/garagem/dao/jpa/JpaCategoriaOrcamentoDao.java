@@ -18,6 +18,11 @@ import br.com.formento.garagem.model.TipoCategoriaOrcamento;
 public class JpaCategoriaOrcamentoDao extends JpaDao<CategoriaOrcamento, Integer> implements CategoriaOrcamentoDao {
 
 	@Override
+	public List<CategoriaOrcamento> lista() {
+		return super.lista();
+	}
+
+	@Override
 	public List<CategoriaOrcamento> getByTipoCategoriaOrcamento(TipoCategoriaOrcamento tipoCategoriaOrcamento) {
 		JpaDaoParameters<CategoriaOrcamento> jpaDaoParameters = makeParameters();
 

@@ -10,4 +10,6 @@ public interface CategoriaOrcamentoDao extends Dao<CategoriaOrcamento, Integer> 
 
 	List<CategoriaOrcamento> getByTipoCategoriaOrcamento(TipoCategoriaOrcamento tipoCategoriaOrcamento);
 
+	List<CategoriaOrcamento> lista();
+
 }

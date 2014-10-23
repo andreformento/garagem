@@ -75,7 +75,8 @@ public class LoginController {
 			usuarioByDao.setDataUltimoLogin(new Date());
 			usuarioDao.altera(usuarioByDao);
 
-			if (managerUsuarioSessao.getUsuarioSessao().getListCarro().isEmpty())
+			if (managerUsuarioSessao.getUsuarioSessao().getListCarro().isEmpty()
+					|| managerUsuarioSessao.getUsuarioSessao().getCarroSelecionado() == null)
 				return "redirect:garagemLista";
 			else {
 				modelMap.addAttribute("codigo", managerUsuarioSessao.getUsuarioSessao().getCarroSelecionado().getCodigo());

@@ -8,9 +8,9 @@ import java.util.List;
 
 /**
  * The persistent class for the carro database table.
- * 
  */
 @Entity
+@Table(name = "carro")
 @NamedQuery(name = "Carro.findAll", query = "SELECT c FROM Carro c")
 public class Carro implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -39,7 +39,7 @@
 	<div class="informacaoLogin">
 		<div>
 			<div class="mesmaLinha">
-				<c:if test="${not empty UsuarioSessao.carroSelecionado}" >
+				<c:if test="${not empty UsuarioSessao.listCarro}" >
 					<select id="selCarro" onchange="window.location.href='selecionaCarro?codigo='+this.value;">
 						<c:forEach items="${UsuarioSessao.listCarro}" var="carro" varStatus="uStatus">
 							<option value="${carro.codigo}" 
@@ -53,7 +53,7 @@
 			</div>
 			
 			<div class="mesmaLinha">
-				<form id="frmLogout" action="logout" method="post">
+				<form id="frmLogout" action="logout" method="post" class="formInformacaoLogin">
 				    <input type="submit" value="Sair" />
 				    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</form>
