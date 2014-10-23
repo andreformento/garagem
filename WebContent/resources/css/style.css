@@ -48,6 +48,14 @@ body {
 	margin-left: 10px;
 }
 
+.carregando {
+	background-position:center center;
+	background-repeat: no-repeat;
+	background-image:URL('../images/carregando.gif');
+	width: 130px;
+	height: 130px;
+}
+
 .fields1 label, .fields label {
 	width: 120px;
 	text-align: right;
@@ -156,6 +164,14 @@ body {
 
 .miniatura, .miniatura img {
 	width: 300px;
+}
+
+.fields input:-moz-read-only { /* For Firefox */
+    background-color: rgb(199, 199, 199);
+}
+
+.fields input:read-only { 
+    background-color: rgb(199, 199, 199);
 }
 
 /* Table */

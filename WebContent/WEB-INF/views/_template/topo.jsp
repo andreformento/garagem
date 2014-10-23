@@ -18,22 +18,16 @@
 				<div onclick="location.href='investimentoPeca';">A Fazer</div>
 				<ul>
 					<c:forEach items="${UsuarioSessao.listTipoCategoriaOrcamento}" var="tipoCategoriaOrcamento" varStatus="uStatus">
-						<li onclick="location.href='listaOrcamento?codTipoCategoriaOrcamento=${tipoCategoriaOrcamento.codigo}';">${tipoCategoriaOrcamento.descricao}</li>
+						<li onclick="location.href='telaOrcamento?codTipoCategoriaOrcamento=${tipoCategoriaOrcamento.codigo}';">${tipoCategoriaOrcamento.descricao}</li>
 					</c:forEach>
 					<!-- <li onclick="location.href='investimentoServico';">Serviços</li>
 					<li onclick="location.href='investimentoPeca';">Peças</li> -->
 				</ul>
 			</li>
 		</c:if>
-		<c:if test="${UsuarioSessao.permitidoAdministrar && false}" >
-			<li>
-				<div>Administração</div>
-				<ul>
-					<li onclick="location.href='listaTipoCategoriaOrcamentos';">Tipo de categoria</li>
-					<li onclick="location.href='listaCategoriaOrcamentos';">Categoria</li>
-				</ul>
-			</li>
-		</c:if>
+		
+		<!-- Do Admin -->
+		
 	</ul>
 	
 	<div class="informacaoLogin">

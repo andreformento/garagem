@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * The persistent class for the orcamento database table.
  */
@@ -35,14 +37,17 @@ public class Orcamento implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_criacao")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date dataCriacao;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_prevista")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataPrevista;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_real")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataReal;
 
 	private String detalhe;
@@ -67,10 +72,6 @@ public class Orcamento implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "cod_carro")
 	private Carro carro;
-
-	// bi-directional many-to-one association to ParecerOrcamento
-	@OneToMany(mappedBy = "orcamento")
-	private List<ParecerOrcamento> parecerOrcamentos;
 
 	// bi-directional many-to-one association to ResultadoPesquisaPreco
 	@OneToMany(mappedBy = "orcamento")
@@ -165,28 +166,6 @@ public class Orcamento implements Serializable {
 
 	public void setCarro(Carro carro) {
 		this.carro = carro;
-	}
-
-	public List<ParecerOrcamento> getParecerOrcamentos() {
-		return this.parecerOrcamentos;
-	}
-
-	public void setParecerOrcamentos(List<ParecerOrcamento> parecerOrcamentos) {
-		this.parecerOrcamentos = parecerOrcamentos;
-	}
-
-	public ParecerOrcamento addParecerOrcamento(ParecerOrcamento parecerOrcamento) {
-		getParecerOrcamentos().add(parecerOrcamento);
-		parecerOrcamento.setOrcamento(this);
-
-		return parecerOrcamento;
-	}
-
-	public ParecerOrcamento removeParecerOrcamento(ParecerOrcamento parecerOrcamento) {
-		getParecerOrcamentos().remove(parecerOrcamento);
-		parecerOrcamento.setOrcamento(null);
-
-		return parecerOrcamento;
 	}
 
 	public List<ResultadoPesquisaPreco> getResultadoPesquisaPrecos() {

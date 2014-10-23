@@ -9,7 +9,7 @@
 <body>
 	<jsp:include page="../_template/topo.jsp"></jsp:include>
 	
-	<form:form action="mergeCarro" method="post" commandName="entidade">
+	<form:form action="mergeCarro" method="post" commandName="entidade" enctype="multipart/form-data" >
 		<div class="formSobreposto">
 			<div class="formInterno">
 				<c:if test="${not empty param.mensagem}" >
@@ -45,6 +45,11 @@
 					<div><label for="txtCor">Cor</label></div>
 					<div><form:input id="txtCor" path="cor" /></div>
 					<div><form:errors path="cor" cssStyle="color:red" /></div>
+					
+					<div><label for="txtFile">Foto</label></div>
+					<div>
+						<input type="file" name="txtFile" id="txtFile" accept="image/*" />
+					</div>
 					
 				</div>
 			</div>

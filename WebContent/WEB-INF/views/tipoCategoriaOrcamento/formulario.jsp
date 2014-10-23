@@ -20,15 +20,9 @@
 					
 					<form:hidden path="codigo" />
 					
-					<div>
-						<label for="txtDescricao">Descrição</label>
-					</div>
-					<div>
-						<form:input id="txtDescricao" path="descricao" />
-					</div>
-					<div>
-						<form:errors path="descricao" cssStyle="color:red" />
-					</div>
+					<div><label for="txtDescricao">Descrição</label></div>
+					<div><form:input id="txtDescricao" path="descricao" /></div>
+					<div><form:errors path="descricao" cssStyle="color:red" /></div>
 				</div>
 			</div>
 			<div class="botoes">

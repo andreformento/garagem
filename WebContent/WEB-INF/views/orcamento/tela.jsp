@@ -6,9 +6,8 @@
 <head>
 <jsp:include page="../_template/head.jsp"></jsp:include>
 </head>
-<body>
+<body onload="carregarOrcamentos(${param.codCategoriaOrcamento})">
 	<jsp:include page="../_template/topo.jsp"></jsp:include>
-	${param.tipoCategoriaOrcamento}
 
 	<form id="frmCadastro" action="gravarCarro">
 		<div class="formSobreposto">
@@ -18,30 +17,16 @@
 						<c:forEach items="${categoriaOrcamentoList}" var="categoriaOrcamento" varStatus="uStatus">
 							<div>
 								<input 
-										id="btAtividades" 
-										type="button" 
-										value="${categoriaOrcamento.descricao}"
-										onclick="location.href='carregarListaOrcamentoPorCategoria?codCategoriaOrcamento=${categoriaOrcamento.codigo}'" />
+									id="btCategoriaOrcamento_${categoriaOrcamento.codigo}" 
+									type="button" 
+									value="${categoriaOrcamento.descricao}"
+									onclick="carregarOrcamentos(${categoriaOrcamento.codigo})" />
 							</div>
 						</c:forEach>
 					</div>
 				</div>
 				<div class="guiaCentral">
-					<div id="dvOrcamentos">
-						<div class="formInterno">
-							<div id="dvFormulario" class="fields1">
-								<div>
-									<label for="txtAcao">Ação</label> <input id="txtAcao"
-										type="text" value="Pintura das portas" />
-								</div>
-								<div>
-									<label for="txtHistoria">Observação</label>
-									<textarea id="txtHistoria" rows="4" cols="35">Cor azul</textarea>
-								</div>
-
-							</div>
-						</div>
-					</div>
+					<div id="dvlistaInterna">Selecione uma categoria</div>
 				</div>
 				<div class="guiaDireita">
 					<div class="miniatura">

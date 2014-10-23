@@ -1,5 +1,7 @@
 package br.com.formento.garagem.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -9,10 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import br.com.formento.garagem.dao.interfaces.CarroDao;
+import br.com.formento.garagem.dao.interfaces.CarroFotoDao;
 import br.com.formento.garagem.dao.interfaces.UsuarioDao;
 import br.com.formento.garagem.model.Carro;
+import br.com.formento.garagem.model.CarroFoto;
 import br.com.formento.garagem.model.ManagerUsuarioSessao;
 import br.com.formento.garagem.model.Usuario;
 
@@ -22,6 +28,9 @@ public class CarroController {
 
 	@Autowired
 	private CarroDao dao;
+
+	@Autowired
+	private CarroFotoDao carroFotoDao;
 
 	@Autowired
 	private UsuarioDao usuarioDao;
@@ -40,13 +49,25 @@ public class CarroController {
 	}
 
 	@RequestMapping("mergeCarro")
-	public String merge(@Valid Carro entidade, BindingResult result, final ModelMap modelMap, HttpServletRequest httpServletRequest) {
+	public String merge(@Valid Carro entidade, BindingResult result, final ModelMap modelMap, HttpServletRequest httpServletRequest)
+			throws IOException {
 		if (result.hasFieldErrors("marca") || result.hasFieldErrors("modelo") || result.hasFieldErrors("ano") || result.hasFieldErrors("historia")
 				|| result.hasFieldErrors("meta") || result.hasFieldErrors("cor"))
 			return "carro/formulario";
 
 		ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
 		entidade.setUsuario(managerUsuarioSessao.getUsuarioSessao().getUsuario());
+
+		// http://www.pablocantero.com/blog/2010/09/29/upload-com-spring-mvc/
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) httpServletRequest;
+		MultipartFile multipartFile = multipartRequest.getFile("txtFile");
+
+		if (multipartFile.isEmpty())
+			entidade.setCarroFoto(null);
+		else {
+			CarroFoto carroFoto = new CarroFoto(multipartFile.getBytes(), entidade);
+			entidade.setCarroFoto(carroFoto);
+		}
 
 		if (entidade.getCodigo() <= 0)
 			dao.adiciona(entidade);
@@ -58,6 +79,13 @@ public class CarroController {
 
 			dao.altera(entidade);
 		}
+
+		if (entidade.getCarroFoto() == null)
+			carroFotoDao.remove(entidade);
+		else if (carroFotoDao.buscaPorId(entidade) == null)
+			carroFotoDao.adiciona(entidade.getCarroFoto());
+		else
+			carroFotoDao.altera(entidade.getCarroFoto());
 
 		alteraSelecaoCarro(modelMap, httpServletRequest, entidade);
 

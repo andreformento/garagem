@@ -20,18 +20,11 @@
 					
 					<form:hidden path="codigo" />
 					
-					<div>
-						<label for="txtDescricao">Descrição</label>
-					</div>
-					<div>
-						<form:input id="txtDescricao" path="descricao" />
-					</div>
-					<div>
-						<form:errors path="descricao" cssStyle="color:red" />
-					</div>
-					<div>
-						<label for="selTipoCategoriaOrcamento" title="Tipo de categoria de orçamento">Tipo</label>
-					</div>
+					<div><label for="txtDescricao">Descrição</label></div>
+					<div><form:input id="txtDescricao" path="descricao" /></div>
+					<div><form:errors path="descricao" cssStyle="color:red" /></div>
+					
+					<div><label for="selTipoCategoriaOrcamento" title="Tipo de categoria de orçamento">Tipo</label></div>
 					<div>
 						<form:select id="selTipoCategoriaOrcamento" path="tipoCategoriaOrcamento">
 							<!--<form:option value="0" label="Selecionar"  />-->
