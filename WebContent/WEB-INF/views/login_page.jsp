@@ -9,7 +9,7 @@
 </head>
 <body onload='document.loginForm.username.focus();'>
 	<div class="topoInicio">
-		<h1><!-- Portal Restomod --></h1>
+		<h1>Portal Restomod</h1>
 	</div>
 
 	<div class="centralizadoInicio">
