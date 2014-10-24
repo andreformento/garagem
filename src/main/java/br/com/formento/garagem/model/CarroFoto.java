@@ -8,14 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  * The persistent class for the carro_foto database table.
- * 
  */
 @Entity
 @Table(name = "carro_foto")
@@ -25,31 +23,30 @@ public class CarroFoto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "codigo_carro")
-	private int codigoCarro;
+	@Column(name = "codigo")
+	private int codigo;
 
-	@Lob
+	// @Column(name = "cod_carro")
+	// private int codCarro;
+
+	@Column(length = 3000000, columnDefinition = "mediumblob")
 	private byte[] imagem;
 
 	// bi-directional one-to-one association to Carro
 	@OneToOne
-	@JoinColumn(name = "codigo_carro")
+	@JoinColumn(name = "cod_carro")
 	private Carro carro;
 
 	public CarroFoto() {
 	}
 
+	public int getCodigo() {
+		return codigo;
+	}
+
 	public CarroFoto(byte[] imagem, Carro carro) {
 		this.imagem = imagem;
 		this.carro = carro;
-	}
-
-	public int getCodigoCarro() {
-		return this.codigoCarro;
-	}
-
-	public void setCodigoCarro(int codigoCarro) {
-		this.codigoCarro = codigoCarro;
 	}
 
 	public byte[] getImagem() {

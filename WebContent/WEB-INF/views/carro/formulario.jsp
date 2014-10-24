@@ -35,7 +35,7 @@
 					<div><form:errors path="ano" cssStyle="color:red" /></div>
 					
 					<div><label for="txtHistoria">História</label></div>
-					<div><form:input id="txtHistoria" path="historia" /></div>
+					<div><form:textarea id="txtHistoria" path="historia" rows="4" cols="70" /></div>
 					<div><form:errors path="historia" cssStyle="color:red" /></div>
 					
 					<div><label for="txtMeta">Meta</label></div>

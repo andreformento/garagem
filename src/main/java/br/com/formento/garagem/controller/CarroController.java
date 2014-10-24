@@ -62,11 +62,13 @@ public class CarroController {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) httpServletRequest;
 		MultipartFile multipartFile = multipartRequest.getFile("txtFile");
 
-		if (multipartFile.isEmpty())
-			entidade.setCarroFoto(null);
-		else {
-			CarroFoto carroFoto = new CarroFoto(multipartFile.getBytes(), entidade);
-			entidade.setCarroFoto(carroFoto);
+		CarroFoto carroFoto;
+		if (multipartFile.isEmpty()) {
+			// entidade.setCarroFoto(null);
+			carroFoto = carroFotoDao.getByCarro(entidade);
+		} else {
+			// entidade.setCarroFoto(carroFoto);
+			carroFoto = new CarroFoto(multipartFile.getBytes(), entidade);
 		}
 
 		if (entidade.getCodigo() <= 0)
@@ -75,17 +77,19 @@ public class CarroController {
 			Carro entidadeGravada = dao.buscaPorId(entidade.getCodigo());
 
 			if (entidadeGravada == null || (!entidadeGravada.getUsuario().equals(managerUsuarioSessao.getUsuarioSessao().getUsuario())))
-				return "redirect:cadastraCarro?mensagem=Registro inválido";
+				return "redirect:cadastraCarro?mensagem=Registro inv&aacutelido";
 
 			dao.altera(entidade);
 		}
 
-		if (entidade.getCarroFoto() == null)
-			carroFotoDao.remove(entidade);
-		else if (carroFotoDao.buscaPorId(entidade) == null)
-			carroFotoDao.adiciona(entidade.getCarroFoto());
-		else
-			carroFotoDao.altera(entidade.getCarroFoto());
+		if (carroFoto != null) {
+			if (multipartFile.isEmpty())
+				carroFotoDao.remove(carroFoto.getCodigo());
+			else if (carroFoto.getCodigo() <= 0)
+				carroFotoDao.adiciona(carroFoto);
+			else
+				carroFotoDao.altera(carroFoto);
+		}
 
 		alteraSelecaoCarro(modelMap, httpServletRequest, entidade);
 
