@@ -1,25 +1,28 @@
 body {
 	font-family: Helvetica, 'Helvetica Neue', Arial, 'Lucida', sans-serif,
 		cursive;
-	font-size: 100%;
 	/* CCD5DD F2F1F4 */
 	background-image: linear-gradient(to right, #CCD5DD, #F2F1F4);
 	/* gradient */
 }
 
-.formCadastro, .menu ul li, .formSobreposto {
+.formCadastro, .menu ul li, .formSobreposto, .mensagemWarningInterno {
 	color: white;
 }
 
 .mensagemWarning {
 	text-align: center;
-	color:green;
-	font-size: 80%;
+	color: green;
+}
+
+.mensagemWarningInterno {
+	color: #8ec8ff;
+	padding-left: 20px;
+	font-weight: bold; 
 }
 
 .informacaoLogin {
 	float: right;
-	font-size: 80%;
 	text-align: right;
 	padding-right: 15px;
 }
@@ -31,7 +34,8 @@ body {
 	margin-top: 0px;
 }
 
-.informacaoLogin input[type="submit"], .informacaoLogin input[type="button"] {
+.informacaoLogin input[type="submit"], .informacaoLogin input[type="button"]
+	{
 	margin: 0px;
 	padding-top: 0px;
 	padding-bottom: 0px;
@@ -49,9 +53,9 @@ body {
 }
 
 .carregando {
-	background-position:center center;
+	background-position: center center;
 	background-repeat: no-repeat;
-	background-image:URL('../images/carregando.gif');
+	background-image: URL('../images/carregando.gif');
 	width: 130px;
 	height: 130px;
 }
@@ -75,6 +79,14 @@ body {
 	color: red;
 }
 
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid red;
+	padding: 8px;
+	margin: 16px;
+}
+
 .rodape {
 	font: 12px/18px Helvetica;
 }
@@ -84,9 +96,14 @@ body {
 	padding: 15px;
 }
 
-.formInterno, .botoes input[type="submit"], .botoes input[type="button"]
-	{
+.formInterno, .botoes input[type="submit"], .botoes input[type="button"],
+	.inputFile input[type="file"] {
 	background-color: #7f8685;
+}
+
+.imagemFoto img {
+	width: 300px;
+	height: 220px
 }
 
 .miniBotoes input[type="submit"], .miniBotoes input[type="button"] {
@@ -162,16 +179,16 @@ body {
 	margin: 30px;
 }
 
-.miniatura, .miniatura img {
+.miniatura1, .miniatura1 img {
 	width: 300px;
 }
 
-.fields input:-moz-read-only { /* For Firefox */
-    background-color: rgb(199, 199, 199);
+.somenteLeitura input:-moz-read-only { /* firefox */
+	background-color: rgb(199, 199, 199);
 }
 
-.fields input:read-only { 
-    background-color: rgb(199, 199, 199);
+.somenteLeitura input:read-only {
+	background-color: rgb(199, 199, 199);
 }
 
 /* Table */

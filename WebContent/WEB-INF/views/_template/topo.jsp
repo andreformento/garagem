@@ -7,21 +7,19 @@
 		<li>
 			<div>Garagem</div>
 			<ul>
-				<c:if test="${not empty UsuarioSessao.carroSelecionado}" >
-					<li onclick="location.href='cadastraCarro?codigo=${UsuarioSessao.carroSelecionado.codigo}';">Visão</li>
+				<c:if test="${UsuarioSessao.usuario.carroSelecionado}" >
+					<li onclick="location.href='cadastraCarro?codigo=${UsuarioSessao.usuario.carro.codigo}';">Visão</li>
 				</c:if>
-				<li onclick="location.href='cadastraCarro';">Novo</li>
+				<li onclick="location.href='cadastraCarro?codigo=0';">Novo</li>
 			</ul>
 		</li>
-		<c:if test="${not empty UsuarioSessao.carroSelecionado}" >
+		<c:if test="${UsuarioSessao.usuario.carroSelecionado}" >
 			<li>
 				<div onclick="location.href='investimentoPeca';">A Fazer</div>
 				<ul>
 					<c:forEach items="${UsuarioSessao.listTipoCategoriaOrcamento}" var="tipoCategoriaOrcamento" varStatus="uStatus">
 						<li onclick="location.href='telaOrcamento?codTipoCategoriaOrcamento=${tipoCategoriaOrcamento.codigo}';">${tipoCategoriaOrcamento.descricao}</li>
 					</c:forEach>
-					<!-- <li onclick="location.href='investimentoServico';">Serviços</li>
-					<li onclick="location.href='investimentoPeca';">Peças</li> -->
 				</ul>
 			</li>
 		</c:if>
@@ -37,7 +35,7 @@
 					<select id="selCarro" onchange="window.location.href='selecionaCarro?codigo='+this.value;">
 						<c:forEach items="${UsuarioSessao.listCarro}" var="carro" varStatus="uStatus">
 							<option value="${carro.codigo}" 
-							        ${carro == UsuarioSessao.carroSelecionado ? 'selected' : ''}
+							        ${carro == UsuarioSessao.usuario.carro ? 'selected' : ''}
 							        >
 								${carro.modelo}
 							</option>

@@ -31,8 +31,10 @@ public class OrcamentoController {
 
 	@Autowired
 	private OrcamentoDao dao;
+
 	@Autowired
 	private TipoCategoriaOrcamentoDao tipoCategoriaOrcamentoDao;
+
 	@Autowired
 	private CategoriaOrcamentoDao categoriaOrcamentoDao;
 
@@ -53,6 +55,10 @@ public class OrcamentoController {
 		if (codCategoriaOrcamento != null && codCategoriaOrcamento >= 0)
 			modelMap.addAttribute("codCategoriaOrcamento", codCategoriaOrcamento);
 
+		ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
+		if (managerUsuarioSessao.getUsuarioSessao().getCarroFoto() != null)
+			modelMap.addAttribute("carroFotoEncode", managerUsuarioSessao.getUsuarioSessao().getCarroFoto().getEncode());
+
 		return link;
 	}
 
@@ -64,7 +70,7 @@ public class OrcamentoController {
 		modelMap.addAttribute("categoriaOrcamento", categoriaOrcamento);
 
 		ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
-		List<Orcamento> orcamentoList = dao.getByCarroECategoriaOrcamento(managerUsuarioSessao.getUsuarioSessao().getCarroSelecionado(),
+		List<Orcamento> orcamentoList = dao.getByCarroECategoriaOrcamento(managerUsuarioSessao.getUsuarioSessao().getUsuario().getCarro(),
 				categoriaOrcamento);
 		modelMap.addAttribute("orcamentoList", orcamentoList);
 
@@ -107,7 +113,7 @@ public class OrcamentoController {
 			return "orcamento/formulario";
 
 		ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
-		entidade.setCarro(managerUsuarioSessao.getUsuarioSessao().getCarroSelecionado());
+		entidade.setCarro(managerUsuarioSessao.getUsuarioSessao().getUsuario().getCarro());
 
 		if (entidade.getCodigo() <= 0)
 			dao.adiciona(entidade);

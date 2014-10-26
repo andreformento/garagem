@@ -30,7 +30,9 @@
 				</div>
 				<div class="guiaDireita">
 					<div class="miniatura">
-						<img src="<c:url value='/images/porsche.jpg'/>" />
+						<c:if test="${not empty carroFotoEncode}">
+							<jsp:include page="../_template/imagemPadrao.jsp"></jsp:include>
+						</c:if>
 					</div>
 				</div>
 			</div>

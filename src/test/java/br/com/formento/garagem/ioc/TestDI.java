@@ -5,10 +5,12 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import br.com.formento.garagem.dao.interfaces.TipoCategoriaOrcamentoDao;
+
 public class TestDI extends BaseDI {
 
 	@Autowired
-	private Zoo zoo2;
+	private TipoCategoriaOrcamentoDao tipoCategoriaOrcamentoDao;
 
 	//
 	// @Test
@@ -23,8 +25,8 @@ public class TestDI extends BaseDI {
 	// }
 
 	@Test
-	public void metodoAutomatico() {
-		assertNotNull(zoo2);
+	public void instanciaTest() {
+		assertNotNull(tipoCategoriaOrcamentoDao);
 	}
 
 }

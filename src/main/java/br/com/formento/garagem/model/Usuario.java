@@ -13,10 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * The persistent class for the usuario database table.
- * 
  */
 @Entity
 @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
@@ -31,9 +35,13 @@ public class Usuario implements Serializable {
 	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 
-	private String password;
-
+	@Email(message = "Formato do email incorreto")
+	@NotEmpty(message = "O campo user deve ser preenchido")
 	private String username;
+
+	@NotEmpty(message = "O campo password deve ser preenchido")
+	@Size(min = 4, message = "O tamanho da senha deve ser de 4 a 20 caracteres")
+	private String password;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_ativacao")
@@ -127,6 +135,11 @@ public class Usuario implements Serializable {
 		if (codigo != other.codigo)
 			return false;
 		return true;
+	}
+
+	@Transient
+	public boolean getCarroSelecionado() {
+		return carro != null;
 	}
 
 }

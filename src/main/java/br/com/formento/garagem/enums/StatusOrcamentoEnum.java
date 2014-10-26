@@ -3,8 +3,8 @@ package br.com.formento.garagem.enums;
 import br.com.formento.garagem.model.StatusOrcamento;
 
 public enum StatusOrcamentoEnum {
-	RECEBER_EMAIL(new StatusOrcamento(1, "Receber atualização", "Receber atualização periodicamente")), DESATIVADO(new StatusOrcamento(2,
-			"Desativado", "Desativado"));
+	RECEBER_EMAIL(new StatusOrcamento(1, "Receber email", "Receber email periodicamente")), DESATIVADO(new StatusOrcamento(2, "Desativado",
+			"Desativado"));
 
 	private final StatusOrcamento statusOrcamento;
 

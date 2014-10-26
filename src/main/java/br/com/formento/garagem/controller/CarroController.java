@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import br.com.formento.garagem.dao.interfaces.CarroDao;
 import br.com.formento.garagem.dao.interfaces.CarroFotoDao;
+import br.com.formento.garagem.dao.interfaces.TipoCategoriaOrcamentoDao;
 import br.com.formento.garagem.dao.interfaces.UsuarioDao;
+import br.com.formento.garagem.dao.interfaces.UsuarioPermissaoDao;
 import br.com.formento.garagem.model.Carro;
 import br.com.formento.garagem.model.CarroFoto;
 import br.com.formento.garagem.model.ManagerUsuarioSessao;
@@ -27,7 +29,7 @@ import br.com.formento.garagem.model.Usuario;
 public class CarroController {
 
 	@Autowired
-	private CarroDao dao;
+	private CarroDao carroDao;
 
 	@Autowired
 	private CarroFotoDao carroFotoDao;
@@ -35,17 +37,33 @@ public class CarroController {
 	@Autowired
 	private UsuarioDao usuarioDao;
 
+	@Autowired
+	private TipoCategoriaOrcamentoDao tipoCategoriaOrcamentoDao;
+
+	@Autowired
+	private UsuarioPermissaoDao usuarioPermissaoDao;
+
 	@RequestMapping("cadastraCarro")
-	public String form(final ModelMap modelMap, Integer codigo) {
+	public String form(final ModelMap modelMap, int codigo, HttpServletRequest httpServletRequest) {
 		Carro entidade;
-		if (codigo == null || codigo <= 0)
+		if (codigo <= 0)
 			entidade = new Carro();
-		else
-			entidade = dao.buscaPorId(codigo);
+		else {
+			entidade = carroDao.buscaPorId(codigo);
+
+			ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
+			if (managerUsuarioSessao.getUsuarioSessao().getCarroFoto() != null)
+				modelMap.addAttribute("carroFotoEncode", managerUsuarioSessao.getUsuarioSessao().getCarroFoto().getEncode());
+		}
 
 		modelMap.addAttribute("entidade", entidade);
 
 		return "carro/formulario";
+	}
+
+	@RequestMapping("nenhumCarro")
+	public String nenhumCarro() {
+		return "carro/nenhumCarro";
 	}
 
 	@RequestMapping("mergeCarro")
@@ -58,34 +76,29 @@ public class CarroController {
 		ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
 		entidade.setUsuario(managerUsuarioSessao.getUsuarioSessao().getUsuario());
 
-		// http://www.pablocantero.com/blog/2010/09/29/upload-com-spring-mvc/
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) httpServletRequest;
-		MultipartFile multipartFile = multipartRequest.getFile("txtFile");
-
-		CarroFoto carroFoto;
-		if (multipartFile.isEmpty()) {
-			// entidade.setCarroFoto(null);
-			carroFoto = carroFotoDao.getByCarro(entidade);
-		} else {
-			// entidade.setCarroFoto(carroFoto);
-			carroFoto = new CarroFoto(multipartFile.getBytes(), entidade);
-		}
-
 		if (entidade.getCodigo() <= 0)
-			dao.adiciona(entidade);
+			carroDao.adiciona(entidade);
 		else {
-			Carro entidadeGravada = dao.buscaPorId(entidade.getCodigo());
+			Carro entidadeGravada = carroDao.buscaPorId(entidade.getCodigo());
 
 			if (entidadeGravada == null || (!entidadeGravada.getUsuario().equals(managerUsuarioSessao.getUsuarioSessao().getUsuario())))
-				return "redirect:cadastraCarro?mensagem=Registro inv&aacutelido";
+				return "redirect:cadastraCarro?mensagem=Registro inv&aacutelido&codigo=" + entidade.getCodigo();
 
-			dao.altera(entidade);
+			carroDao.altera(entidade);
 		}
 
-		if (carroFoto != null) {
-			if (multipartFile.isEmpty())
-				carroFotoDao.remove(carroFoto.getCodigo());
-			else if (carroFoto.getCodigo() <= 0)
+		/**
+		 * Foto
+		 */
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) httpServletRequest;
+		MultipartFile multipartFile = multipartRequest.getFile("txtFile");
+		if (!multipartFile.isEmpty()) {
+			CarroFoto carroFoto = carroFotoDao.getByCarro(entidade);
+			if (carroFoto == null)
+				carroFoto = new CarroFoto(entidade);
+
+			carroFoto.setImagem(multipartFile.getBytes());
+			if (carroFoto.getCodigo() <= 0)
 				carroFotoDao.adiciona(carroFoto);
 			else
 				carroFotoDao.altera(carroFoto);
@@ -93,14 +106,14 @@ public class CarroController {
 
 		alteraSelecaoCarro(modelMap, httpServletRequest, entidade);
 
-		return "redirect:cadastraCarro?mensagem=Gravado com sucesso";
+		return "redirect:cadastraCarro?mensagem=Gravado com sucesso&codigo=" + entidade.getCodigo();
 	}
 
-	@RequestMapping("removeCarro")
-	public String remove(int codigo) {
-		dao.remove(codigo);
-		return "redirect:cadastraCarro?mensagem=Removido com sucesso";
-	}
+	// @RequestMapping("removeCarro")
+	// public String remove(int codigo) {
+	// carroDao.remove(codigo);
+	// return "redirect:cadastraCarro?mensagem=Removido com sucesso";
+	// }
 
 	private void alteraSelecaoCarro(final ModelMap modelMap, HttpServletRequest httpServletRequest, Carro carro) {
 		ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
@@ -110,20 +123,18 @@ public class CarroController {
 			usuario.setCarro(carro);
 			usuarioDao.altera(usuario);
 
-			managerUsuarioSessao.getUsuarioSessao().setListCarro(dao.getByUsuario(managerUsuarioSessao.getUsuarioSessao().getUsuario()));
-
-			modelMap.addAttribute("codigo", carro.getCodigo());
+			managerUsuarioSessao.getUsuarioSessao().configurarCarro(modelMap, carroDao, carro);
+			managerUsuarioSessao.getUsuarioSessao().configurarCarroFoto(carroFotoDao);
 		}
 	}
 
 	@RequestMapping("selecionaCarro")
 	public String selecionaCarro(int codigo, final ModelMap modelMap, HttpServletRequest httpServletRequest) {
-
-		Carro carro = dao.buscaPorId(codigo);
+		Carro carro = carroDao.buscaPorId(codigo);
 		if (carro != null)
 			alteraSelecaoCarro(modelMap, httpServletRequest, carro);
 
-		return "redirect:cadastraCarro";
+		return "redirect:cadastraCarro?codigo=" + carro.getCodigo();
 	}
 
 }

@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 
 <div>
@@ -13,18 +14,18 @@
 	</div>
 </div>
 
-<div class="formInterno">
-	<div id="dvFormulario" class="fields">
-		<div class="Table">
-		    <div class="title">
-		        <p>Orçamentos</p>
-		    </div>
-		    <div class="heading">
-		        <div class="cell"><p></p></div>
-		        <div class="cell"><p>Descrição</p></div>
-		    </div>
-		    
-		    <c:if test="${not empty orcamentoList}">
+<c:if test="${not empty orcamentoList}">
+	<div class="formInterno">
+		<div id="dvFormulario" class="fields">
+			<div class="Table">
+			    <div class="title">
+			        <p>Orçamentos</p>
+			    </div>
+			    <div class="heading">
+			        <div class="cell"><p></p></div>
+			        <div class="cell"><p>Descrição</p></div>
+			    </div>
+			    
 			    <c:forEach items="${orcamentoList}" var="orcamento" varStatus="uStatus">
 					<div class="row" id="orcamento_${orcamento.codigo}">
 						<div class="cell">
@@ -41,10 +42,10 @@
 						</div>
 					</div>
 				</c:forEach>
-			</c:if>
+			</div>
 		</div>
 	</div>
-</div>
+</c:if>
 
 
 <!-- 

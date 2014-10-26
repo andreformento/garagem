@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.security.crypto.codec.Base64;
 
 /**
  * The persistent class for the carro_foto database table.
@@ -37,16 +40,18 @@ public class CarroFoto implements Serializable {
 	@JoinColumn(name = "cod_carro")
 	private Carro carro;
 
+	@Transient
+	private transient String encoded;
+
 	public CarroFoto() {
+	}
+
+	public CarroFoto(Carro carro) {
+		this.carro = carro;
 	}
 
 	public int getCodigo() {
 		return codigo;
-	}
-
-	public CarroFoto(byte[] imagem, Carro carro) {
-		this.imagem = imagem;
-		this.carro = carro;
 	}
 
 	public byte[] getImagem() {
@@ -54,6 +59,7 @@ public class CarroFoto implements Serializable {
 	}
 
 	public void setImagem(byte[] imagem) {
+		this.encoded = null;
 		this.imagem = imagem;
 	}
 
@@ -63,6 +69,15 @@ public class CarroFoto implements Serializable {
 
 	public void setCarro(Carro carro) {
 		this.carro = carro;
+	}
+
+	@Transient
+	public String getEncode() {
+		if (imagem != null && encoded == null) {
+			byte[] encode64 = Base64.encode(imagem);
+			this.encoded = new String(encode64);
+		}
+		return encoded;
 	}
 
 }

@@ -47,8 +47,19 @@
 					<div><form:errors path="cor" cssStyle="color:red" /></div>
 					
 					<div><label for="txtFile">Foto</label></div>
+					<div class="inputFile">
+						<input
+							type="file" 
+							name="txtFile" 
+							id="txtFile" 
+							accept="image/*" 
+							onchange="previewImage('txtFile','txtImagem');"
+						/>
+					</div>
+					
+					<div><label for="txtImagem">&nbsp;</label></div>
 					<div>
-						<input type="file" name="txtFile" id="txtFile" accept="image/*" />
+						<jsp:include page="../_template/imagemPadrao.jsp"></jsp:include>
 					</div>
 					
 				</div>

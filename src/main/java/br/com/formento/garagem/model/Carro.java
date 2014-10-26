@@ -3,7 +3,6 @@ package br.com.formento.garagem.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -46,9 +44,9 @@ public class Carro implements Serializable {
 	private Usuario usuario;
 
 	// bi-directional one-to-one association to CarroFoto
-//	@OneToMany//(mappedBy = "carro")
-//	@JoinColumn(name = "cod_carro")
-//	private CarroFoto carroFoto;
+	// @OneToMany//(mappedBy = "carro")
+	// @JoinColumn(name = "cod_carro")
+	// private CarroFoto carroFoto;
 
 	// bi-directional many-to-one association to Orcamento
 	@OneToMany(mappedBy = "carro")
@@ -125,15 +123,15 @@ public class Carro implements Serializable {
 		this.usuario = usuario;
 	}
 
-//	public CarroFoto getCarroFoto() {
-//		return this.carroFoto;
-//	}
-//
-//	public void setCarroFoto(CarroFoto carroFoto) {
-//		if (carroFoto != null)
-//			carroFoto.setCarro(this);
-//		this.carroFoto = carroFoto;
-//	}
+	// public CarroFoto getCarroFoto() {
+	// return this.carroFoto;
+	// }
+	//
+	// public void setCarroFoto(CarroFoto carroFoto) {
+	// if (carroFoto != null)
+	// carroFoto.setCarro(this);
+	// this.carroFoto = carroFoto;
+	// }
 
 	public List<Orcamento> getOrcamentos() {
 		return this.orcamentos;
