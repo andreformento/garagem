@@ -58,6 +58,12 @@ public class Orcamento implements Serializable {
 	@Column(name = "valor_real")
 	private BigDecimal valorReal;
 
+	@Column(name = "tag_busca")
+	private String tagBusca;
+
+	@Column(name = "check_busca")
+	private String checkBusca;
+
 	// bi-directional many-to-one association to StatusOrcamento
 	@ManyToOne
 	@JoinColumn(name = "cod_status_orcamento")
@@ -144,6 +150,22 @@ public class Orcamento implements Serializable {
 		this.valorReal = valorReal;
 	}
 
+	public String getTagBusca() {
+		return tagBusca;
+	}
+
+	public void setTagBusca(String tagBusca) {
+		this.tagBusca = tagBusca;
+	}
+
+	public String getCheckBusca() {
+		return checkBusca;
+	}
+
+	public void setCheckBusca(String checkBusca) {
+		this.checkBusca = checkBusca;
+	}
+
 	public StatusOrcamento getStatusOrcamento() {
 		return this.statusOrcamento;
 	}
@@ -188,6 +210,28 @@ public class Orcamento implements Serializable {
 		resultadoPesquisaPreco.setOrcamento(null);
 
 		return resultadoPesquisaPreco;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codigo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Orcamento other = (Orcamento) obj;
+		if (codigo != other.codigo)
+			return false;
+		return true;
 	}
 
 }

@@ -13,7 +13,7 @@
 		<div class="formSobreposto">
 			<div class="formInterno">
 				<div id="dvFormulario" class="fields">
-					<div class="Table">
+					<div class="table">
 					    <div class="title">
 					        <p>Lista</p>
 					    </div>

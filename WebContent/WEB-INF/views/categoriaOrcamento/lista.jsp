@@ -13,7 +13,7 @@
 		<div class="formSobreposto">
 			<div class="formInterno">
 				<div id="dvFormulario" class="fields">
-					<div class="Table">
+					<div class="table">
 					    <div class="title">
 					        <p>Lista</p>
 					    </div>
@@ -45,10 +45,10 @@
 									</div>
 								</div>
 								<div class="cell">
-									<p>${entidade.descricao}</p>
+									${entidade.descricao}
 								</div>
 								<div class="cell">
-									<p>${entidade.tipoCategoriaOrcamento.descricao}</p>
+									${entidade.tipoCategoriaOrcamento.descricao}
 								</div>
 							</div>
 						</c:forEach>

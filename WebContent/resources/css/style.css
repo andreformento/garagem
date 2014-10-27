@@ -56,8 +56,8 @@ body {
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-image: URL('../images/carregando.gif');
-	width: 130px;
 	height: 130px;
+	width: 130px; 
 }
 
 .fields1 label, .fields label {
@@ -151,6 +151,11 @@ body {
 	color: white;
 }
 
+.botoesInferiores {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
 .botoes input[type="submit"], .botoes input[type="button"] {
 	margin-left: 20px;
 	margin-top: 2px;
@@ -219,6 +224,42 @@ body {
 	border-width: thin;
 	padding-left: 5px;
 	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.cell img {
+	height: 70px;
+	vertical-align: middle;
+}
+
+.cell p {
+	padding: 0px;
+	margin: 0px;
+}
+
+/* unvisited link */
+.cell a:link {
+    color: white;
+}
+
+/* visited link */
+.cell a:visited {
+    color: #e6e6fa;
+}
+
+/* mouse over link */
+.cell a:hover {
+    color: #90ee90; 
+}
+
+/* selected link */
+.cell a:active {
+    color: red;
+}
+
+.valorAlinhadoDireita {
+	text-align: right;
 }
 
 /* Menu */

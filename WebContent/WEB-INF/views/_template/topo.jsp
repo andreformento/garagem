@@ -15,7 +15,7 @@
 		</li>
 		<c:if test="${UsuarioSessao.usuario.carroSelecionado}" >
 			<li>
-				<div onclick="location.href='investimentoPeca';">A Fazer</div>
+				<div>A Fazer</div>
 				<ul>
 					<c:forEach items="${UsuarioSessao.listTipoCategoriaOrcamento}" var="tipoCategoriaOrcamento" varStatus="uStatus">
 						<li onclick="location.href='telaOrcamento?codTipoCategoriaOrcamento=${tipoCategoriaOrcamento.codigo}';">${tipoCategoriaOrcamento.descricao}</li>
