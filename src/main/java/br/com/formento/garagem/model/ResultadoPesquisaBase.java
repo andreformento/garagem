@@ -81,4 +81,10 @@ public class ResultadoPesquisaBase implements IResultadoPesquisa {
 		this.metodoPesquisaPreco = metodoPesquisaPreco;
 	}
 
+	@Override
+	public String toString() {
+		return "ResultadoPesquisaBase [dataPesquisa=" + dataPesquisa + ", link=" + link + ", caminhoImagem=" + caminhoImagem + ", valor=" + valor
+				+ ", metodoPesquisaPreco=" + metodoPesquisaPreco + "]";
+	}
+
 }

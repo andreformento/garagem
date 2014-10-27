@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -83,7 +84,15 @@ public class Orcamento implements Serializable {
 	@OneToMany(mappedBy = "orcamento")
 	private List<ResultadoPesquisaPreco> resultadoPesquisaPrecos;
 
+	@Transient
+	private transient OrcamentoValor orcamentoValor;
+
 	public Orcamento() {
+	}
+
+	public Orcamento(int codigo, String tagBusca) {
+		this.codigo = codigo;
+		this.tagBusca = tagBusca;
 	}
 
 	public int getCodigo() {
@@ -232,6 +241,14 @@ public class Orcamento implements Serializable {
 		if (codigo != other.codigo)
 			return false;
 		return true;
+	}
+
+	@Transient
+	public OrcamentoValor getOrcamentoValor() {
+		if (orcamentoValor == null)
+			orcamentoValor = new OrcamentoValor(resultadoPesquisaPrecos);
+
+		return orcamentoValor;
 	}
 
 }

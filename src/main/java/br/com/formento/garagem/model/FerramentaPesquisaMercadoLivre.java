@@ -30,11 +30,16 @@ public class FerramentaPesquisaMercadoLivre implements IFerramentaPesquisa {
 
 			for (Results jsonResult : mercadoLivreResultado.getResults()) {
 				Double priceDouble = jsonResult.getPriceDouble();
-				BigDecimal valor = new BigDecimal(priceDouble);
+				if (priceDouble == null || priceDouble.compareTo(Double.valueOf(0d)) <= 0)
+					continue;
 
 				String link = jsonResult.getPermalink();
+				if (link == null || link.isEmpty())
+					continue;
 
 				String caminhoImagem = jsonResult.getThumbnail();
+
+				BigDecimal valor = new BigDecimal(priceDouble);
 
 				IResultadoPesquisa resultadoPesquisa = new ResultadoPesquisaBase(dataPesquisa, link, caminhoImagem, valor, metodoPesquisaPreco);
 

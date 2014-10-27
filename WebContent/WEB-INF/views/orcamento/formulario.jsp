@@ -3,8 +3,9 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
-
-<jsp:include page="../_template/head.jsp"></jsp:include>
+	<jsp:include page="../_template/head.jsp"></jsp:include>
+	<script type="text/javascript" src="resources/js/orcamento.js"></script>
+</head>
 <body onload="setEventCheck()">
 	<jsp:include page="../_template/topo.jsp"></jsp:include>
 
@@ -21,7 +22,7 @@
 						<p>Orçamento</p>
 					</div>
 
-					<form:hidden path="codigo" />
+					<form:hidden id="codOrcamento" path="codigo" />
 					
 					<div><label for="txtAcao">O que</label></div>
 					<div>
@@ -78,7 +79,7 @@
 
 					<div><label for="selStatusOrcamento" title="Status do orçamento">Status</label></div>
 					<div>
-						<form:select id="selStatusOrcamento" path="statusOrcamento.codigo">
+						<form:select id="selStatusOrcamento" path="statusOrcamento.codigo" onchange="atualizarBotaoSalvar()">
 			           		<form:options items="${statusOrcamentos}" itemValue="codigo" itemLabel="descricao"/>
 						</form:select>
 					</div>
@@ -104,5 +105,4 @@
 
 	<jsp:include page="../_template/rodape.jsp"></jsp:include>
 </body>
-</head>
 </html>

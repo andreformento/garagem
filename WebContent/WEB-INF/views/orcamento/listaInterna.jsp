@@ -24,7 +24,6 @@
 					<div class="cell"><p></p></div>
 					<div class="cell"><p>Descrição</p></div>
 					<div class="cell"><p>Valor</p></div>
-					<div class="cell"><p>Loja</p></div>
 			    </div>
 			    
 			    <c:forEach items="${orcamentoList}" var="orcamento" varStatus="uStatus">
@@ -43,10 +42,9 @@
 							${orcamento.acao}
 						</div>
 						<div class="cell">
-							${orcamento.valorReal}
-						</div>
-						<div class="cell">
-							${orcamento.acao}
+							<c:if test="${orcamento.orcamentoValor.existeValor}">
+								${orcamento.orcamentoValor.valorFormatado}
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>

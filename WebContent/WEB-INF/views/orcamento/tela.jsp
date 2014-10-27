@@ -1,10 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-
 <html>
 <head>
-<jsp:include page="../_template/head.jsp"></jsp:include>
+	<jsp:include page="../_template/head.jsp"></jsp:include>
+	<script type="text/javascript" src="resources/js/orcamento.js"></script>
 </head>
 <body onload="carregarOrcamentos(${param.codCategoriaOrcamento})">
 	<jsp:include page="../_template/topo.jsp"></jsp:include>

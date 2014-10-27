@@ -129,4 +129,9 @@ public class MetodoPesquisaPreco implements Serializable, Comparable<MetodoPesqu
 		return descricao.compareTo(o.descricao);
 	}
 
+	@Override
+	public String toString() {
+		return "MetodoPesquisaPreco [codigo=" + codigo + ", descricao=" + descricao + "]";
+	}
+
 }

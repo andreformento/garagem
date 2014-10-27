@@ -1,5 +1,6 @@
 package br.com.formento.garagem.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,7 @@ import br.com.formento.garagem.model.ManagerUsuarioSessao;
 import br.com.formento.garagem.model.MetodoPesprecoTpCatOrcame;
 import br.com.formento.garagem.model.MetodoPesquisaPreco;
 import br.com.formento.garagem.model.Orcamento;
+import br.com.formento.garagem.model.ResultadoPesquisaBase;
 import br.com.formento.garagem.model.ResultadoPesquisaList;
 import br.com.formento.garagem.model.ResultadoPesquisaPreco;
 import br.com.formento.garagem.model.StatusOrcamento;
@@ -88,6 +90,7 @@ public class OrcamentoController {
 		if (codOrcamento == null || codOrcamento <= 0) {
 			entidade = new Orcamento();
 
+			entidade.setCheckBusca("ckAcao,ckCategoriaOrcamento");
 			entidade.setDataCriacao(new Date());
 			entidade.setStatusOrcamento(StatusOrcamentoEnum.RECEBER_EMAIL.getStatusOrcamento());
 
@@ -125,41 +128,6 @@ public class OrcamentoController {
 		return link;
 	}
 
-	@RequestMapping("mergeResultadosPesquisa")
-	public String mergeResultadosPesquisa(final ModelMap modelMap, HttpServletRequest httpServletRequest,
-			@ModelAttribute ResultadoPesquisaList resultadoPesquisaList) {
-		String link = "redirect:cadastraOrcamento";
-
-		Orcamento orcamento = orcamentoDao.buscaPorId(resultadoPesquisaList.getOrcamento().getCodigo());
-
-		for (IResultadoPesquisa resultadoPesquisa : resultadoPesquisaList.getLista()) {
-			List<ResultadoPesquisaPreco> byLinkOrcamento = resultadoPesquisaPrecoDao.getByLinkOrcamento(resultadoPesquisa.getLink(), orcamento);
-			// deixar somente o primeiro link
-			for (int i = 1; i < byLinkOrcamento.size(); i++)
-				resultadoPesquisaPrecoDao.remove(byLinkOrcamento.get(i).getCodigo());
-
-			ResultadoPesquisaPreco resultadoPesquisaPreco;
-			if (byLinkOrcamento.size() > 1)
-				resultadoPesquisaPreco = byLinkOrcamento.get(1);
-			else
-				resultadoPesquisaPreco = new ResultadoPesquisaPreco(orcamento);
-
-			resultadoPesquisaPreco.configurarResultadoPesquisa(resultadoPesquisaPreco);
-
-			if (resultadoPesquisaPreco.getCodigo() > 0)
-				resultadoPesquisaPrecoDao.altera(resultadoPesquisaPreco);
-			else
-				resultadoPesquisaPrecoDao.adiciona(resultadoPesquisaPreco);
-		}
-
-		modelMap.addAttribute("codCategoriaOrcamento", orcamento.getCategoriaOrcamento().getCodigo());
-		modelMap.addAttribute("codOrcamento", orcamento.getCodigo());
-
-		modelMap.addAttribute("mensagem", "Gravado com sucesso");
-
-		return link;
-	}
-
 	@RequestMapping("listaOrcamento")
 	public String listaOrcamento(final ModelMap modelMap, HttpServletRequest httpServletRequest, int codCategoriaOrcamento) {
 		final String link = "orcamento/listaInterna";
@@ -175,14 +143,38 @@ public class OrcamentoController {
 		return link;
 	}
 
+	@RequestMapping("carregarPesquisa")
+	public String carregarPesquisa(final ModelMap modelMap, HttpServletRequest httpServletRequest, int codOrcamento) {
+		Orcamento orcamento = orcamentoDao.buscaPorId(codOrcamento);
+
+		if (orcamento == null || orcamento.getResultadoPesquisaPrecos().isEmpty())
+			return "";
+		else {
+			List<ResultadoPesquisaBase> listaBase = new ArrayList<ResultadoPesquisaBase>();
+			for (ResultadoPesquisaPreco preco : orcamento.getResultadoPesquisaPrecos()) {
+				MetodoPesquisaPreco metodoPesquisaPreco = new MetodoPesquisaPreco(preco.getMetodoPesquisaPreco().getCodigo(), preco
+						.getMetodoPesquisaPreco().getDescricao());
+				Date dataPesquisa = preco.getDataPesquisa();
+				String link = preco.getLink();
+				String caminhoImagem = preco.getCaminhoImagem();
+				BigDecimal valor = preco.getValor();
+
+				ResultadoPesquisaBase base = new ResultadoPesquisaBase(dataPesquisa, link, caminhoImagem, valor, metodoPesquisaPreco);
+				listaBase.add(base);
+			}
+
+			ResultadoPesquisaList resultadoPesquisaList = new ResultadoPesquisaList(orcamento, listaBase);
+			modelMap.addAttribute("resultadoPesquisaList", resultadoPesquisaList);
+			return "orcamento/resultadoPesquisaPrecoView";
+		}
+	}
+
 	@RequestMapping("executarPesquisa")
 	public String executarPesquisa(final ModelMap modelMap, HttpServletRequest httpServletRequest, int codTipoCategoriaOrcamento, int codOrcamento,
 			String tagBusca) {
 		final String link = "orcamento/resultadoPesquisaPrecoView";
 
-		Orcamento orcamento = new Orcamento();
-		orcamento.setCodigo(codOrcamento);
-		ResultadoPesquisaList resultadoPesquisaList = new ResultadoPesquisaList(orcamento);
+		List<ResultadoPesquisaBase> listResultado = new ArrayList<ResultadoPesquisaBase>();
 
 		TipoCategoriaOrcamento tipoCategoriaOrcamento = tipoCategoriaOrcamentoDao.buscaPorId(codTipoCategoriaOrcamento);
 		for (MetodoPesprecoTpCatOrcame metodoPesprecoTpCatOrcame : tipoCategoriaOrcamento.getMetodoPesprecoTpCatOrcames()) {
@@ -190,11 +182,82 @@ public class OrcamentoController {
 			MetodoPesquisaPrecoEnum metodoPesquisaPrecoEnum = MetodoPesquisaPrecoEnum.getByInstancia(metodoPesquisaPreco);
 
 			List<IResultadoPesquisa> listaByFerramenta = metodoPesquisaPrecoEnum.getFerramentaPesquisa().gerarResultadoPesquisaList(tagBusca);
-			resultadoPesquisaList.addAll(listaByFerramenta);
+
+			for (IResultadoPesquisa item : listaByFerramenta) {
+				ResultadoPesquisaBase resultadoPesquisaBase = new ResultadoPesquisaBase(item.getDataPesquisa(), item.getLink(),
+						item.getCaminhoImagem(), item.getValor(), item.getMetodoPesquisaPreco());
+				listResultado.add(resultadoPesquisaBase);
+			}
 		}
 
+		Orcamento orcamento = new Orcamento(codOrcamento, tagBusca);
+		ResultadoPesquisaList resultadoPesquisaList = new ResultadoPesquisaList(orcamento, listResultado);
+
 		modelMap.addAttribute("resultadoPesquisaList", resultadoPesquisaList);
-		modelMap.addAttribute("tagBusca", tagBusca);
+
+		return link;
+	}
+
+	@RequestMapping("mergeResultadosPesquisa")
+	public String mergeResultadosPesquisa(final ModelMap modelMap, @ModelAttribute ResultadoPesquisaList resultadoPesquisaList) {
+		String link = "redirect:cadastraOrcamento";
+
+		Orcamento orcamento = orcamentoDao.buscaPorId(resultadoPesquisaList.getOrcamento().getCodigo());
+
+		List<Integer> indices = new ArrayList<Integer>();
+		for (String indiceStr : resultadoPesquisaList.getIndicesRemovidos().split(",")) {
+			if (!indiceStr.isEmpty()) {
+				Integer indice = Integer.valueOf(indiceStr);
+				indices.add(indice);
+			}
+		}
+
+		List<ResultadoPesquisaBase> lista = resultadoPesquisaList.getLista();
+		List<ResultadoPesquisaBase> itensRemovidos = new ArrayList<ResultadoPesquisaBase>();
+		for (int i = indices.size() - 1; i >= 0; i--) {
+			Integer indiceRemover = indices.get(i);
+			ResultadoPesquisaBase itemRemovido = lista.get(indiceRemover);
+			itensRemovidos.add(itemRemovido);
+			lista.remove(indiceRemover);
+		}
+
+		for (ResultadoPesquisaBase resultadoPesquisaBase : itensRemovidos) {
+			List<ResultadoPesquisaPreco> byLinkOrcamento = resultadoPesquisaPrecoDao.getByMetodoOrcamentoLink(
+					resultadoPesquisaBase.getMetodoPesquisaPreco(), orcamento, resultadoPesquisaBase.getLink());
+
+			for (ResultadoPesquisaPreco resultadoPesquisaPreco : byLinkOrcamento)
+				resultadoPesquisaPrecoDao.remove(resultadoPesquisaPreco.getCodigo());
+		}
+
+		Date dataAtual = new Date();
+
+		for (IResultadoPesquisa resultadoPesquisa : lista) {
+			List<ResultadoPesquisaPreco> byLinkOrcamento = resultadoPesquisaPrecoDao.getByMetodoOrcamentoLink(
+					resultadoPesquisa.getMetodoPesquisaPreco(), orcamento, resultadoPesquisa.getLink());
+			// deixar somente o primeiro link
+			for (int i = 1; i < byLinkOrcamento.size(); i++)
+				resultadoPesquisaPrecoDao.remove(byLinkOrcamento.get(i).getCodigo());
+
+			ResultadoPesquisaPreco resultadoPesquisaPreco;
+			if (byLinkOrcamento.size() > 0)
+				resultadoPesquisaPreco = byLinkOrcamento.get(0);
+			else
+				resultadoPesquisaPreco = new ResultadoPesquisaPreco(orcamento);
+
+			resultadoPesquisaPreco.setDataPesquisa(dataAtual);
+
+			resultadoPesquisaPreco.configurarResultadoPesquisa(resultadoPesquisa);
+
+			if (resultadoPesquisaPreco.getCodigo() > 0)
+				resultadoPesquisaPrecoDao.altera(resultadoPesquisaPreco);
+			else
+				resultadoPesquisaPrecoDao.adiciona(resultadoPesquisaPreco);
+		}
+
+		modelMap.addAttribute("codCategoriaOrcamento", orcamento.getCategoriaOrcamento().getCodigo());
+		modelMap.addAttribute("codOrcamento", orcamento.getCodigo());
+
+		modelMap.addAttribute("mensagem", "Gravado com sucesso");
 
 		return link;
 	}
