@@ -41,20 +41,18 @@ function setEventCheck() {
 
 function carregarPesquisa() {
 	var codOrcamento = document.getElementById('codOrcamento').value;
+	
+	if (codOrcamento > 0) {
+		var divName = "dvPesquisa";
+		var divComponente = document.getElementById(divName);
+		divComponente.innerHTML = "<div class='carregando'></div>";
 
-	var divName = "dvPesquisa";
-	var divComponente = document.getElementById(divName);
-	divComponente.innerHTML = "<div class='carregando'></div>";
-
-	$.post('carregarPesquisa', {
-		'codOrcamento' : codOrcamento
-	}, function(resposta) {
-		if (resposta.length == 0) {
-			divComponente.innerHTML = '';
-		} else {
+		$.post('carregarPesquisa', {
+			'codOrcamento' : codOrcamento
+		}, function(resposta) {
 			divComponente.innerHTML = resposta;
-		}
-	});
+		});
+	}
 }
 
 function atualizarCheckTag() {

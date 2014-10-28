@@ -11,4 +11,6 @@ public interface ResultadoPesquisaPrecoDao extends Dao<ResultadoPesquisaPreco, I
 
 	List<ResultadoPesquisaPreco> getByMetodoOrcamentoLink(MetodoPesquisaPreco metodoPesquisaPreco, Orcamento orcamento, String link);
 
+	List<ResultadoPesquisaPreco> getByOrcamento(Orcamento orcamento);
+
 }

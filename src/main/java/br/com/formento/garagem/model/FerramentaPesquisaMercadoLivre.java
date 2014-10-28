@@ -41,7 +41,13 @@ public class FerramentaPesquisaMercadoLivre implements IFerramentaPesquisa {
 
 				BigDecimal valor = new BigDecimal(priceDouble);
 
-				IResultadoPesquisa resultadoPesquisa = new ResultadoPesquisaBase(dataPesquisa, link, caminhoImagem, valor, metodoPesquisaPreco);
+				IResultadoPesquisa resultadoPesquisa = new ResultadoPesquisaBase();
+				resultadoPesquisa.setDataPesquisa(dataPesquisa);
+				resultadoPesquisa.setLink(link);
+				resultadoPesquisa.setCaminhoImagem(caminhoImagem);
+				resultadoPesquisa.setValor(valor);
+				resultadoPesquisa.setMetodoPesquisaPreco(metodoPesquisaPreco);
+				resultadoPesquisa.setOrdem(lista.size() + 1);
 
 				lista.add(resultadoPesquisa);
 

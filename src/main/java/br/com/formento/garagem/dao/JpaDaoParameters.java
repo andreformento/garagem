@@ -53,7 +53,7 @@ public class JpaDaoParameters<T> {
 			addEntidadeOrdenacao(new EntidadeOrdenacao(tipoEntidadeOrdenacao, campo));
 	}
 
-	public boolean addEntidadeOrdenacao(EntidadeOrdenacao entidadeOrdenacao) {
+	private boolean addEntidadeOrdenacao(EntidadeOrdenacao entidadeOrdenacao) {
 		return getEntidadeOrdenacaoList().add(entidadeOrdenacao);
 	}
 

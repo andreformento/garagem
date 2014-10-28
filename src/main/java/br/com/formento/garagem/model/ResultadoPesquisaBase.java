@@ -20,15 +20,18 @@ public class ResultadoPesquisaBase implements IResultadoPesquisa {
 
 	private MetodoPesquisaPreco metodoPesquisaPreco;
 
+	private int ordem;
+
 	public ResultadoPesquisaBase() {
 	}
 
-	public ResultadoPesquisaBase(Date dataPesquisa, String link, String caminhoImagem, BigDecimal valor, MetodoPesquisaPreco metodoPesquisaPreco) {
-		this.dataPesquisa = dataPesquisa;
-		this.link = link;
-		this.caminhoImagem = caminhoImagem;
-		this.valor = valor;
-		this.metodoPesquisaPreco = metodoPesquisaPreco;
+	public ResultadoPesquisaBase(IResultadoPesquisa resultadoPesquisa) {
+		this.dataPesquisa = resultadoPesquisa.getDataPesquisa();
+		this.link = resultadoPesquisa.getLink();
+		this.caminhoImagem = resultadoPesquisa.getCaminhoImagem();
+		this.valor = resultadoPesquisa.getValor();
+		this.metodoPesquisaPreco = resultadoPesquisa.getMetodoPesquisaPreco();
+		this.ordem = resultadoPesquisa.getOrdem();
 	}
 
 	@Override
@@ -69,6 +72,14 @@ public class ResultadoPesquisaBase implements IResultadoPesquisa {
 	@Override
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+
+	public int getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(int ordem) {
+		this.ordem = ordem;
 	}
 
 	@Override

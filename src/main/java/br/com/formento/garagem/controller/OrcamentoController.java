@@ -1,6 +1,5 @@
 package br.com.formento.garagem.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -148,18 +147,17 @@ public class OrcamentoController {
 		Orcamento orcamento = orcamentoDao.buscaPorId(codOrcamento);
 
 		if (orcamento == null || orcamento.getResultadoPesquisaPrecos().isEmpty())
-			return "";
+			return "orcamento/vazio";
 		else {
 			List<ResultadoPesquisaBase> listaBase = new ArrayList<ResultadoPesquisaBase>();
-			for (ResultadoPesquisaPreco preco : orcamento.getResultadoPesquisaPrecos()) {
+			List<ResultadoPesquisaPreco> resultByDao = resultadoPesquisaPrecoDao.getByOrcamento(orcamento);
+			for (ResultadoPesquisaPreco preco : resultByDao) {
 				MetodoPesquisaPreco metodoPesquisaPreco = new MetodoPesquisaPreco(preco.getMetodoPesquisaPreco().getCodigo(), preco
 						.getMetodoPesquisaPreco().getDescricao());
-				Date dataPesquisa = preco.getDataPesquisa();
-				String link = preco.getLink();
-				String caminhoImagem = preco.getCaminhoImagem();
-				BigDecimal valor = preco.getValor();
 
-				ResultadoPesquisaBase base = new ResultadoPesquisaBase(dataPesquisa, link, caminhoImagem, valor, metodoPesquisaPreco);
+				preco.setMetodoPesquisaPreco(metodoPesquisaPreco);
+
+				ResultadoPesquisaBase base = new ResultadoPesquisaBase(preco);
 				listaBase.add(base);
 			}
 
@@ -184,8 +182,7 @@ public class OrcamentoController {
 			List<IResultadoPesquisa> listaByFerramenta = metodoPesquisaPrecoEnum.getFerramentaPesquisa().gerarResultadoPesquisaList(tagBusca);
 
 			for (IResultadoPesquisa item : listaByFerramenta) {
-				ResultadoPesquisaBase resultadoPesquisaBase = new ResultadoPesquisaBase(item.getDataPesquisa(), item.getLink(),
-						item.getCaminhoImagem(), item.getValor(), item.getMetodoPesquisaPreco());
+				ResultadoPesquisaBase resultadoPesquisaBase = new ResultadoPesquisaBase(item);
 				listResultado.add(resultadoPesquisaBase);
 			}
 		}
@@ -204,24 +201,27 @@ public class OrcamentoController {
 
 		Orcamento orcamento = orcamentoDao.buscaPorId(resultadoPesquisaList.getOrcamento().getCodigo());
 
-		List<Integer> indices = new ArrayList<Integer>();
+		List<Integer> indicesRemover = new ArrayList<Integer>();
 		for (String indiceStr : resultadoPesquisaList.getIndicesRemovidos().split(",")) {
 			if (!indiceStr.isEmpty()) {
 				Integer indice = Integer.valueOf(indiceStr);
-				indices.add(indice);
+				indicesRemover.add(indice);
 			}
 		}
 
-		List<ResultadoPesquisaBase> lista = resultadoPesquisaList.getLista();
-		List<ResultadoPesquisaBase> itensRemovidos = new ArrayList<ResultadoPesquisaBase>();
-		for (int i = indices.size() - 1; i >= 0; i--) {
-			Integer indiceRemover = indices.get(i);
-			ResultadoPesquisaBase itemRemovido = lista.get(indiceRemover);
-			itensRemovidos.add(itemRemovido);
-			lista.remove(indiceRemover);
+		List<ResultadoPesquisaBase> listaCompleta = resultadoPesquisaList.getLista();
+		List<ResultadoPesquisaBase> listaRemover = new ArrayList<ResultadoPesquisaBase>();
+		List<ResultadoPesquisaBase> listaMerge = new ArrayList<ResultadoPesquisaBase>();
+
+		for (Integer i = 0; i < listaCompleta.size(); i++) {
+			ResultadoPesquisaBase item = listaCompleta.get(i);
+			if (indicesRemover.contains(i))
+				listaRemover.add(item);
+			else
+				listaMerge.add(item);
 		}
 
-		for (ResultadoPesquisaBase resultadoPesquisaBase : itensRemovidos) {
+		for (ResultadoPesquisaBase resultadoPesquisaBase : listaRemover) {
 			List<ResultadoPesquisaPreco> byLinkOrcamento = resultadoPesquisaPrecoDao.getByMetodoOrcamentoLink(
 					resultadoPesquisaBase.getMetodoPesquisaPreco(), orcamento, resultadoPesquisaBase.getLink());
 
@@ -231,7 +231,7 @@ public class OrcamentoController {
 
 		Date dataAtual = new Date();
 
-		for (IResultadoPesquisa resultadoPesquisa : lista) {
+		for (IResultadoPesquisa resultadoPesquisa : listaMerge) {
 			List<ResultadoPesquisaPreco> byLinkOrcamento = resultadoPesquisaPrecoDao.getByMetodoOrcamentoLink(
 					resultadoPesquisa.getMetodoPesquisaPreco(), orcamento, resultadoPesquisa.getLink());
 			// deixar somente o primeiro link

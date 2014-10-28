@@ -45,6 +45,8 @@ public class ResultadoPesquisaPreco implements IResultadoPesquisa, Serializable 
 
 	private BigDecimal valor;
 
+	private int ordem;
+
 	// bi-directional many-to-one association to MetodoPesquisaPreco
 	@ManyToOne
 	@JoinColumn(name = "cod_metodo_pesquisa_preco")
@@ -68,6 +70,7 @@ public class ResultadoPesquisaPreco implements IResultadoPesquisa, Serializable 
 		this.link = resultadoPesquisa.getLink();
 		this.metodoPesquisaPreco = resultadoPesquisa.getMetodoPesquisaPreco();
 		this.valor = resultadoPesquisa.getValor();
+		this.ordem = resultadoPesquisa.getOrdem();
 	}
 
 	public int getCodigo() {
@@ -124,6 +127,16 @@ public class ResultadoPesquisaPreco implements IResultadoPesquisa, Serializable 
 
 	public void setMetodoPesquisaPreco(MetodoPesquisaPreco metodoPesquisaPreco) {
 		this.metodoPesquisaPreco = metodoPesquisaPreco;
+	}
+
+	@Override
+	public int getOrdem() {
+		return ordem;
+	}
+
+	@Override
+	public void setOrdem(int ordem) {
+		this.ordem = ordem;
 	}
 
 }

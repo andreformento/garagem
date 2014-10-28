@@ -27,4 +27,8 @@ public interface IResultadoPesquisa {
 
 	void setMetodoPesquisaPreco(MetodoPesquisaPreco metodoPesquisaPreco);
 
+	int getOrdem();
+
+	void setOrdem(int ordem);
+
 }

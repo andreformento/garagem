@@ -94,6 +94,11 @@ body {
 .formSobreposto {
 	background-color: #3d4453;
 	padding: 15px;
+	
+	/*padding-right: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 33%;*/
 }
 
 .formInterno, .botoes input[type="submit"], .botoes input[type="button"],
