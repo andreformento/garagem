@@ -6,8 +6,10 @@
 
 <link rel="stylesheet" href="resources/jquery-ui/jquery-ui.css">
 <link rel="stylesheet" href="resources/css/style.css">
+<link rel="shortcut icon" type="image/x-icon" href="<c:url value='/images/page_icon.ico'/>" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 <script type="text/javascript">
 </script>
 

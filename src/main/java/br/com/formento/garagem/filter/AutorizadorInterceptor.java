@@ -21,7 +21,8 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 		String uri = httpServletRequest.getRequestURI();
 
 		if (uri.endsWith("loginPage") || uri.endsWith("loginExec") || uri.endsWith("cadastraUsuario") || uri.endsWith("confirmacaoRegistro")
-				|| uri.endsWith("adicionaUsuario") || uri.contains("resources") || uri.endsWith("_Template") || uri.endsWith("Layout")) {
+				|| uri.endsWith("adicionaUsuario") || uri.contains("resources") || uri.contains("images") || uri.endsWith("_Template")
+				|| uri.endsWith("Layout")) {
 			return true;
 		} else {
 			if (!managerUsuarioSessao.getUsuarioSessao().isUsuarioLogado())

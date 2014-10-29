@@ -26,3 +26,5 @@ call drop_all_tables();
 
 para ignorar um diretorio
 git rm -r --cached bin/
+
+http://www.mkyong.com/tomcat/how-to-configure-mysql-datasource-in-tomcat-6/
