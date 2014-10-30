@@ -1,0 +1,2 @@
+http://www.alexecollins.com/content/tutorial-hibernate-jpa-part-1/
+http://www.alexecollins.com/content/tutorial-hibernate-jpa-spring-mvc-part-2/

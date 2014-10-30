@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:security="http://www.springframework.org/schema/security"
@@ -8,6 +9,8 @@
     http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
     http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/jee 
+    http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
     http://www.springframework.org/schema/context 
     http://www.springframework.org/schema/context/spring-context-3.2.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
@@ -23,6 +26,7 @@
 	<!-- Controller -->
 	<!-- habilitar o uso de anotações do Spring MVC e configurar pacote base 
 		da aplicação web para o Spring achar as classes -->
+	<!-- Enables transactional behavior -->
 	<mvc:annotation-driven />
 
 	<!-- Para acessar arquivos externos, como os da pasta resource -->
@@ -37,27 +41,80 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+
+
+
+
+
+
 	<!-- devemos declarar um DataSource no XML do Spring -->
-	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost/garagem" />
-		<property name="username" value="garagem" />
-		<property name="password" value="garagem" />
-	</bean>
+	<!--<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource"> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" /> <property 
+		name="url" value="jdbc:mysql://localhost/garagem" /> <property name="username" 
+		value="garagem" /> <property name="password" value="garagem" /> </bean> -->
+
+	<!-- Create DataSource Bean -->
+	<!-- <bean id="mysqlDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/garagem" />
+	</bean> -->
 
 	<!-- gerenciamento de jpa pelo spring -->
-	<bean id="entityManagerFactory"
+	<!--  <bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="mysqlDataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
-	</bean>
+	</bean>-->
 
 	<!-- gerenciamento da transação pelo spring -->
+	<!-- <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean> -->
+
+	<!-- Provides access to the JNDI datasource -->
+	<!-- <jee:jndi-lookup id="dataSource" jndi-name="jdbc/garagem"/> --> 
+	
+	<!-- Defines transaction manager -->
+	<!-- <bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+	     <property name="dataSource" ref="dataSource"/>
+	     <property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean> -->
+	
+	<!-- 
+	<bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+	     <property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean> -->
+
+
+<!-- 
+	<jee:jndi-lookup id="garagem" jndi-name="java:/comp/env/jdbc/garagem" expected-type="javax.sql.DataSource"/>
+		
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="garagem"/>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean> -->
+	
+	<jee:jndi-lookup id="garagem" jndi-name="java:/comp/env/jdbc/garagem" expected-type="javax.sql.DataSource"/>
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="garagem"/>
+	</bean>
+	
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	
+	
+	
+	
+	
+
+
+
 
 	<!-- Adicionar o CommonsMultipartResolver no mvc-config.xml. Graças a ele 
 		será possível fazer o cast (MultipartHttpServletRequest) request -->
