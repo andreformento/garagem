@@ -1,2 +1,4 @@
 http://www.alexecollins.com/content/tutorial-hibernate-jpa-part-1/
 http://www.alexecollins.com/content/tutorial-hibernate-jpa-spring-mvc-part-2/
+
+http://stackoverflow.com/questions/9183321/how-to-use-jndi-datasource-provided-by-tomcat-in-spring
