@@ -9,6 +9,11 @@ body {
 	color: white;
 }
 
+.mensagemWarning {
+	color: green;
+	text-align: center;
+}
+
 .informacaoLogin {
 	float: right;
 	text-align: right;

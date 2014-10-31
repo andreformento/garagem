@@ -15,7 +15,9 @@ public class RestJsonConsumerTest {
 		RestJsonConsumer restJsonConsumer = RestJsonConsumer.getInstance();
 		assertNotNull(restJsonConsumer);
 
-		MercadoLivreResultado mercadoLivreResultado = restJsonConsumer.resultado("Bateria Moura 60 Amperes");
+		// "Bateria Moura 60 Amperes"
+		String parametro = "Para choque Porsche 911";
+		MercadoLivreResultado mercadoLivreResultado = restJsonConsumer.resultado(parametro);
 		assertNotNull(mercadoLivreResultado);
 		assertNotNull(mercadoLivreResultado.getResults());
 

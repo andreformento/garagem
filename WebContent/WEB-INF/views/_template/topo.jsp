@@ -5,7 +5,7 @@
 	<ul id="menu">
 		<!-- <li onclick="location.href='index';">Início</li> -->
 		<li>
-			<div onclick="location.href='cadastraCarro?codigo=<c:if test="${UsuarioSessao.usuario.carroSelecionado}" >${UsuarioSessao.usuario.carro.codigo}</c:if>';">
+			<div onclick="location.href='cadastraCarro<c:if test="${UsuarioSessao.usuario.carroSelecionado}" >?codigo=${UsuarioSessao.usuario.carro.codigo}</c:if>';">
 				Garagem
 			</div>
 			<ul>

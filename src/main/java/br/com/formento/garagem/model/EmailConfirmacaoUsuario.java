@@ -18,7 +18,8 @@ public class EmailConfirmacaoUsuario {
 	public StringBuilder getLinkConfirmacao() {
 		if (linkConfirmacao == null) {
 			linkConfirmacao = new StringBuilder();
-			linkConfirmacao.append("http://localhost:8080/garagem/confirmacaoRegistro");
+//			linkConfirmacao.append("http://localhost:8080/garagem/confirmacaoRegistro");
+			linkConfirmacao.append("http://garagem.jelastic.hostdime.com/garagem/confirmacaoRegistro");
 			linkConfirmacao.append("?codigo=");
 			linkConfirmacao.append(usuario.getCodigo());
 			linkConfirmacao.append("&username=");
@@ -41,8 +42,7 @@ public class EmailConfirmacaoUsuario {
 			corpoEmail.append("<body>");
 			corpoEmail.append("	<div>");
 			corpoEmail.append("		<p>Seu cadastro foi realizado com sucesso. Para que o seu registro");
-			corpoEmail.append("			seja habilitado é necessário confirmar o recebimento do email através");
-			corpoEmail.append("			do link abaixo.</p>");
+			corpoEmail.append("			seja habilitado, por favor, confirmar o recebimento do email pelo link abaixo.</p>");
 			corpoEmail.append("	</div>");
 			corpoEmail.append("	<div class='centro'>");
 			corpoEmail.append("		<a href='");
@@ -64,7 +64,7 @@ public class EmailConfirmacaoUsuario {
 	}
 
 	public void enviar() {
-		mailService.sendMail("garagemportal@gmail.com", usuario.getUsername(), "Confirmação de cadastro - Portal", getCorpoEmail().toString());
+		mailService.sendMail("garagemportal@gmail.com", usuario.getUsername(), "Confirmar cadastro - Portal", getCorpoEmail().toString());
 	}
 
 }

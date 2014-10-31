@@ -18,20 +18,11 @@
 <div class="formInterno">
 	<div id="dvFormulario" class="fields">
 		<div class="table">
-		    <div class="title">
-		        <!-- botoes, miniBotoes -->
-		        <!--<div class="miniBotoes">
-					<input 
-						id="btNovoOrcamento" 
-						type="button" 
-						value="Novo orçamento"
-						onclick="location.href='cadastraOrcamento?codCategoriaOrcamento=${categoriaOrcamento.codigo}'" />
-				</div>-->
-				
-		        <p>${categoriaOrcamento.descricao}</p>
-		    </div>
-		    
 		    <c:if test="${not empty orcamentoList}">
+			    <div class="title">
+			        <p>${categoriaOrcamento.descricao}</p>
+			    </div>
+		    
 			    <div class="heading">
 					<div class="cell"><p></p></div>
 					<div class="cell"><p>Descrição</p></div>
