@@ -18,8 +18,10 @@ public class EmailConfirmacaoUsuario {
 	public StringBuilder getLinkConfirmacao() {
 		if (linkConfirmacao == null) {
 			linkConfirmacao = new StringBuilder();
-//			linkConfirmacao.append("http://localhost:8080/garagem/confirmacaoRegistro");
-			linkConfirmacao.append("http://garagem.jelastic.hostdime.com/garagem/confirmacaoRegistro");
+			// linkConfirmacao.append("http://localhost:8080/garagem/confirmacaoRegistro");
+			// linkConfirmacao.append("http://garagem.jelastic.hostdime.com/garagem/confirmacaoRegistro");
+			linkConfirmacao.append(AplicacaoParametro.getInstance().getUrlAplicacao());
+			linkConfirmacao.append("/garagem/confirmacaoRegistro");
 			linkConfirmacao.append("?codigo=");
 			linkConfirmacao.append(usuario.getCodigo());
 			linkConfirmacao.append("&username=");

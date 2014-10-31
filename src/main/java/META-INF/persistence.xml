@@ -3,36 +3,6 @@
 <persistence version="2.1"
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="garagem">
-		<!--  transaction-type="RESOURCE_LOCAL" -->
-		<!--  JTA or RESOURCE_LOCAL -->
-
-		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		
-		<!-- the JNDI data source -->
-		<!-- <non-jta-data-source>java:/comp/env/jdbc/garagem</non-jta-data-source> -->
-		<!--<non-jta-data-source>jdbc/garagem</non-jta-data-source>-->
-		
-		<!-- <jta-data-source>jdbc/garagem</jta-data-source> -->
-
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<!-- validate,create -->
-			<property name="hibernate.hbm2ddl.auto" value="validate" />
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
-			<!-- <property name="hibernate.connection.datasource" value="jdbc/garagem"/> -->
-			<!-- <property name="hibernate.connection.datasource" value="java:comp/env/jdbc/garagem"/> --> 
-
-			<!-- 
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/garagem" />
-			<property name="javax.persistence.jdbc.user" value="garagem" />
-			<property name="javax.persistence.jdbc.password" value="garagem" /> 
-			-->
-		</properties>
-
+	<persistence-unit name="jpa_garagem">
 	</persistence-unit>
 </persistence>
