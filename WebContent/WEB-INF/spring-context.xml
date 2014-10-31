@@ -58,9 +58,12 @@
 	<!-- devemos declarar um DataSource no XML do Spring -->
 	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost/garagem" />
+		
+		<!-- <property name="url" value="jdbc:mysql://localhost/garagem" />
 		<property name="username" value="garagem" />
-		<property name="password" value="garagem" />
+		<property name="password" value="garagem" /> 
+		-->
+		
 	</bean>
 	<!--<bean id="mysqlDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 	    <property name="jndiName" value="java:/comp/env/jdbc/garagem"/>

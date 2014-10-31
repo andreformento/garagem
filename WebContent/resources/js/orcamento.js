@@ -32,6 +32,8 @@ function setEventCheck() {
 	});
 
 	carregarPesquisa();
+	atualizarTagBusca();
+	document.getElementById('btSair').value = 'Sair';
 
 	var listTagBusca = document.getElementById('txtCheckBusca').value;
 	listTagBusca.split(",").forEach(function(nomeCheck) {

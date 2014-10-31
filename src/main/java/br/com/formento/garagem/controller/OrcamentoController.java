@@ -84,7 +84,7 @@ public class OrcamentoController {
 	}
 
 	@RequestMapping("cadastraOrcamento")
-	public String form(final ModelMap modelMap, Integer codCategoriaOrcamento, Integer codOrcamento) {
+	public String form(final ModelMap modelMap, HttpServletRequest httpServletRequest, Integer codCategoriaOrcamento, Integer codOrcamento) {
 		Orcamento entidade;
 		if (codOrcamento == null || codOrcamento <= 0) {
 			entidade = new Orcamento();
@@ -95,6 +95,9 @@ public class OrcamentoController {
 
 			CategoriaOrcamento categoriaOrcamento = categoriaOrcamentoDao.buscaPorId(codCategoriaOrcamento);
 			entidade.setCategoriaOrcamento(categoriaOrcamento);
+
+			ManagerUsuarioSessao managerUsuarioSessao = new ManagerUsuarioSessao(httpServletRequest);
+			entidade.setCarro(managerUsuarioSessao.getUsuarioSessao().getUsuario().getCarro());
 		} else
 			entidade = orcamentoDao.buscaPorId(codOrcamento);
 
