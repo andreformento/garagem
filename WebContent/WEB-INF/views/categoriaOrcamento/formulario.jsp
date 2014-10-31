@@ -14,22 +14,33 @@
 		<div class="formSobreposto">
 			<div class="formInterno">
 				<div id="dvFormulario" class="fields">
-					<div class="title">
-				        <p>Cadastro</p>
-				    </div>
+					<div class="tela">
+						<div class="table">
+							<div class="title">
+								<c:if test="${not empty param.mensagem}" >
+									<div class="mensagem">${param.mensagem}</div>
+								</c:if>
+						        <h2>Cadastro</h2>
+						    </div>
 					
-					<form:hidden path="codigo" />
-					
-					<div><label for="txtDescricao">Descrição</label></div>
-					<div><form:input id="txtDescricao" path="descricao" /></div>
-					<div><form:errors path="descricao" cssStyle="color:red" /></div>
-					
-					<div><label for="selTipoCategoriaOrcamento" title="Tipo de categoria de orçamento">Tipo</label></div>
-					<div>
-						<form:select id="selTipoCategoriaOrcamento" path="tipoCategoriaOrcamento">
-							<!--<form:option value="0" label="Selecionar"  />-->
-			           		<form:options items="${tipoCategoriaOrcamentoList}" itemValue="codigo" itemLabel="descricao"/>
-						</form:select>
+							<form:hidden path="codigo" />
+							
+							<div class="row">
+								<div class="cellForm"><label for="txtDescricao">Descrição</label></div>
+								<div class="cellForm"><form:input id="txtDescricao" path="descricao" /></div>
+								<div class="cellForm"><form:errors path="descricao" cssStyle="color:red" /></div>
+							</div>
+							
+							<div class="row">
+								<div class="cellForm"><label for="selTipoCategoriaOrcamento" title="Tipo de categoria de orçamento">Tipo</label></div>
+								<div class="cellForm">
+									<form:select id="selTipoCategoriaOrcamento" path="tipoCategoriaOrcamento">
+										<!--<form:option value="0" label="Selecionar"  />-->
+						           		<form:options items="${tipoCategoriaOrcamentoList}" itemValue="codigo" itemLabel="descricao"/>
+									</form:select>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

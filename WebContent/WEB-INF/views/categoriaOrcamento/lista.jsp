@@ -15,7 +15,7 @@
 				<div id="dvFormulario" class="fields">
 					<div class="table">
 					    <div class="title">
-					        <p>Lista</p>
+					        <h2>Lista</h2>
 					    </div>
 					    <div class="heading">
 					        <div class="cell"><p></p></div>

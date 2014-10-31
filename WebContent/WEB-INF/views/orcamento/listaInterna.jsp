@@ -2,24 +2,36 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 
+<!-- botoes, miniBotoes -->
 <div>
-	<h1>${categoriaOrcamento.descricao}</h1>
-	<div class="botoes">
-		<input 
-			id="btNovoOrcamento" 
-			type="button" 
-			value="Novo orçamento"
-			onclick="location.href='cadastraOrcamento?codCategoriaOrcamento=${categoriaOrcamento.codigo}'" />
+	<div class="tituloSuperior">
+		<div class="botoes">
+			<input 
+				id="btNovoOrcamento" 
+				type="button" 
+				value="Novo orçamento"
+				onclick="location.href='cadastraOrcamento?codCategoriaOrcamento=${categoriaOrcamento.codigo}'" />
+		</div>
 	</div>
 </div>
 
-<c:if test="${not empty orcamentoList}">
-	<div class="formInterno">
-		<div id="dvFormulario" class="fields">
-			<div class="table">
-			    <div class="title">
-			        <p>Orçamentos</p>
-			    </div>
+<div class="formInterno">
+	<div id="dvFormulario" class="fields">
+		<div class="table">
+		    <div class="title">
+		        <!-- botoes, miniBotoes -->
+		        <!--<div class="miniBotoes">
+					<input 
+						id="btNovoOrcamento" 
+						type="button" 
+						value="Novo orçamento"
+						onclick="location.href='cadastraOrcamento?codCategoriaOrcamento=${categoriaOrcamento.codigo}'" />
+				</div>-->
+				
+		        <p>${categoriaOrcamento.descricao}</p>
+		    </div>
+		    
+		    <c:if test="${not empty orcamentoList}">
 			    <div class="heading">
 					<div class="cell"><p></p></div>
 					<div class="cell"><p>Descrição</p></div>
@@ -48,7 +60,7 @@
 						</div>
 					</div>
 				</c:forEach>
-			</div>
+			</c:if>
 		</div>
 	</div>
-</c:if>
+</div>

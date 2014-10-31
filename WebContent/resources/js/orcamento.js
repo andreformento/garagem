@@ -35,15 +35,15 @@ function setEventCheck() {
 	atualizarTagBusca();
 	document.getElementById('btSair').value = 'Sair';
 
-	var listTagBusca = document.getElementById('txtCheckBusca').value;
-	listTagBusca.split(",").forEach(function(nomeCheck) {
+	var tags = document.getElementById('txtCheckBusca').value;
+	tags.split(",").forEach(function(nomeCheck) {
 		document.getElementById(nomeCheck).checked = true;
 	});
 }
 
 function carregarPesquisa() {
 	var codOrcamento = document.getElementById('codOrcamento').value;
-	
+
 	if (codOrcamento > 0) {
 		var divName = "dvPesquisa";
 		var divComponente = document.getElementById(divName);
@@ -82,6 +82,9 @@ function atualizarTagBusca() {
 				}
 			});
 
+	document.getElementById('txtTagBusca').value = document
+			.getElementById('txtTagBusca').value.trim();
+
 	document.getElementById('txtTagBusca').title = document
 			.getElementById('txtTagBusca').value;
 	atualizarBotaoSalvar();
@@ -114,9 +117,9 @@ function executarPesquisa(codTipoCategoriaOrcamento, codOrcamento) {
 }
 
 function removerResultado(indice) {
-	var divName = "linha_"+indice;
+	var divName = "linha_" + indice;
 	var divComponente = document.getElementById(divName);
 	divComponente.innerHTML = '';
 	var inputRemovidos = document.getElementById('txtIndicesRemovidos');
-	inputRemovidos.value += indice+',';
+	inputRemovidos.value += indice + ',';
 }

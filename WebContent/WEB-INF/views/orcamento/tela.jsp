@@ -12,7 +12,7 @@
 	<form id="frmCadastro" action="gravarCarro">
 		<div class="formSobreposto">
 			<div class="guias">
-				<div class="guiaEsquerda">
+				<div class="guia">
 					<div class="botoes">
 						<c:forEach items="${categoriaOrcamentoList}" var="categoriaOrcamento" varStatus="uStatus">
 							<div>
@@ -26,7 +26,9 @@
 					</div>
 				</div>
 				<div class="guiaCentral">
-					<div id="dvlistaInterna">Selecione uma categoria</div>
+					<div id="dvlistaInterna">
+						<div class="title"><div class="tituloCategoria"><h4>Selecione uma categoria</h4></div></div>
+					</div>
 				</div>
 				<div class="guiaDireita">
 					<div class="miniatura">

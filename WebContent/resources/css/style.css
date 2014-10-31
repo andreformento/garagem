@@ -1,24 +1,12 @@
 body {
-	font-family: Helvetica, 'Helvetica Neue', Arial, 'Lucida', sans-serif,
-		cursive;
+	font-family: sans-serif, Helvetica, 'Helvetica Neue', Arial, 'Lucida', cursive;
 	/* CCD5DD F2F1F4 */
 	background-image: linear-gradient(to right, #CCD5DD, #F2F1F4);
 	/* gradient */
 }
 
-.formCadastro, .menu ul li, .formSobreposto, .mensagemWarningInterno {
+.formCadastro, .menu ul li, .formSobreposto {
 	color: white;
-}
-
-.mensagemWarning {
-	text-align: center;
-	color: green;
-}
-
-.mensagemWarningInterno {
-	color: #8ec8ff;
-	padding-left: 20px;
-	font-weight: bold; 
 }
 
 .informacaoLogin {
@@ -44,7 +32,7 @@ body {
 }
 
 .formCadastro label {
-	display: block;
+	/*display: block;*/
 }
 
 .mesmaLinha {
@@ -60,7 +48,7 @@ body {
 	width: 130px; 
 }
 
-.fields1 label, .fields label {
+.fields label {
 	width: 120px;
 	text-align: right;
 	padding-right: 10px;
@@ -94,11 +82,6 @@ body {
 .formSobreposto {
 	background-color: #3d4453;
 	padding: 15px;
-	
-	/*padding-right: 15px;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	padding-left: 33%;*/
 }
 
 .formInterno, .botoes input[type="submit"], .botoes input[type="button"],
@@ -146,7 +129,6 @@ body {
 }
 
 .miniBotoes input[type="submit"], .miniBotoes input[type="button"] {
-	/* margin: 5px; */
 	border-radius: 10px;
 }
 
@@ -175,18 +157,26 @@ body {
 	width: 100%;
 }
 
-.guiaEsquerda {
+.guia, .guiaCentral {
 	float: left;
 }
 
 .guiaCentral {
-	float: left;
-	margin-left: 50px;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.tituloCategoria h4 {
+	width: 220px;
 }
 
 .guiaDireita {
 	float: right;
-	margin: 30px;
+	margin-right: 40px;
+}
+
+.tituloSuperior {
+	margin-bottom: 7px;
 }
 
 .miniatura1, .miniatura1 img {
@@ -201,6 +191,11 @@ body {
 	background-color: rgb(199, 199, 199);
 }
 
+.tela {
+	/*width: 100%; 
+	background-color: red;*/
+}
+
 /* Table */
 .table {
 	display: table;
@@ -209,6 +204,13 @@ body {
 .title {
 	display: table-caption;
 	text-align: center;
+}
+	
+.mensagem {
+	color:#c6cfff;
+}
+
+.title h2 {
 	font-weight: bold;
 	font-size: larger;
 }
@@ -223,14 +225,21 @@ body {
 	display: table-row;
 }
 
-.cell {
+.cellForm, .cell {
 	display: table-cell;
-	border: solid;
-	border-width: thin;
 	padding-left: 5px;
-	padding-right: 5px;
 	padding-top: 2px;
 	padding-bottom: 2px;
+}
+
+.cellForm {
+	vertical-align: middle;
+}
+
+.cell {
+	border: solid;
+	border-width: thin;
+	padding-right: 5px;
 }
 
 .cell img {
