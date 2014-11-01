@@ -26,18 +26,16 @@ public class AplicacaoParametro implements Serializable {
 	private final String user;
 	private final String password;
 
+	// http://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 	private AplicacaoParametro() {
-		// http://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
-		String diretorioHome = System.getProperty("user.home");
-		System.out.println(diretorioHome);
-
-		File arquivoPropriedade = new File(diretorioHome + "/garagem.properties");
-
 		String urlAplicacaoInterno = "http://localhost:8080";
 		String urlDBInterno = "jdbc:mysql://localhost:3306/garagem";
 		String userInterno = "garagem";
 		String passwordInterno = "garagem";
 
+		String diretorioHome = System.getProperty("user.home");
+
+		File arquivoPropriedade = new File(diretorioHome + "/garagem.properties");
 		if (arquivoPropriedade.isFile()) {
 			FileInputStream fileInputStream;
 			try {
