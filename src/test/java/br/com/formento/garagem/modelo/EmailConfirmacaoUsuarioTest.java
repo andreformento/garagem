@@ -19,14 +19,12 @@ public class EmailConfirmacaoUsuarioTest extends BaseDI {
 	@Autowired
 	private UsuarioDao usuarioDao;
 
-	private EmailConfirmacaoUsuario emailConfirmacaoUsuario;
-
 	@Test
 	public void envioTest() {
 		Usuario usuario = usuarioDao.buscaPorId(3);
 		assertNotNull(usuario);
 
-		emailConfirmacaoUsuario = new EmailConfirmacaoUsuario(usuario, mailService);
+		EmailConfirmacaoUsuario emailConfirmacaoUsuario = new EmailConfirmacaoUsuario(usuario, mailService, "http://localhost:8080/garagem/");
 		assertNotNull(emailConfirmacaoUsuario);
 
 		StringBuilder linkConfirmacao = emailConfirmacaoUsuario.getLinkConfirmacao();

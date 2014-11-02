@@ -9,19 +9,19 @@ public class EmailConfirmacaoUsuario {
 
 	private StringBuilder linkConfirmacao;
 	private StringBuilder corpoEmail;
+	private String applicationUrl;
 
-	public EmailConfirmacaoUsuario(Usuario usuario, MailService mailService) {
+	public EmailConfirmacaoUsuario(Usuario usuario, MailService mailService, String applicationUrl) {
 		this.usuario = usuario;
 		this.mailService = mailService;
+		this.applicationUrl = applicationUrl;
 	}
 
 	public StringBuilder getLinkConfirmacao() {
 		if (linkConfirmacao == null) {
 			linkConfirmacao = new StringBuilder();
-			// linkConfirmacao.append("http://localhost:8080/garagem/confirmacaoRegistro");
-			// linkConfirmacao.append("http://garagem.jelastic.hostdime.com/garagem/confirmacaoRegistro");
-			linkConfirmacao.append(AplicacaoParametro.getInstance().getUrlAplicacao());
-			linkConfirmacao.append("/garagem/confirmacaoRegistro");
+			linkConfirmacao.append(applicationUrl);
+			linkConfirmacao.append("confirmacaoRegistro");
 			linkConfirmacao.append("?codigo=");
 			linkConfirmacao.append(usuario.getCodigo());
 			linkConfirmacao.append("&username=");

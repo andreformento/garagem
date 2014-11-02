@@ -91,6 +91,12 @@
 	</mvc:interceptors>
 
 	<!-- Email -->
+	
+				<!-- Use SMTP transport protocol -->
+				<!-- Use SMTP-AUTH to authenticate to SMTP server -->
+				<!-- Use TLS to encrypt communication with SMTP server -->
+				
+	<!-- 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
@@ -98,11 +104,8 @@
 		<property name="password" value="garagem123" />
 		<property name="javaMailProperties">
 			<props>
-				<!-- Use SMTP transport protocol -->
 				<prop key="mail.transport.protocol">smtp</prop>
-				<!-- Use SMTP-AUTH to authenticate to SMTP server -->
 				<prop key="mail.smtp.auth">true</prop>
-				<!-- Use TLS to encrypt communication with SMTP server -->
 				<prop key="mail.smtp.starttls.enable">true</prop>
 				<prop key="mail.debug">true</prop>
 			</props>
@@ -113,6 +116,6 @@
 		<property name="from" value="garagemportal@gmail.com" />
 		<property name="to" value="garagemportal@gmail.com" />
 		<property name="subject" value="Portal" />
-	</bean>
+	</bean> -->
 
 </beans>

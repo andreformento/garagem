@@ -44,9 +44,9 @@ public class PersistenceJPAConfig {
 
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
-		dataSource.setUrl(AplicacaoParametro.getInstance().getUrlDB());
-		dataSource.setUsername(AplicacaoParametro.getInstance().getUser());
-		dataSource.setPassword(AplicacaoParametro.getInstance().getPassword());
+		dataSource.setUrl(AplicacaoParametro.getInstance().getDataBaseUrl());
+		dataSource.setUsername(AplicacaoParametro.getInstance().getDataBaseUsername());
+		dataSource.setPassword(AplicacaoParametro.getInstance().getDataBasePassword());
 
 		return dataSource;
 	}

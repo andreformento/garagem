@@ -1,5 +1,6 @@
 package br.com.formento.garagem.controller;
 
+import java.net.MalformedURLException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import br.com.formento.garagem.model.MD5Converter;
 import br.com.formento.garagem.model.ManagerUsuarioSessao;
 import br.com.formento.garagem.model.Usuario;
 import br.com.formento.garagem.service.MailService;
+import br.com.formento.garagem.util.ServletUtils;
 
 @Transactional
 @Controller
@@ -103,7 +105,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/adicionaUsuario", method = RequestMethod.POST)
-	public String merge(Model model, @ModelAttribute @Valid Usuario entidade, BindingResult result) {
+	public String merge(Model model, @ModelAttribute @Valid Usuario entidade, BindingResult result, HttpServletRequest httpServletRequest) {
 		model.addAttribute("entidade", entidade);
 		if (result.hasErrors()) {
 			model.addAttribute("mensagem", result.getFieldError().getDefaultMessage());
@@ -122,10 +124,20 @@ public class LoginController {
 			entidade.setPassword(MD5Converter.getMD5(entidade.getPassword()));
 			usuarioDao.adiciona(entidade);
 
-			EmailConfirmacaoUsuario emailConfirmacaoUsuario = new EmailConfirmacaoUsuario(entidade, mailService);
-			emailConfirmacaoUsuario.enviar();
+			ServletUtils servletUtils = new ServletUtils(httpServletRequest);
 
-			model.addAttribute("mensagem", "Login criado. Verifique seu email.");
+			EmailConfirmacaoUsuario emailConfirmacaoUsuario;
+			try {
+				emailConfirmacaoUsuario = new EmailConfirmacaoUsuario(entidade, mailService, servletUtils.getUrlBase());
+
+				emailConfirmacaoUsuario.enviar();
+
+				model.addAttribute("mensagem", "Login criado. Verifique seu email");
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+
+				model.addAttribute("mensagem", "Ocorreu um erro. Tentar novamente mais tarde");
+			}
 			return "redirect:loginPage";
 		} else {
 			model.addAttribute("mensagem", "Email existente. Utilize outro");
