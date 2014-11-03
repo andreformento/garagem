@@ -28,3 +28,9 @@ para ignorar um diretorio
 git rm -r --cached bin/
 
 http://www.mkyong.com/tomcat/how-to-configure-mysql-datasource-in-tomcat-6/
+
+Scheduling Tasks
+https://spring.io/guides/gs/scheduling-tasks/
+
+A Cron Expressions
+http://javahunter.wordpress.com/2011/05/05/cronscheduler-in-spring/

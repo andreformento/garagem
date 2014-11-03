@@ -6,22 +6,33 @@
 
 	<display-name>garagem</display-name>
 
+	<!-- https://github.com/CloudBees-community/spring-petclinic-clickstart/blob/master/src/main/webapp/WEB-INF/web.xml -->
+	<!-- <param-value>classpath:spring/mvc-core-config.xml</param-value> -->
+
+	<!-- <servlet> <servlet-name>springmvc</servlet-name> <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
+		<init-param> <param-name>contextConfigLocation</param-name> <param-value>/WEB-INF/spring-context.xml</param-value> 
+		</init-param> <load-on-startup>1</load-on-startup> </servlet> -->
+
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring-context.xml</param-value>
-			
-			<!-- https://github.com/CloudBees-community/spring-petclinic-clickstart/blob/master/src/main/webapp/WEB-INF/web.xml -->
-			<!-- <param-value>classpath:spring/mvc-core-config.xml</param-value> -->
+			<param-name>contextClass</param-name>
+			<param-value>
+            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+        </param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+            br.com.formento.garagem.configuration.AppConfig
+        </param-value>
+		</init-param>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
 </web-app>

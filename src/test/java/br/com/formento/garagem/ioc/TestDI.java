@@ -24,6 +24,7 @@ public class TestDI extends BaseDI {
 	// zoo.testSound();
 	// }
 
+	// refatorar configurações de teste
 	@Test
 	public void instanciaTest() {
 		assertNotNull(tipoCategoriaOrcamentoDao);

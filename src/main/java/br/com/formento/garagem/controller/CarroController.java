@@ -82,7 +82,7 @@ public class CarroController {
 			Carro entidadeGravada = carroDao.buscaPorId(entidade.getCodigo());
 
 			if (entidadeGravada == null || (!entidadeGravada.getUsuario().equals(managerUsuarioSessao.getUsuarioSessao().getUsuario())))
-				return "redirect:cadastraCarro?mensagem=Registro inv&aacutelido&codigo=" + entidade.getCodigo();
+				return "redirect:cadastraCarro?mensagem=Registro invalido&codigo=" + entidade.getCodigo();
 
 			carroDao.altera(entidade);
 		}
