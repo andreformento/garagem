@@ -1,5 +1,4 @@
-body {
-	font-family: sans-serif, Helvetica, 'Helvetica Neue', Arial, 'Lucida', cursive;
+body {		
 	/* CCD5DD F2F1F4 */
 	background-image: linear-gradient(to right, #CCD5DD, #F2F1F4);
 	/* gradient */
@@ -7,6 +6,24 @@ body {
 
 .formCadastro, .menu ul li, .formSobreposto {
 	color: white;
+}
+
+body, input, img, select, label {
+	font-family: Calibri, sans-serif, Helvetica, 'Helvetica Neue', Arial, 'Lucida', cursive;
+	/* font-family: Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif; */
+}
+
+
+.heading, .title h2, .menu ul li {
+	font-weight: bold;
+}
+
+.menu ul li, .rodape {
+	font-size: 12px;
+}
+
+.title h2 {
+	font-size: larger;
 }
 
 .mensagemWarning {
@@ -38,6 +55,7 @@ body {
 
 .formCadastro label {
 	/*display: block;*/
+	
 }
 
 .mesmaLinha {
@@ -50,7 +68,7 @@ body {
 	background-repeat: no-repeat;
 	background-image: URL('../images/carregando.gif');
 	height: 130px;
-	width: 130px; 
+	width: 130px;
 }
 
 .fields label {
@@ -80,10 +98,6 @@ body {
 	margin: 16px;
 }
 
-.rodape {
-	font: 12px/18px Helvetica;
-}
-
 .formSobreposto {
 	background-color: #3d4453;
 	padding: 15px;
@@ -92,6 +106,13 @@ body {
 .formInterno, .botoes input[type="submit"], .botoes input[type="button"],
 	.inputFile input[type="file"] {
 	background-color: #7f8685;
+}
+
+.formInterno, .formSobreposto {
+	/* Bordas arredondadas */
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
 .imagemFoto img {
@@ -199,30 +220,27 @@ body {
 .tela {
 	/*width: 100%; 
 	background-color: red;*/
+	
 }
 
 /* Table */
 .table {
 	display: table;
+	margin: 15px;
+	padding-bottom: 15px;
 }
 
 .title {
 	display: table-caption;
 	text-align: center;
 }
-	
-.mensagem {
-	color:#c6cfff;
-}
 
-.title h2 {
-	font-weight: bold;
-	font-size: larger;
+.mensagem {
+	color: #c6cfff;
 }
 
 .heading {
 	display: table-row;
-	font-weight: bold;
 	text-align: center;
 }
 
@@ -259,22 +277,22 @@ body {
 
 /* unvisited link */
 .cell a:link {
-    color: white;
+	color: white;
 }
 
 /* visited link */
 .cell a:visited {
-    color: #e6e6fa;
+	color: #e6e6fa;
 }
 
 /* mouse over link */
 .cell a:hover {
-    color: #90ee90; 
+	color: #90ee90;
 }
 
 /* selected link */
 .cell a:active {
-    color: red;
+	color: red;
 }
 
 .valorAlinhadoDireita {
@@ -288,6 +306,7 @@ body {
 	margin: 0px;
 	padding: 15px 4px 17px 0px;
 	list-style: none;
+	margin-top: -4px;
 	/*
 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
@@ -296,7 +315,6 @@ body {
 }
 
 .menu ul li {
-	font: bold 12px/18px sans-serif;
 	display: inline-block;
 	margin-right: -4px;
 	position: relative;
