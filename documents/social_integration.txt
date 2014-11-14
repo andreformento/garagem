@@ -1,2 +1,10 @@
+Facebook:
 http://projects.spring.io/spring-social/
 http://blog.concretesolutions.com.br/2014/05/como-fazer-login-com-facebook-usando-java-client-oauth-2-0/
+
+G+
+https://github.com/GabiAxel/spring-social-google
+https://developers.google.com/+/quickstart/java
+http://www.guj.com.br/24516-form-login-spring-security-nao-funciona
+http://www.coderanch.com/t/603564/Spring/Spring-security
+http://blogs.isostech.com/spring-2/adding-google-authentication-spring-security-application/
