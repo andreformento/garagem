@@ -1,0 +1,2 @@
+http://projects.spring.io/spring-social/
+http://blog.concretesolutions.com.br/2014/05/como-fazer-login-com-facebook-usando-java-client-oauth-2-0/
