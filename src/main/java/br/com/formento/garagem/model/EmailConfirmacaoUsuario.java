@@ -66,7 +66,8 @@ public class EmailConfirmacaoUsuario {
 	}
 
 	public void enviar() {
-		mailService.sendMail("garagemportal@gmail.com", usuario.getUsername(), "Confirmar cadastro - Portal", getCorpoEmail().toString());
+		String from = AplicacaoParametro.getInstance().getEmailUsername();
+		mailService.sendMail(from, usuario.getUsername(), "Confirmar cadastro - Portal", getCorpoEmail().toString());
 	}
 
 }
